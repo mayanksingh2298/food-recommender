@@ -104,6 +104,14 @@ function buildFeatureInput(){
                             'AC': "10",   
                             'drink': "9",   
                     },
+                    {
+                            'Indian': "10",   
+                            'Chinese': "0",   
+                            'Italian': "0",   
+                            'Smoke': "0",   
+                            'AC': "10",   
+                            'drink': "0",   
+                    }
                 ],
         },
     "GlobalParameters":  {
