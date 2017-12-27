@@ -4,12 +4,15 @@ var express  				= require('express'),
     bodyParser 				= require("body-parser"),
     User					= require("./models/user")
     LocalStrategy 			= require("passport-local"),
-    passportLocalMongoose 	= require("passport-local-mongoose");
+    passportLocalMongoose 	= require("passport-local-mongoose"),
+    methodOverride         = require("method-override");
 
 
-// mongoose.connect("mongodb://localhost/auth_demo_app");
+// mongoose.connect("mongodb://localhost/foodreco");
 mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
+//this is the online database
 var app = express();
+app.use(methodOverride("_method"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -33,10 +36,24 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/",function(req,res){
 	res.render("index");
 });
+app.put("/editRatings",isLoggedIn,function(req,res){
+	user = req.user
+	user.ratings[req.body.id] = req.body.rating
+	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
+		if(err){
+			res.redirect("/login");
+		}
+		else{
+			res.redirect("/secret");
+		}
+	} );
+
+})
 
 //check using a middleware is the user is already logged in
 app.get("/secret",isLoggedIn,function(req,res){
-	res.render("secret");
+	console.log(req.user)
+	res.render("secret",{ratings:req.user.ratings});
 });
 //Auth routes
 app.get("/register",function(req,res){
@@ -46,7 +63,6 @@ app.get("/register",function(req,res){
 app.post("/register",function(req,res){
 
 	//this function saves the user to the database, we dont store the password but we pass it as a second argument
-	console.log(req)
 	User.register(new User({username:req.body.username}),req.body.password,function(err,user){
 		if(err){
 			console.log(err);
