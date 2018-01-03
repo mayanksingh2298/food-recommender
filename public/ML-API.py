@@ -1,65 +1,90 @@
-#This is how you call my API using python, you may also call my API from any other language
 import urllib2
 import json
 
 data = {
         "Inputs": {
-                "input1":#input1 is an array, used for training the algo
+                "input1":
                 [
                     {
-                            'Indian': "10",   
-                            'Chinese': "4",   
-                            'Italian': "3",   
-                            'Smoke': "1",   
-                            'AC': "8",   
-                            'drink': "1",   
-                            'Rating': "5",   
-                    },
-                    {
-                            'Indian': "1",   
-                            'Chinese': "6",   
-                            'Italian': "7",   
-                            'Smoke': "8",   
-                            'AC': "10",   
-                            'drink': "9",   
-                            'Rating': "1",   
-                    },
-                    {
-                            'Indian': "7",   
-                            'Chinese': "8",   
-                            'Italian': "7",   
-                            'Smoke': "10",   
-                            'AC': "8",   
-                            'drink': "9",   
-                            'Rating': "2",   
-                    },
+                     "Air Conditioned": "1", 
+                     "American": "2", 
+                     "Asian": "0", 
+                     "Barbeque and Grill": "0", 
+                     "Cards Accepted": "1", 
+                     "Chinese": "2", 
+                     "Coastal": "0", 
+                     "Coffee": "0", 
+                     "Continental": "0", 
+                     "DJ": "1", 
+                     "Dance Floor": "1", 
+                     "Differently Abled Friendly": "0", 
+                     "Fast Food": "0", 
+                     "Games": "0", 
+                     "Health Food": "0", 
+                     "Home Delivery": "1", 
+                     "Hookah": "1", 
+                     "Italian": "2", 
+                     "Japanese": "0", 
+                     "Lebanese": "0", 
+                     "Lift": "1", 
+                     "Malaysian": "0", 
+                     "Mediterranean": "0", 
+                     "Mexican": "0", 
+                     "Mughlai": "0", 
+                     "Multi-Cuisine": "0", 
+                     "North Indian": "2", 
+                     "Oriental": "0", 
+                     "Outdoor Seating": "1", 
+                     "Parking": "0", 
+                     "Roof Top": "1", 
+                     "Seafood": "0", 
+                     "Smoking Area": "1", 
+                     "Take Away": "1", 
+                     "Thai": "0", 
+                     "Wifi": "0",
+                     "Rating": "5"
+                  }
                 ],
-                "input2":#input2 is used for testing the algo
+                "input2":
                 [
                     {
-                            'Indian': "8",   
-                            'Chinese': "2",   
-                            'Italian': "3",   
-                            'Smoke': "1",   
-                            'AC': "7",   
-                            'drink': "1",   
-                    },
-                    {
-                            'Indian': "3",   
-                            'Chinese': "6",   
-                            'Italian': "7",   
-                            'Smoke': "7",   
-                            'AC': "7",   
-                            'drink': "7",   
-                    },
-                    {
-                            'Indian': "8",   
-                            'Chinese': "5",   
-                            'Italian': "6",   
-                            'Smoke': "8",   
-                            'AC': "10",   
-                            'drink': "9",   
-                    },
+                     "Air Conditioned": "1", 
+                     "American": "2", 
+                     "Asian": "2", 
+                     "Barbeque and Grill": "0", 
+                     "Cards Accepted": "0", 
+                     "Chinese": "2", 
+                     "Coastal": "0", 
+                     "Coffee": "1", 
+                     "Continental": "0", 
+                     "DJ": "1", 
+                     "Dance Floor": "1", 
+                     "Differently Abled Friendly": "1", 
+                     "Fast Food": "0", 
+                     "Games": "0", 
+                     "Health Food": "0", 
+                     "Home Delivery": "1", 
+                     "Hookah": "1", 
+                     "Italian": "2", 
+                     "Japanese": "0", 
+                     "Lebanese": "0", 
+                     "Lift": "1", 
+                     "Malaysian": "0", 
+                     "Mediterranean": "0", 
+                     "Mexican": "0", 
+                     "Mughlai": "0", 
+                     "Multi-Cuisine": "0", 
+                     "North Indian": "0", 
+                     "Oriental": "0", 
+                     "Outdoor Seating": "1", 
+                     "Parking": "0", 
+                     "Roof Top": "1", 
+                     "Seafood": "0", 
+                     "Smoking Area": "1", 
+                     "Take Away": "0", 
+                     "Thai": "0", 
+                     "Wifi": "0"
+                  }
                 ],
         },
     "GlobalParameters":  {
@@ -84,4 +109,4 @@ except urllib2.HTTPError, error:
 
     # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
     print(error.info())
-    print(json.loads(error.read())) 
+    print(json.loads(error.read()))

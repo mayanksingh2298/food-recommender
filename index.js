@@ -2,12 +2,12 @@ var express  				= require('express'),
     mongoose 				= require('mongoose'),
     passport 				= require("passport"),
     bodyParser 				= require("body-parser"),
-    User					= require("./models/user")
+    User					= require("./models/user"),
+    outlets					= require("./scrape/output.json")
     LocalStrategy 			= require("passport-local"),
     passportLocalMongoose 	= require("passport-local-mongoose"),
-    methodOverride         = require("method-override");
-
-
+    methodOverride          = require("method-override");
+// console.log(outlets.length)
 // mongoose.connect("mongodb://localhost/foodreco");
 mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
 //this is the online database
@@ -34,7 +34,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/",function(req,res){
-	res.render("index");
+	res.render("index",{outlets:outlets});
 });
 app.put("/editRatings",isLoggedIn,function(req,res){
 	user = req.user

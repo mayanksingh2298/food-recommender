@@ -45,7 +45,89 @@ listOfUrls=["https://www.dineout.co.in/delhi/crazy-kitchen-rooftop-lounge-satya-
 #add more urls for more outlets
 #These are the first two pages from https://www.dineout.co.in/delhi-restaurants/south-delhi
 ]
-totalDic={}
+
+featureToInt2={
+	"Smoking Area":0,
+	"Air Conditioned":1,
+	"DJ":2,
+	"Lift":3,
+	"Home Delivery":4,
+	"Take Away":5,
+	"Cards Accepted":6,
+	"Differently Abled Friendly":7,
+	"Dance Floor":8,
+	"Hookah":9,
+	"Outdoor Seating":10,
+	"Roof Top":11,
+	"Parking":12,
+	"Games":13,
+	"Barbeque and Grill":14,
+	"North Indian":15,
+	"Italian":16,
+	"Chinese":17,
+	"American":18,
+	"Multi-Cuisine":19,
+	"Mughlai":20,
+	"Asian":21,
+	"Mexican":22,
+	"Continental":23,
+	"Health Food":24,
+	"Coffee":25,
+	"Mediterranean":26,
+	"Fast Food":27,
+	"Thai":28,
+	"Coastal":29,
+	"Oriental":30,
+	"Seafood":31,
+	"Japanese":32,
+	"Malaysian":33,
+	"Lebanese":34,
+	"Wifi":35
+	#the feature vector to be done
+}
+featureToInt={
+	"Smoking Area":"0",
+	"Air Conditioned":"0",
+	"DJ":"0",
+	"Lift":"0",
+	"Home Delivery":"0",
+	"Take Away":"0",
+	"Cards Accepted":"0",
+	"Differently Abled Friendly":"0",
+	"Dance Floor":"0",
+	"Hookah":"0",
+	"Outdoor Seating":"0",
+	"Roof Top":"0",
+	"Parking":"0",
+	"Games":"0",
+	"Barbeque and Grill":"0",
+	"North Indian":"0",
+	"Italian":"0",
+	"Chinese":"0",
+	"American":"0",
+	"Multi-Cuisine":"0",
+	"Mughlai":"0",
+	"Asian":"0",
+	"Mexican":"0",
+	"Continental":"0",
+	"Health Food":"0",
+	"Coffee":"0",
+	"Mediterranean":"0",
+	"Fast Food":"0",
+	"Thai":"0",
+	"Coastal":"0",
+	"Oriental":"0",
+	"Seafood":"0",
+	"Japanese":"0",
+	"Malaysian":"0",
+	"Lebanese":"0",
+	"Wifi":"0"
+	#the feature vector to be done
+}
+featureLength=36
+
+
+totalDic=[]
 ind=0
 for url in listOfUrls:
 	# print ind
@@ -55,6 +137,7 @@ for url in listOfUrls:
 	soup = BeautifulSoup(html)
 	#soup.find(id="info").prettify()
 	dic={}
+	dic["id"]=ind
 	dic["name"]=soup.findAll("h1",{'class':"restnt-name"})[0].text
 	dic["address"]=soup.findAll("span",{'class':"address-info"})[0].text
 	mapaddrs=str(soup.findAll("a",{'class':"view-all-link pull-right marginT5"})[0]["href"])
@@ -65,22 +148,32 @@ for url in listOfUrls:
 	dic["costfortwo"]=costfortwo[1+costfortwo.index(" "):costfortwo.index("f")]
 	dic["about"]=soup.findAll("div",{'class':"rightDiv desc-wrap col-sm-9"})[0].text
 
-	dic["cusine"]=soup.findAll("div",{'class':"cuisine-type"})[0].text
+	dic["cuisine"]=soup.findAll("div",{'class':"cuisine-type"})[0].text
 	featureList = soup.findAll("div",{'class':"rightDiv features-wrap col-sm-9"})[0].ul.findAll("li")
 	features = []
 	for i in featureList:
 		features.append(str(i.text))
 	features.pop()
 	dic["features"]=str(features)
-	# print dic
 
-	totalDic[str(ind)]=dic
+	#to develop the feature vector
+	featureVector=dict(featureToInt)
+	
+	for i in features:
+		if i in featureToInt:
+			featureVector[i]="1"
+	for i in dic["cuisine"].split(","):
+		if i in featureToInt:
+			featureVector[i]="2"
+	dic["featureVector"]=featureVector
+
+	totalDic.append(dic)
 
 	# json_string = json.dumps(dic)
 
 	# print json_string
 	ind+=1
-json_string = json.dumps(totalDic)
+json_string = json.dumps(totalDic, indent=3, sort_keys=True)
 print json_string
 # print totalDic
 
