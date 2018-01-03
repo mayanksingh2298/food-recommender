@@ -17,15 +17,29 @@ var connector = new builder.ChatConnector({
 server.post('/api/messages', connector.listen());
 var inMemoryStorage = new builder.MemoryBotStorage();
 //uses a waterfall technique to prompt users for input.
-RatingSystem();
+Converse();
 
-function RatingSystem(){
+function Converse(){
 	var bot = new builder.UniversalBot(connector, function(session){
-	    var msg = "Welcome to the resturant rating system.";
-	    session.send(msg);
-	    session.beginDialog('RateResturant');
+	    session.beginDialog('StartConverse');
 	}).set('storage', inMemoryStorage); // Register in-memory storage 
     	
+	bot.dialog('StartConverse', [
+	   function (session) {
+	    	builder.Prompts.text(session, "Hi, My name is Frudi. I am your Food Assistant. How may I help you?");
+	    },
+	    function (session, results) {
+	   		if(results.response === "I want to rate resturants"){
+	   			session.beginDialog('RateResturant');
+	   		}else if(results.response === "I want to have food"){
+	   			session.beginDialog('RecommendResturant');
+	   		}else{
+	   			var mm = "I don't recognize this sorry :(";
+	   			session.send(mm);
+	   		}
+	    }
+	]);
+
 	bot.dialog('RateResturant', [
 	   function (session) {
 	        builder.Prompts.text(session, "Please provide a resturant name");
@@ -63,9 +77,10 @@ function RatingSystem(){
 		    }
 	    }
 	]);
+
 	bot.dialog('AskforContinue', [
 	    function (session) {
-	        builder.Prompts.text(session, "Continue y/n?");
+	        builder.Prompts.text(session, "Do you want to Continue rating resturants? y/n?");
 	    },
 	    function (session, results) {
 	    	if(results.response === "exit"){
@@ -76,9 +91,50 @@ function RatingSystem(){
 		        	session.beginDialog('RateResturant');
 		        }else{
 		        	session.send("Thank You for rating resturants");
+		        	session.beginDialog('MetastableState');
+		        	// session.endDialog();
+		        }
+	    	}
+	    }
+	]);
+
+	bot.dialog('MetastableState', [
+	    function (session) {
+	        builder.Prompts.text(session, "Anything else can I do?");
+	    },
+	    function (session, results) {
+	    	if(results.response === "exit"){
+	    		session.send("Thank You. Hope you like my service");
+	    		session.endDialog();
+	    	}else{
+	    		if(results.response === "Yes, please recommend a resturant"){
+		        	session.beginDialog('RecommendResturant');
+		        }else if(results.response === "no"){
+		        	session.send("Thank You. Hope you like my service");
 		        	session.endDialog();
 		        }
 	    	}
 	    }
+	]);
+
+	bot.dialog('RecommendResturant', [
+	    function (session) {
+	        builder.Prompts.text(session, "I advise you to try these resturants. I am prety sure that you will like the food at this place.");
+	    },
+	    function (session,results) {
+	    	if(results.response === "exit"){
+	    		session.send("Thank You. Hope you like my service");
+	    		session.endDialog();
+	    	}else{
+	    		if(results.response === "Any other?"){
+		        	session.beginDialog('RecommendResturant');
+		        }else if(results.response === "Thanks"){
+		        	session.send("Thank You. Hope you like my service");
+		        	session.endDialog();
+		        }else{
+		        	session.send("Sorry, I don't recognize this :(");
+		        }
+	    	}
+		}
 	]);
 }
