@@ -29,10 +29,13 @@ function getPred(data) {
 		// console.log('StatusCode: ', res.statusCode);
 		// console.log('headers: ', res.headers);
 		res.on('data', function(d) {
-			process.stdout.write(d);
-		});
+            // console.log(d.toString("utf8"))
+			// process.stdout.write(d+"\n");
+           console.log(d.toString("utf8"))
+        });
 	});
 	// Would need more parsing out of prediction from the result
+
 	reqPost.write(dataString);
 	reqPost.end();
 	reqPost.on('error', function(e){
@@ -44,75 +47,23 @@ function getPred(data) {
 
 //Could build feature inputs from web form or RDMS. This is the new data that needs to be passed to the web service.
 
-function buildFeatureInput(){
+function buildFeatureInput(data1,data2){
 	// console.log('===performRequest()===');
+    data1new=[]
+    data2new=[]
+    for(var i=0;i<data1.length;i++){
+        data1new.push(JSON.parse(data1[i]))
+    }
+    for(var i=0;i<data2.length;i++){
+        data2new.push(JSON.parse(data2[i]))
+    }
+
 	var data = {
         "Inputs": {
-                "input1":
-                [
-                    {
-                            'Indian': "10",   
-                            'Chinese': "4",   
-                            'Italian': "3",   
-                            'Smoke': "1",   
-                            'AC': "8",   
-                            'drink': "1",   
-                            'Rating': "5",   
-                    },
-                    {
-                            'Indian': "1",   
-                            'Chinese': "6",   
-                            'Italian': "7",   
-                            'Smoke': "8",   
-                            'AC': "10",   
-                            'drink': "9",   
-                            'Rating': "1",   
-                    },
-                    {
-                            'Indian': "7",   
-                            'Chinese': "8",   
-                            'Italian': "7",   
-                            'Smoke': "10",   
-                            'AC': "8",   
-                            'drink': "9",   
-                            'Rating': "2",   
-                    },
-                ],
-                "input2":
-                [
-                    {
-                            'Indian': "8",   
-                            'Chinese': "2",   
-                            'Italian': "3",   
-                            'Smoke': "1",   
-                            'AC': "7",   
-                            'drink': "1",   
-                    },
-                    {
-                            'Indian': "3",   
-                            'Chinese': "6",   
-                            'Italian': "7",   
-                            'Smoke': "7",   
-                            'AC': "7",   
-                            'drink': "7",   
-                    },
-                    {
-                            'Indian': "8",   
-                            'Chinese': "5",   
-                            'Italian': "6",   
-                            'Smoke': "8",   
-                            'AC': "10",   
-                            'drink': "9",   
-                    },
-                    {
-                            'Indian': "10",   
-                            'Chinese': "0",   
-                            'Italian': "0",   
-                            'Smoke': "0",   
-                            'AC': "10",   
-                            'drink': "0",   
-                    }
-                ],
+                "input1":data1new
+                ,
+                "input2":data2new
+                ,
         },
     "GlobalParameters":  {
     }
@@ -136,4 +87,55 @@ function onRequest(request, response) {
 
 // http.createServer(onRequest).listen(8050);
 // console.log("Server is now running on port 8050");
-buildFeatureInput();
+module.exports = {
+    mlApi : buildFeatureInput,
+    test : test
+}
+data1=[
+                    {
+                     "Air Conditioned": "1", 
+                     "American": "2", 
+                     "Asian": "0", 
+                     "Barbeque and Grill": "0", 
+                     "Cards Accepted": "1", 
+                     "Chinese": "2", 
+                     "Coastal": "0", 
+                     "Coffee": "0", 
+                     "Continental": "0", 
+                     "DJ": "1", 
+                     "Dance Floor": "1", 
+                     "Differently Abled Friendly": "0", 
+                     "Fast Food": "0", 
+                     "Games": "0", 
+                     "Health Food": "0", 
+                     "Home Delivery": "1", 
+                     "Hookah": "1", 
+                     "Italian": "2", 
+                     "Japanese": "0", 
+                     "Lebanese": "0", 
+                     "Lift": "1", 
+                     "Malaysian": "0", 
+                     "Mediterranean": "0", 
+                     "Mexican": "0", 
+                     "Mughlai": "0", 
+                     "Multi-Cuisine": "0", 
+                     "North Indian": "2", 
+                     "Oriental": "0", 
+                     "Outdoor Seating": "1", 
+                     "Parking": "0", 
+                     "Roof Top": "1", 
+                     "Seafood": "0", 
+                     "Smoking Area": "1", 
+                     "Take Away": "1", 
+                     "Thai": "0", 
+                     "Wifi": "0",
+                     "Rating": "5"
+                  }
+                ]
+data2=[{"Air Conditioned":"1","American":"0","Asian":"0","Barbeque and Grill":"0","Cards Accepted":"0","Chinese":"0","Coastal":"0","Coffee":"0","Continental":"0","DJ":"0","Dance Floor":"0","Differently Abled Friendly":"0","Fast Food":"0","Games":"0","Health Food":"0","Home Delivery":"1","Hookah":"0","Italian":"2","Japanese":"0","Lebanese":"0","Lift":"0","Malaysian":"0","Mediterranean":"0","Mexican":"0","Mughlai":"0","Multi-Cuisine":"0","North Indian":"0","Oriental":"0","Outdoor Seating":"0","Parking":"1","Roof Top":"0","Seafood":"0","Smoking Area":"0","Take Away":"1","Thai":"0","Wifi":"0"}
+
+                ]
+// buildFeatureInput(data1,data2);
+function test(x){
+    console.log(x)
+}

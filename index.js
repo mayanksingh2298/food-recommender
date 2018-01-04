@@ -6,10 +6,12 @@ var express  				= require('express'),
     outlets					= require("./scrape/output.json")
     LocalStrategy 			= require("passport-local"),
     passportLocalMongoose 	= require("passport-local-mongoose"),
-    methodOverride          = require("method-override");
+    methodOverride          = require("method-override"),
+    azureML                 = require("./public/ML-API.js")
 // console.log(outlets.length)
-// mongoose.connect("mongodb://localhost/foodreco");
-mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
+// azureML.test("hello world")
+mongoose.connect("mongodb://localhost/foodreco");
+// mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
 //this is the online database
 var app = express();
 app.use(methodOverride("_method"));
@@ -38,6 +40,7 @@ app.get("/",function(req,res){
 });
 app.put("/editRatings",isLoggedIn,function(req,res){
 	user = req.user
+	console.log(user)
 	user.ratings[req.body.id] = req.body.rating
 	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
 		if(err){
@@ -52,8 +55,32 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 
 //check using a middleware is the user is already logged in
 app.get("/secret",isLoggedIn,function(req,res){
-	console.log(req.user)
-	res.render("secret",{ratings:req.user.ratings});
+	// console.log(req.user)
+	// console.log(req.user.ratings)
+	learnt=[]
+	toLearn=[]
+	toLearnInd=[]
+	ratings = req.user.ratings
+	for(var i=0;i<outlets.length;i++){
+		// console.log(i)
+		if(ratings[i]==null){
+			toLearn.push(JSON.stringify(outlets[i].featureVector))
+			toLearnInd.push(i)
+		}else{
+			tmp = outlets[i].featureVector
+			tmp["Rating"]=ratings[i]
+			console.log(tmp["Rating"]+"***")
+			tmp =JSON.stringify(tmp)
+			learnt.push(tmp)
+		}
+	}
+	
+
+	azureML.mlApi(learnt,toLearn)
+	console.log("after")
+
+
+	res.render("secret",{ratings:ratings});
 });
 //Auth routes
 app.get("/register",function(req,res){
