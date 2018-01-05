@@ -1,5 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var botbuilder_azure = require("botbuilder-azure");
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -9,21 +10,36 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD
+    appId: process.env.MicrosoftAppId,
+    appPassword: process.env.MicrosoftAppPassword,
+    openIdMetadata: process.env.BotOpenIdMetadata
 });
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
+
+var tableName = 'botdata';
+var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
+var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 var inMemoryStorage = new builder.MemoryBotStorage();
+var useEmulator = (process.env.NODE_ENV == 'development');
+var Finalstorage;
+if(useEmulator){
+	Finalstorage = inMemoryStorage;
+}else{
+	Finalstorage = tableStorage;
+}
+
 //uses a waterfall technique to prompt users for input.
 Converse();
 
 function Converse(){
 	var bot = new builder.UniversalBot(connector, function(session){
 	    session.beginDialog('StartConverse');
-	}).set('storage', inMemoryStorage); // Register in-memory storage 
-    	
+	})
+	bot.set('storage', Finalstorage); // Register in-memory storage 
+	//bot.set('storage', tableStorage);
+	    	
 	bot.dialog('StartConverse', [
 	   function (session) {
 	    	builder.Prompts.text(session, "Hi, My name is Frudi. I am your Food Assistant. How may I help you?");
@@ -112,6 +128,9 @@ function Converse(){
 		        }else if(results.response === "no"){
 		        	session.send("Thank You. Hope you like my service");
 		        	session.endDialog();
+		        }else{
+		        	session.send("Sorry I don't understand :(. Let's start over");
+		        	session.beginDialog('MetastableState');
 		        }
 	    	}
 	    }
