@@ -1,3 +1,8 @@
+var http = require("http");
+var https = require("https");
+var querystring = require("querystring");
+var fs = require('fs');
+
 var express  				= require('express'),
     mongoose 				= require('mongoose'),
     passport 				= require("passport"),
@@ -60,6 +65,7 @@ app.get("/secret",isLoggedIn,function(req,res){
 	learnt=[]
 	toLearn=[]
 	toLearnInd=[]
+	predictedData=[]
 	ratings = req.user.ratings
 	for(var i=0;i<outlets.length;i++){
 		// console.log(i)
@@ -76,11 +82,63 @@ app.get("/secret",isLoggedIn,function(req,res){
 	}
 	
 
-	azureML.mlApi(learnt,toLearn)
-	console.log("after")
 
+	data1new=[]
+    data2new=[]
+    for(var i=0;i<learnt.length;i++){
+        data1new.push(JSON.parse(learnt[i]))
+    }
+    for(var i=0;i<toLearn.length;i++){
+        data2new.push(JSON.parse(toLearn[i]))
+    }
 
-	res.render("secret",{ratings:ratings});
+	var data = {
+        "Inputs": {
+                "input1":data1new
+                ,
+                "input2":data2new
+                ,
+        },
+    "GlobalParameters":  {
+    }
+}
+	// getPred(data);
+    var dataString = JSON.stringify(data)
+    var host = 'ussouthcentral.services.azureml.net'
+    var path = '/workspaces/28e0446f7f3f475083aef3186ce5e9b1/services/23160a643d124e87974fee18d2572197/execute?api-version=2.0&format=swagger'
+    var method = 'POST'
+    var api_key = 'H36SNAlOQpz19IIIAcgFcbO6nrSdFrk8ieqMe/QIi3+dqx66tyqJyM36Ykm4Ua0QuRlc8WFqLuNnEG9vQiSzTA=='
+    var headers = {'Content-Type':'application/json', 'Authorization':'Bearer ' + api_key};
+    var options = {
+        host: host,
+        port: 443,
+        path: path,
+        method: 'POST',
+        headers: headers
+};
+    var reqPost = https.request(options, function (res2) {
+        res2.on('data', function(d) {
+           // console.log(d.toString("utf8"))
+            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
+       		sortedArray=[]
+       		for (var i=0;i<predictedData.length;i++){
+       			value = Number(predictedData[i]["Scored Labels"])
+       			sortedArray.push([value,toLearnInd[i]])
+       		}
+       		sortedArray.sort()
+       		sortedArray.reverse()
+       		console.log(sortedArray)
+			res.render("secret",{ratings:ratings,learntData:sortedArray});
+
+        });
+    });
+    reqPost.write(dataString);
+    reqPost.end();
+    reqPost.on('error', function(e){
+        console.error(e);
+        });
+
+	// res.render("secret",{ratings:ratings});
 });
 //Auth routes
 app.get("/register",function(req,res){
