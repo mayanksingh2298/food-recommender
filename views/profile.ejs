@@ -1,7 +1,17 @@
 <h2>After the user logs in, we'd display them the recommendations</h2>
 <li><a href="/">Home</a></li>
 <li><a href="/logout">Logout</a></li>
-<p>You location: </p>
+
+<p>Plan a trip with friends</p>
+<form action="/friends" method="post">
+	<div id="divMoreFriend">
+		<input type="text" name="friends[]" placeholder="username of friend">
+	</div>
+	<button id="addMoreFriends" type="button" onclick="addInput('divMoreFriend')">Add another friend</button>
+	<button>Plan</button>
+</form>
+
+<p>Your location: </p>
 
 <% if(location.name){ %>
 <p><%=location.name%></p>
@@ -50,4 +60,11 @@
 		  })
 		});
 	})
+</script>
+<script type="text/javascript">
+	function addInput(divName){
+      var newdiv = document.createElement('div');
+      newdiv.innerHTML = "<input type='text' name='friends[]' placeholder='username of friend'>";
+      document.getElementById(divName).appendChild(newdiv);
+}
 </script>
