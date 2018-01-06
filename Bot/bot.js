@@ -1,3 +1,7 @@
+/*-----------------------------------------------------------------------------
+A simple echo bot for the Microsoft Bot Framework. 
+-----------------------------------------------------------------------------*/
+
 var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
@@ -7,37 +11,89 @@ var server = restify.createServer();
 server.listen(process.env.port || process.env.PORT || 3978, function () {
    console.log('%s listening to %s', server.name, server.url); 
 });
-
+  
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
     appId: process.env.MicrosoftAppId,
     appPassword: process.env.MicrosoftAppPassword,
-    openIdMetadata: process.env.BotOpenIdMetadata
+    openIdMetadata: process.env.BotOpenIdMetadata 
 });
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
+/*----------------------------------------------------------------------------------------
+* Bot Storage: This is a great spot to register the private state storage for your bot. 
+* We provide adapters for Azure Table, CosmosDb, SQL Azure, or you can implement your own!
+* For samples and documentation, see: https://github.com/Microsoft/BotBuilder-Azure
+* ---------------------------------------------------------------------------------------- */
+
 var tableName = 'botdata';
 var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
 var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 var inMemoryStorage = new builder.MemoryBotStorage();
-var useEmulator = (process.env.NODE_ENV == 'development');
+var useEmulator = (process.env.NODE_ENV === 'development');
 var Finalstorage;
+console.log(useEmulator);
 if(useEmulator){
 	Finalstorage = inMemoryStorage;
 }else{
 	Finalstorage = tableStorage;
 }
 
+// Create your bot with a function to receive messages from the user
+var bot = new builder.UniversalBot(connector);
+bot.set('storage', inMemoryStorage);
+
+// Make sure you add code to validate these fields
+// var luisAppId = process.env.LuisAppId;
+// var luisAPIKey = process.env.LuisAPIKey;
+var luisAppId = '39404737-74b3-4de9-83bd-d69df21c7a07';
+var luisAPIKey = '2c7627c91a234133bf23a24cfb15a021';
+var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
+console.log(luisAppId);
+console.log(luisAPIKey);
+console.log(luisAPIHostName);
+
+const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
+
+// Main dialog with LUIS
+var recognizer = new builder.LuisRecognizer(LuisModelUrl);
+var intents = new builder.IntentDialog({ recognizers: [recognizer] })
+.matches('Greeting', (session) => {
+    session.send("Hi! My name is Frudi. I am your Food Assistant. How may I help you?");
+})
+.matches('Help', (session) => {
+    session.send('You reached Help intent, you said \'%s\'.', session.message.text);
+})
+.matches('Cancel', (session) => {
+    session.send("Thank you for visiting Frudo. Please do come again!");
+})
+.matches('Recommend', (session) => {
+    session.send("I got recommend intent");
+})
+.matches('RateRestaurants', (session) => {
+    session.send("I got rate intent");
+})
+/*
+.matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
+*/
+.onDefault((session) => {
+    session.send('Sorry, I did not understand \'%s\'.', session.message.text);
+});
+
+bot.dialog('/', intents);    
+
 //uses a waterfall technique to prompt users for input.
-Converse();
+// Converse();
 
 function Converse(){
+	console.log(Finalstorage);
 	var bot = new builder.UniversalBot(connector, function(session){
+		console.log("starting cocnversation");
 	    session.beginDialog('StartConverse');
-	})
-	bot.set('storage', Finalstorage); // Register in-memory storage 
+	});
+	bot.set('storage', inMemoryStorage); // Register in-memory storage 
 	//bot.set('storage', tableStorage);
 	    	
 	bot.dialog('StartConverse', [
