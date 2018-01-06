@@ -149,17 +149,28 @@ app.get("/profile",isLoggedIn,function(req,res){
 	           // console.log(d.toString("utf8"))
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
+	       		maxDiff=0
+	       		maxRate=0
+	       		for (var i=0;i<predictedData.length;i++){//to get max to scale them
+	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
+	       			tmpLat = tmpLatLong[0]
+	       			tmpLong = tmpLatLong[1]
+	       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
+	       			maxDiff	= Math.max(maxDiff,diff)
+	       			predRate = Number(predictedData[i]["Scored Labels"])
+	       			maxRate = Math.max(maxRate,predRate)
+	       		}
 	       		for (var i=0;i<predictedData.length;i++){
 	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
 	       			tmpLat = tmpLatLong[0]
 	       			tmpLong = tmpLatLong[1]
 	       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
 	       			predRate = Number(predictedData[i]["Scored Labels"])
-	       			sortedArray.push([diff,predRate,toLearnInd[i]])
+	       			sortedArray.push([+diff/maxDiff-predRate/maxRate,predRate,toLearnInd[i]])
 	       		}
 	       		sortedArray.sort()
-	       		sortedArray.reverse()
-	       		sortedArray=sortedArray.splice(0,5)
+	       		// sortedArray.reverse()
+	       		sortedArray=sortedArray.splice(0,8)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
 				res.render("profile",{ratings:ratings,learntData:sortedArray,location:req.user.location});
@@ -242,7 +253,7 @@ app.get("*",function(req,res){
 })
 
 
-var port = process.env.port || 8000
+var port = process.env.port || 8001
 app.listen(port,function(){
 	console.log("listening on port "+port)
 });
