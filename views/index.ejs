@@ -5,9 +5,12 @@
 </head>
 <body>
 	<h1>Welcome</h1>
-	<li><a href="/register">SignUP</a></li>
-	<li><a href="/login">Login!</a></li>
-	<li><a href="/logout">Logout!</a></li>
+	<% if(isLoggedIn==1){ %>
+		<li><a href="/logout">Logout!</a></li>
+	<% }else{ %>
+		<li><a href="/login">Login!</a></li>
+		<li><a href="/register">SignUP</a></li>
+	<% } %>
 	<% for(var i=0; i < outlets.length; i++) { %>
 		<div>
 			<p>Name: <%= outlets[i]["name"] %></p>
