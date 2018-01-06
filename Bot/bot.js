@@ -48,7 +48,7 @@ bot.set('storage', inMemoryStorage);
 // Make sure you add code to validate these fields
 // var luisAppId = process.env.LuisAppId;
 // var luisAPIKey = process.env.LuisAPIKey;
-var luisAppId = '39404737-74b3-4de9-83bd-d69df21c7a07';
+var luisAppId = '313572bf-d67d-4bd1-bc70-cde449f43ae2';
 var luisAPIKey = '2c7627c91a234133bf23a24cfb15a021';
 var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
 console.log(luisAppId);
@@ -70,22 +70,122 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     session.send("Thank you for visiting Frudo. Please do come again!");
 })
 .matches('Recommend', (session) => {
-    session.send("I got recommend intent");
+    session.send("Sure. I advice you to try these restaurants.");
+    session.beginDialog('RecommendRestaurant');
 })
 .matches('RateRestaurants', (session) => {
-    session.send("I got rate intent");
+	session.send("Let's rate the restaurant in steps.");
+	session.beginDialog('RateRestaurant');
 })
-/*
-.matches('<yourIntent>')... See details at http://docs.botframework.com/builder/node/guides/understanding-natural-language/
-*/
 .onDefault((session) => {
-    session.send('Sorry, I did not understand \'%s\'.', session.message.text);
+    session.send('Sorry, I did not understand that. :(');
 });
 
 bot.dialog('/', intents);    
 
 //uses a waterfall technique to prompt users for input.
 // Converse();
+
+bot.dialog('RateRestaurant', [
+   function (session) {
+        builder.Prompts.text(session, "Please provide a restaurant name");
+    },
+    function (session, results) {
+    	if(results.response === "exit"){
+    		session.send("Thank You for rating resturants");
+    		session.endDialog();
+    	}else{
+    		session.dialogData.resturantName = results.response;
+	        builder.Prompts.text(session, "Yes this exists.");
+	        var msg = new builder.Message(session)
+			.text("Please Rate the resturant. It will help us to learn your taste. Thank You")
+			.suggestedActions(
+			builder.SuggestedActions.create(
+				session, [
+					builder.CardAction.imBack(session, "1", "1"),	// (actual value, value displayed to user)
+					builder.CardAction.imBack(session, "2", "2"),
+					builder.CardAction.imBack(session, "3", "3"),
+					builder.CardAction.imBack(session, "4", "4"),
+					builder.CardAction.imBack(session, "5", "5")
+				]
+			));
+			session.send(msg);
+    	}
+    },
+    function (session, results) {
+    	if(results.response === "exit"){
+    		session.send("Thank You for rating resturants");
+    		session.endDialog();
+    	}else{
+	     	session.dialogData.resturantRating = results.response;   
+	    	session.send(`Thank You.<br/> Details: <br/>Name: ${session.dialogData.resturantName} <br/>rating: ${session.dialogData.resturantRating}`);
+	    	session.beginDialog('AskforContinue');
+	    }
+    }
+]);
+
+bot.dialog('AskforContinue', [
+    function (session) {
+        builder.Prompts.text(session, "Do you want to Continue rating resturants? y/n?");
+    },
+    function (session, results) {
+    	if(results.response === "exit"){
+    		session.send("Thank You for rating resturants");
+    		session.endDialog();
+    	}else{
+    		if(results.response === "y"){
+	        	session.beginDialog('RateResturant');
+	        }else{
+	        	session.send("Thank You for rating resturants");
+	        	session.beginDialog('MetastableState');
+	        	// session.endDialog();
+	        }
+    	}
+    }
+]);
+
+bot.dialog('MetastableState', [
+    function (session) {
+        builder.Prompts.text(session, "Anything else can I do?");
+    },
+    function (session, results) {
+    	if(results.response === "exit"){
+    		session.send("Thank You. Hope you like my service");
+    		session.endDialog();
+    	}else{
+    		if(results.response === "Yes, please recommend a resturant"){
+	        	session.beginDialog('RecommendResturant');
+	        }else if(results.response === "no"){
+	        	session.send("Thank You. Hope you like my service");
+	        	session.endDialog();
+	        }else{
+	        	session.send("Sorry I don't understand :(. Let's start over");
+	        	session.beginDialog('MetastableState');
+	        }
+    	}
+    }
+]);
+
+bot.dialog('RecommendRestaurant', [
+    function (session) {
+        builder.Prompts.text(session, "I am prety sure that you will like the food at this place.");
+    },
+    function (session,results) {
+    	if(results.response === "exit"){
+    		session.send("Thank You. Hope you like my service");
+    		session.endDialog();
+    	}else{
+    		if(results.response === "Any other?"){
+	        	session.beginDialog('RecommendResturant');
+	        }else if(results.response === "Thanks"){
+	        	session.send("Thank You. Hope you like my service");
+	        	session.endDialog();
+	        }else{
+	        	session.send("Sorry, I don't recognize this :(");
+	        }
+    	}
+	}
+]);
 
 function Converse(){
 	console.log(Finalstorage);
@@ -110,106 +210,5 @@ function Converse(){
 	   			session.send(mm);
 	   		}
 	    }
-	]);
-
-	bot.dialog('RateResturant', [
-	   function (session) {
-	        builder.Prompts.text(session, "Please provide a resturant name");
-	    },
-	    function (session, results) {
-	    	if(results.response === "exit"){
-	    		session.send("Thank You for rating resturants");
-	    		session.endDialog();
-	    	}else{
-	    		session.dialogData.resturantName = results.response;
-		        builder.Prompts.text(session, "Yes this exists.");
-		        var msg = new builder.Message(session)
-				.text("Please Rate the resturant. It will help us to learn your taste. Thank You")
-				.suggestedActions(
-				builder.SuggestedActions.create(
-					session, [
-						builder.CardAction.imBack(session, "1", "1"),	// (actual value, value displayed to user)
-						builder.CardAction.imBack(session, "2", "2"),
-						builder.CardAction.imBack(session, "3", "3"),
-						builder.CardAction.imBack(session, "4", "4"),
-						builder.CardAction.imBack(session, "5", "5")
-					]
-				));
-				session.send(msg);
-	    	}
-	    },
-	    function (session, results) {
-	    	if(results.response === "exit"){
-	    		session.send("Thank You for rating resturants");
-	    		session.endDialog();
-	    	}else{
-		     	session.dialogData.resturantRating = results.response;   
-		    	session.send(`Thank You.<br/> Details: <br/>Name: ${session.dialogData.resturantName} <br/>rating: ${session.dialogData.resturantRating}`);
-		    	session.beginDialog('AskforContinue');
-		    }
-	    }
-	]);
-
-	bot.dialog('AskforContinue', [
-	    function (session) {
-	        builder.Prompts.text(session, "Do you want to Continue rating resturants? y/n?");
-	    },
-	    function (session, results) {
-	    	if(results.response === "exit"){
-	    		session.send("Thank You for rating resturants");
-	    		session.endDialog();
-	    	}else{
-	    		if(results.response === "y"){
-		        	session.beginDialog('RateResturant');
-		        }else{
-		        	session.send("Thank You for rating resturants");
-		        	session.beginDialog('MetastableState');
-		        	// session.endDialog();
-		        }
-	    	}
-	    }
-	]);
-
-	bot.dialog('MetastableState', [
-	    function (session) {
-	        builder.Prompts.text(session, "Anything else can I do?");
-	    },
-	    function (session, results) {
-	    	if(results.response === "exit"){
-	    		session.send("Thank You. Hope you like my service");
-	    		session.endDialog();
-	    	}else{
-	    		if(results.response === "Yes, please recommend a resturant"){
-		        	session.beginDialog('RecommendResturant');
-		        }else if(results.response === "no"){
-		        	session.send("Thank You. Hope you like my service");
-		        	session.endDialog();
-		        }else{
-		        	session.send("Sorry I don't understand :(. Let's start over");
-		        	session.beginDialog('MetastableState');
-		        }
-	    	}
-	    }
-	]);
-
-	bot.dialog('RecommendResturant', [
-	    function (session) {
-	        builder.Prompts.text(session, "I advise you to try these resturants. I am prety sure that you will like the food at this place.");
-	    },
-	    function (session,results) {
-	    	if(results.response === "exit"){
-	    		session.send("Thank You. Hope you like my service");
-	    		session.endDialog();
-	    	}else{
-	    		if(results.response === "Any other?"){
-		        	session.beginDialog('RecommendResturant');
-		        }else if(results.response === "Thanks"){
-		        	session.send("Thank You. Hope you like my service");
-		        	session.endDialog();
-		        }else{
-		        	session.send("Sorry, I don't recognize this :(");
-		        }
-	    	}
-		}
 	]);
 }
