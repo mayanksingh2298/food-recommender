@@ -5,6 +5,7 @@ var UserSchema = new mongoose.Schema({
 	username: String,
 	password: String,
 	ratings: [],
+	noOfRated: Number,
 });
 //this would take all methods from this passport... package and add them in our schema
 UserSchema.plugin(passportLocalMongoose);
