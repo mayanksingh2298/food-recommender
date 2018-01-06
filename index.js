@@ -63,6 +63,141 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 	} );
 
 })
+app.post("/friends",isLoggedIn,function(req,res){
+	// console.log(req.body)
+	actualFriends=[req.user.username]
+	avgRatings=req.user.ratings
+	friends=req.body.friends
+	counter=0
+	for(var i=0;i<friends.length;i++){
+		User.findOne({username:new RegExp('^'+friends[i]+'$',"i")},function(err,foundUser){	
+			counter++
+			if(foundUser){
+				actualFriends.push(foundUser.username)
+
+				for(var j=0;j<foundUser.ratings.length;j++){
+					console.log(foundUser.ratings[j]+"*")
+					if(!foundUser.ratings[j])
+						continue
+					else if(foundUser.ratings[j] && !avgRatings[j])
+						avgRatings[j] = foundUser.ratings[j]
+					else
+						avgRatings[j] = Number(avgRatings[j])+Number(foundUser.ratings[j])
+
+
+				}
+
+			}
+			if(counter==friends.length){
+				// console.log(actualFriends)
+				noOfRated=0
+				for(var j=0;j<avgRatings.length;j++){
+					if (avgRatings[j]){
+						noOfRated++
+						avgRatings[j] = Number(avgRatings[j])/actualFriends.length
+					}
+				}
+				console.log(avgRatings)
+				//////////////////////
+				learnt=[]
+				toLearn=[]
+				toLearnInd=[]
+				predictedData=[]
+				if (noOfRated<4){
+					res.render("friends",{actualFriends:actualFriends,learntData:[]});
+				}else{
+					for(var j=0;j<outlets.length;j++){
+						// console.log(i)
+						// console.log("********************"+j)
+						if(avgRatings[j]==null){
+							toLearn.push(JSON.stringify(outlets[j].featureVector))
+							toLearnInd.push(j)
+						}else{
+							tmp = outlets[j].featureVector
+							tmp["Rating"]=Math.round(avgRatings[j]).toString()
+							// console.log(tmp["Rating"]+"***")
+							tmp =JSON.stringify(tmp)
+							learnt.push(tmp)
+						}
+					}
+					
+					data1new=[]
+				    data2new=[]
+				    for(var j=0;j<learnt.length;j++){
+				        data1new.push(JSON.parse(learnt[j]))
+				    }
+				    for(var j=0;j<toLearn.length;j++){
+				        data2new.push(JSON.parse(toLearn[j]))
+				    }
+					var data = {
+				        "Inputs": {
+				                "input1":data1new
+				                ,
+				                "input2":data2new
+				                ,
+				        },
+				    "GlobalParameters":  {
+				    }
+				}
+					// getPred(data);
+				    var dataString = JSON.stringify(data)
+				    var host = 'ussouthcentral.services.azureml.net'
+				    var path = '/workspaces/28e0446f7f3f475083aef3186ce5e9b1/services/23160a643d124e87974fee18d2572197/execute?api-version=2.0&format=swagger'
+				    var method = 'POST'
+				    var api_key = 'H36SNAlOQpz19IIIAcgFcbO6nrSdFrk8ieqMe/QIi3+dqx66tyqJyM36Ykm4Ua0QuRlc8WFqLuNnEG9vQiSzTA=='
+				    var headers = {'Content-Type':'application/json', 'Authorization':'Bearer ' + api_key};
+				    var options = {
+				        host: host,
+				        port: 443,
+				        path: path,
+				        method: 'POST',
+				        headers: headers
+				};
+				    var reqPost = https.request(options, function (res2) {
+				        res2.on('data', function(d) {
+				           // console.log(d.toString("utf8"))
+				            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
+				       		sortedArray=[]
+				       		maxDiff=0
+				       		maxRate=0
+				       		for (var j=0;j<predictedData.length;j++){//to get max to scale them
+				       			tmpLatLong = outlets[toLearnInd[j]]["lat,long"].split(",")
+				       			tmpLat = tmpLatLong[0]
+				       			tmpLong = tmpLatLong[1]
+				       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
+				       			maxDiff	= Math.max(maxDiff,diff)
+				       			predRate = Number(predictedData[j]["Scored Labels"])
+				       			maxRate = Math.max(maxRate,predRate)
+				       		}
+				       		for (var j=0;j<predictedData.length;j++){
+				       			tmpLatLong = outlets[toLearnInd[j]]["lat,long"].split(",")
+				       			tmpLat = tmpLatLong[0]
+				       			tmpLong = tmpLatLong[1]
+				       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
+				       			predRate = Number(predictedData[j]["Scored Labels"])
+				       			sortedArray.push([-diff/maxDiff+predRate/maxRate,predRate,toLearnInd[j]])
+				       		}
+				       		sortedArray.sort()
+				       		sortedArray.reverse()
+				       		sortedArray=sortedArray.splice(0,8)
+				       		// console.log(sortedArray)
+				       		console.log(req.user.noOfRated)
+							res.render("friends",{actualFriends:actualFriends,learntData:sortedArray});
+
+				        });
+				    });
+				    reqPost.write(dataString);
+				    reqPost.end();
+				    reqPost.on('error', function(e){
+				        console.error(e);
+				        });
+				}
+				//////////////////////
+
+			}
+		})
+	}
+})
 app.put("/editLocation",isLoggedIn,function(req,res){
 	user = req.user
 	user.location = {

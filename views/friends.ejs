@@ -1,0 +1,15 @@
+<p>Your group members are:</p>
+<% for(var i=0; i < actualFriends.length; i++) { %>
+		<span><%=actualFriends[i]%></span>
+<%}%>
+
+<% if(learntData.length==0){ %>
+   <h3>Please rate atleast 4 restaurants to receive recommendations</h3>
+ <% } else{ %>  
+   <p>Your predicted ratings are: </p>
+	<% for(var i=0; i < learntData.length; i++) { %>
+			<div>
+				<p><%= learntData[i][2] %> is predicted to be <%= learntData[i][1] %> </p>
+			</div>
+		<%}%>
+<% } %>
