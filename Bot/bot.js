@@ -57,20 +57,27 @@ bot.set('storage', inMemoryStorage);
 
 // const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
 
-var yes = false;
-var friends = false;
+var friendsYesNo = false;
+var haveFriendsYesNo = false;
+var combinedYesNo = false;
+var users = [];
 
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 intents.matches('Greeting', (session) => {
-    session.send("Hi! My name is Frudi. I am your Food Assistant. How may I help you?");
+    session.send("Hi! My name is Frudo. I am your Food Assistant.");
+    if(!session.username) {
+    	session.beginDialog('GetUsername');
+    } else {
+    	users.push(session.username);
+	    session.send("How may I help you?");    	
+    }
 });
 
 /////////////
 intents.matches('Help', (session) => {
-    session.send('Please choose what help you need.');
-    // session.beginDialog();
+    session.beginDialog('Help');
 });
 ////////////////
 intents.matches('Cancel', (session) => {
@@ -79,28 +86,56 @@ intents.matches('Cancel', (session) => {
 ////////////////
 
 intents.matches('Recommend', (session) => {
-    session.send("Sure. I advice you to try these restaurants.");
-    builder.Prompts.text(session, "Are you going out with some friends? I can recommend you the best place according to your common taste.");
+	session.beginDialog('RecommendRestaurant');
 });
 intents.matches('RateRestaurants', (session) => {
 	session.send("Let's rate the restaurant in steps.");
 	session.beginDialog('RateRestaurant');
 });
 intents.matches('Yes', (session) => {
-	yes = true;
+	if (friendsYesNo) {
+		session.send("Please continue if you know the usernames of your friends.");
+		session.send("Continue? Yes/No.");
+		friends = false;
+		haveFriends = true;
+	}
+	if(haveFriendsYesNo) {
+		session.beginDialog('Combined');
+		// haveFriends to be false in dialog-----------------------------------------------
+	}
 });
 intents.matches('No', (session) => {
-	yes = false;
+	if(combinedYesNo) {
+		haveFriends = false;
+		if(users.length!=1) {
+			session.send("Here are your combined recommendations");
+			// Display recommendation combined------------------------------------------------
+		}
+	}
 })
 intents.onDefault((session) => {
     session.send('Sorry, I did not understand that. :(');
     session.send('But here are the things I can do for you.')
-    // session.beginDialog();
+    session.beginDialog('Help');
 });
 
 var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
-bot.dialog('Main', intents);    
+bot.dialog('/', intents);    
+
+bot.dialog('RecommendRestaurant', [
+    function (session) {
+	    session.send("Sure. I advice you to try these restaurants.");
+	    if(!session.username) {
+	    	// Genral Retrieval--------------------------------------
+	    } else {
+	    	// Retrieve restaurants from database--------------------------------------------------
+		}
+	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
+	    friends = true;
+	    session.beginDialog('/');
+    }
+]);
 
 bot.dialog('RateRestaurant', [
    	function (session) {
@@ -148,6 +183,64 @@ bot.dialog('RateRestaurant', [
     }
 ]);
 
+bot.dialog('Combined', [
+	function (session) {
+		builder.Prompts.text(session, "Enter the username of your friend.");
+	},
+	function (session, results) {
+		var username = results.response;
+		if(false /* Check username in database------------------------------------------*/) {
+			session.send("Sorry. This username does not exist.");
+		}
+		else {
+			users.push(username);
+		}
+		session.send("Continue with more friends?");
+		combinedYesNo = true;
+		session.beginDialog('/');
+	}
+]);
+
+bot.dialog('Help', [
+	function (session) {
+		builder.Prompts.choice(session, "Please choose what help you need.", "Personal Recommendations|Group Recommendations|Rate Restaurants|Introduction")
+	},
+	function (session, results) {
+		switch(results.response.entity){
+            case "Personal Recommendations":
+                session.beginDialog('RecommendRestaurant');
+                break;
+            case "Group Recommendations":
+                session.beginDialog('Combined');
+                break;
+            case "Rate Restaurants":
+                session.beginDialog('RateRestaurants');
+                break;
+            case "Introduction":
+                session.beginDialog('GetUsername');
+                break;
+        }
+	}
+]);
+
+bot.dialog('GetUsername', [
+	function (session) {
+		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register <a href='#'>here</a> so that I can know you.");
+		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself <a href='https://www.iitd.ac.in'>here</a>"); //---------------------
+	},
+	function (session, results) {
+		if(true /*Check with db for username------------------------------*/) {
+			session.username = results.response;
+			users.push(session.username);
+			session.send("How may I help you?");
+		} else {
+			session.send("Sorry. This username does not exist.");
+			session.send("If you don't have a username yet please register yourself <a href='#'>here</a>"); //----------------------------------
+		}
+		session.beginDialog('/');
+	}
+]);
+
 bot.dialog('AskforContinue', [
     function (session) {
         builder.Prompts.text(session, "Do you want to Continue rating restaurants? y/n?");
@@ -190,50 +283,28 @@ bot.dialog('MetastableState', [
     }
 ]);
 
-bot.dialog('RecommendRestaurant', [
-    function (session) {
-        builder.Prompts.text(session, "I am prety sure that you will like the food at this place.");
-        
-    },
-    function (session,results) {
-    	if(results.response === "exit"){
-    		session.send("Thank You. Hope you like my service");
-    		session.endDialog();
-    	}else{
-    		if(results.response === "Any other?"){
-	        	session.beginDialog('Recommendrestaurant');
-	        }else if(results.response === "Thanks"){
-	        	session.send("Thank You. Hope you like my service");
-	        	session.endDialog();
-	        }else{
-	        	session.send("Sorry, I don't recognize this :(");
-	        }
-    	}
-	}
-]);
-
-function Converse(){
-	console.log(Finalstorage);
-	var bot = new builder.UniversalBot(connector, function(session){
-		console.log("starting cocnversation");
-	    session.beginDialog('StartConverse');
-	});
-	bot.set('storage', inMemoryStorage); // Register in-memory storage 
-	//bot.set('storage', tableStorage);
+// function Converse(){
+// 	console.log(Finalstorage);
+// 	var bot = new builder.UniversalBot(connector, function(session){
+// 		console.log("starting cocnversation");
+// 	    session.beginDialog('StartConverse');
+// 	});
+// 	bot.set('storage', inMemoryStorage); // Register in-memory storage 
+// 	//bot.set('storage', tableStorage);
 	    	
-	bot.dialog('StartConverse', [
-	   function (session) {
-	    	builder.Prompts.text(session, "Hi, My name is Frudi. I am your Food Assistant. How may I help you?");
-	    },
-	    function (session, results) {
-	   		if(results.response === "I want to rate restaurants"){
-	   			session.beginDialog('Raterestaurant');
-	   		}else if(results.response === "I want to have food"){
-	   			session.beginDialog('Recommendrestaurant');
-	   		}else{
-	   			var mm = "I don't recognize this sorry :(";
-	   			session.send(mm);
-	   		}
-	    }
-	]);
-}
+// 	bot.dialog('StartConverse', [
+// 	   function (session) {
+// 	    	builder.Prompts.text(session, "Hi, My name is Frudi. I am your Food Assistant. How may I help you?");
+// 	    },
+// 	    function (session, results) {
+// 	   		if(results.response === "I want to rate restaurants"){
+// 	   			session.beginDialog('Raterestaurant');
+// 	   		}else if(results.response === "I want to have food"){
+// 	   			session.beginDialog('Recommendrestaurant');
+// 	   		}else{
+// 	   			var mm = "I don't recognize this sorry :(";
+// 	   			session.send(mm);
+// 	   		}
+// 	    }
+// 	]);
+// }
