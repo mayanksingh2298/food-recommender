@@ -166,10 +166,10 @@ app.get("/profile",isLoggedIn,function(req,res){
 	       			tmpLong = tmpLatLong[1]
 	       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
 	       			predRate = Number(predictedData[i]["Scored Labels"])
-	       			sortedArray.push([+diff/maxDiff-predRate/maxRate,predRate,toLearnInd[i]])
+	       			sortedArray.push([-diff/maxDiff+predRate/maxRate,predRate,toLearnInd[i]])
 	       		}
 	       		sortedArray.sort()
-	       		// sortedArray.reverse()
+	       		sortedArray.reverse()
 	       		sortedArray=sortedArray.splice(0,8)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
