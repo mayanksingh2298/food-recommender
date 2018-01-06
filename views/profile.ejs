@@ -1,6 +1,13 @@
 <h2>After the user logs in, we'd display them the recommendations</h2>
 <li><a href="/">Home</a></li>
 <li><a href="/logout">Logout</a></li>
+<p>You location: </p>
+
+<% if(location.name){ %>
+<p><%=location.name%></p>
+<% }else{ %>
+<p><%=location.latitude%>,<%=location.longitude%></p>
+<%}%>
 <p>Your given ratings are: </p>
 <p><%= ratings %></p>
 <form action="/editRatings/?_method=PUT" method="post">
@@ -9,17 +16,38 @@
 	<button>Edit!</button>
 </form>
 
+<form id="changeLocation" action="/editLocation/?_method=PUT" method="post">
+	<input id="locationName" style="display:none" type="text" name="locationName">
+	<input id="lat" style="display:none" type="text" name="latitude">
+	<input id="long" style="display:none" type="text" name="longitude">
+	<button id="getLocation" type="button">Get Location</button>
+</form>
+
 <% if(learntData.length==0){ %>
    <h3>Please rate atleast 4 restaurants to receive recommendations</h3>
  <% } else{ %>  
    <p>Your predicted ratings are: </p>
 	<% for(var i=0; i < learntData.length; i++) { %>
 			<div>
-				<p><%= learntData[i][1] %> is predicted to be <%= learntData[i][0] %> </p>
+				<p><%= learntData[i][2] %> is predicted to be <%= learntData[i][1] %> </p>
 			</div>
 		<%}%>
 <% } %>
-
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 <script type="text/javascript">
-	console.log(ratings)
+	$("#getLocation").click(function(){
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  $("#lat").val(position.coords.latitude)
+		  $("#long").val(position.coords.longitude)
+		  $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
+		  	console.log(data.results[0].formatted_address)
+		  	$("#locationName").val(data.results[0].formatted_address)
+		  	console.log("sum")
+		  	$("#changeLocation").submit()
+		  })
+		});
+	})
 </script>

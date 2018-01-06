@@ -63,6 +63,23 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 	} );
 
 })
+app.put("/editLocation",isLoggedIn,function(req,res){
+	user = req.user
+	user.location = {
+		name:req.body.locationName||"not provided",
+		latitude:req.body.latitude,
+		longitude:req.body.longitude
+	}
+	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
+		if(err){
+			res.redirect("/login");
+		}
+		else{
+			console.log(updatedUser)
+			res.redirect("/profile");
+		}
+	} );
+})
 
 //check using a middleware is the user is already logged in
 app.get("/profile",isLoggedIn,function(req,res){
@@ -74,7 +91,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	predictedData=[]
 	ratings = req.user.ratings
 	if (req.user.noOfRated<4){
-		res.render("profile",{ratings:ratings,learntData:[]});
+		res.render("profile",{ratings:ratings,learntData:[],location:req.user.location});
 	}else{
 
 
@@ -133,14 +150,19 @@ app.get("/profile",isLoggedIn,function(req,res){
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		for (var i=0;i<predictedData.length;i++){
-	       			value = Number(predictedData[i]["Scored Labels"])
-	       			sortedArray.push([value,toLearnInd[i]])
+	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
+	       			tmpLat = tmpLatLong[0]
+	       			tmpLong = tmpLatLong[1]
+	       			diff = Math.abs(req.user.location.latitude-tmpLat)+Math.abs(req.user.location.longitude-tmpLong)
+	       			predRate = Number(predictedData[i]["Scored Labels"])
+	       			sortedArray.push([diff,predRate,toLearnInd[i]])
 	       		}
 	       		sortedArray.sort()
 	       		sortedArray.reverse()
+	       		sortedArray=sortedArray.splice(0,5)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
-				res.render("profile",{ratings:ratings,learntData:sortedArray});
+				res.render("profile",{ratings:ratings,learntData:sortedArray,location:req.user.location});
 
 	        });
 	    });
@@ -161,12 +183,22 @@ app.get("/register",function(req,res){
 app.post("/register",function(req,res){
 
 	//this function saves the user to the database, we dont store the password but we pass it as a second argument
-	User.register(new User({username:req.body.username,noOfRated:0}),req.body.password,function(err,user){
+	toMakeUser = {
+		username:req.body.username,
+		noOfRated:0,
+		location:{
+			name:req.body.locationName||"not provided",
+			latitude:req.body.latitude,
+			longitude:req.body.longitude
+		}
+	}
+	User.register(new User(toMakeUser),req.body.password,function(err,user){
 		if(err){
 			console.log(err);
 			res.render("register");
 		}else{
 			//this one starts the session that is we have now logged in
+			console.log(user)
 			passport.authenticate("local")(req,res,function(){
 				res.redirect("/profile");
 			});
@@ -208,17 +240,6 @@ function isLoggedIn(req,res,next){
 app.get("*",function(req,res){
 	res.send("This page doesn't exist...What were you looking for?")
 })
-
-
-
-
-
-
-
-
-
-
-
 
 
 var port = process.env.port || 8000
