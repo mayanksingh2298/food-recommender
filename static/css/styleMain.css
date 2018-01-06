@@ -1,0 +1,122 @@
+body{
+	margin: 0px;
+	height:100%;
+}
+html{
+	height:100%;
+}
+h1,h4{
+	margin: 0;
+}
+#right1{
+	position: absolute;
+	right:9%;
+	padding: 10px;
+	color: white;
+	background:rgba(0,0,0,0.3);
+	border-radius: 5px;
+	margin-top: 20px;
+	border: 1.5px solid white;
+	text-decoration: none;
+	width:5%;
+	text-align: center;
+
+}
+#right2{
+	position: absolute;
+	right:1%;
+	padding: 10px;
+	color: white;
+	background:rgba(0,0,0,0.3);
+	border-radius: 5px;
+	margin-top: 20px;
+	border: 1.5px solid white;
+	text-decoration: none;
+	width:5%;
+	text-align: center;
+}
+#heading{
+	text-align: center;
+	margin: 0 auto;
+	color: #fff7f7;
+	width:60%;
+	background:rgba(0,0,0,0.3);
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 10px;
+	font-family: 'Indie Flower', cursive;
+	zoom:156%;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+	vertical-align: center;
+	margin-bottom: 20px
+}
+
+#topDetails{
+	padding: 0px;
+	background-image: url("/static/back.jpg");
+	background-position: center;
+	background-size: 140%;
+	background-repeat: no-repeat;
+	height:60%;
+	/*width: 60%;*/
+}
+
+
+/*card flip*/
+/* entire container, keeps perspective */
+.container {
+	perspective: 1000px;
+	margin: 0px;
+	float:left;
+	padding: 1%;
+	background-color: white;
+}
+	/* flip the pane when hovered */
+	.container:hover .flipper, .container.hover .flipper {
+		transform: rotateY(180deg);
+	}
+
+.container, .front, .back {
+	width: 100%;
+	height: 46%;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	height: 100%;
+	position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	transform: rotateY(180deg);
+}
+
+.back p{
+	margin:0px;
+	font-size: 1em;
+}
+
+body {
+  /* fallback */
+  background-color: white
+  /* Opera 11.10+ */
+}

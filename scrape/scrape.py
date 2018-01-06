@@ -138,7 +138,9 @@ for url in listOfUrls:
 	#soup.find(id="info").prettify()
 	dic={}
 	dic["id"]=ind
+	# for i in range(32):
 	dic["name"]=soup.findAll("h1",{'class':"restnt-name"})[0].text
+	dic["img"]=soup.findAll("img",{'class':"no-img"})[-1]["src"]
 	dic["address"]=soup.findAll("span",{'class':"address-info"})[0].text
 	mapaddrs=str(soup.findAll("a",{'class':"view-all-link pull-right marginT5"})[0]["href"])
 	dic["map"]=mapaddrs

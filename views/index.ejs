@@ -2,24 +2,63 @@
 <html>
 <head>
 	<title>Home</title>
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="static/css/styleMain.css">
 </head>
 <body>
-	<h1>Welcome</h1>
-	<% if(isLoggedIn==1){ %>
-		<li><a href="/logout">Logout!</a></li>
-	<% }else{ %>
-		<li><a href="/login">Login!</a></li>
-		<li><a href="/register">SignUP</a></li>
-	<% } %>
+	<div id="topDetails">
+		<% if(isLoggedIn==1){ %>
+			<a id="right2" href="/logout">Logout</a>
+		<% }else{ %>
+			<a id="right1" href="/login">Login</a>
+			<a id="right2" href="/register">Signup</a>
+		<% } %>
+		<br>
+		<br>
+		<br>
+		<br>
+		<div id="heading">			
+			<h1 style="padding-top:30px">RestoRecommendo</h1>
+			<h4 style="padding-bottom:30px" >we use our magic sauces to make sure your food is always to your taste</h4>
+		</div>
+		<br>
+	</div>
+	<br>
+
 	<% for(var i=0; i < outlets.length; i++) { %>
-		<div>
+		<div style="width:33.33%" class="container" ontouchstart="this.classList.toggle('hover');">
+			<div class="flipper">
+				<div class="front">		
+				  <div class="w3-card-4" style="width:100%">
+				    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Norway" style="width:100%">
+				    <div  id="hei2" class="w3-container w3-center">
+				      <p> <%= outlets[i]["name"] %></p>
+				    </div>
+				  </div>
+				</div>	
+				<div class="back">		
+				  <div class="w3-card-4" style="width:100%">
+				    <div class="w3-container w3-left">
+				      <p>Address: <%= outlets[i]["address"] %></p>
+				      <p>Cuisine: <%= outlets[i]["cuisine"] %></p>
+				      <p>Phone: <%= outlets[i]["phone"] %></p>
+				      <p style="font-size: 0.9em">About: <%= outlets[i]["about"] %></p>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<!-- <div>
 			<p>Name: <%= outlets[i]["name"] %></p>
 			<p>About: <%= outlets[i]["about"] %></p>
 			<p>Address: <%= outlets[i]["address"] %></p>
-			<p>Cusine: <%= outlets[i]["cusine"] %></p>
+			<p>Cuisine: <%= outlets[i]["cuisine"] %></p>
 			<p>Phone: <%= outlets[i]["phone"] %></p>
 			<hr>
-		</div>
+		</div> -->
 	<%}%>
+	
 </body>
 </html>
