@@ -10,7 +10,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
-var GroupUser = undefined;
+// var GroupUser = undefined;
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -74,7 +74,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 intents.matches('Greeting', (session) => {
     if(!session.userData.name) {
 		session.send("Hi! My name is Frudo. I am your Food Assistant.");
-    	session.beginDialog('GetUsername');
+		session.beginDialog('GetUsername');
     } else {
 	    session.send("Hi! " + session.userData.name);
     	users.push(session.userData.name);
@@ -112,9 +112,28 @@ intents.matches('Yes', (session) => {
 intents.matches('No', (session) => {
 	if(combinedYesNo) {
 		haveFriendsYesNo = false;
-		if(users.length!=1) {
-			session.send("Here are your combined recommendations");
-			GetGroupRecommendations(MainUser,users,session);
+		if(users.length > 1) {
+			session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+			if(session.message.entities[0]){
+			    var latitude = session.message.entities[0].geo.latitude;
+			    var longitude = session.message.entities[0].geo.longitude;
+		    	session.send("Thanks,Here are your combined recommendations");
+			    if(!session.userData.name){
+			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    }else{
+			    	MainUser.location.latitude = latitude;
+			    	MainUser.location.longitude = longitude;
+			    	MainUser.location.name = "";
+		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+						if(err){
+							res.send("Server error");
+						}
+						else{
+							GetGroupRecommendations(MainUser,users,session);
+						}
+					} );
+				}
+		    }			
 			// Display recommendation combined------------------------------------------------
 		}else{
 			session.beginDialog('Nothing');
@@ -148,16 +167,33 @@ bot.dialog('RateRestaurants', [
 ]);
 
 bot.dialog('RecommendRestaurant', [
-    function (session) {
+    function (session,args,next) {
     	var validUser = false;
-	    session.send("Sure. I advice you to try these restaurants.");
-	    if(!session.userData.name) {
-	    	getPersonalisedRatings(MainUser,session); // ---------------------------
-	    } else {
-	    	getPersonalisedRatings(MainUser,session);
+    	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+		if(session.message.entities[0]){
+		    var latitude = session.message.entities[0].geo.latitude;
+		    var longitude = session.message.entities[0].geo.longitude;
+	        session.send("Sure. I advice you to try these restaurants.");
+		    if(!session.userData.name){
+		    	getPersonalisedRatings(MainUser,session); // ---------------------------
+		    }else{
+		    	MainUser.location.latitude = latitude;
+		    	MainUser.location.longitude = longitude;
+		    	MainUser.location.name = "";
+	    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+					if(err){
+						res.send("Server error");
+					}
+					else{
+						getPersonalisedRatings(MainUser,session);
+					}
+				} );
+			}
+      	
 		}
     }
 ]);
+
 
 bot.dialog('Combined', [
 	function (session) {
@@ -174,9 +210,6 @@ bot.dialog('Combined', [
 					session.send("Sorry. This username does not exist.");
 				}
 				else {
-					// if(users.length === 1){
-					// 	GroupUser = [];
-					// }
 					users.push(username);
 				}
 				session.send("Continue with more friends?");
@@ -281,7 +314,6 @@ function getPersonalisedRatings(req,res){
 			}else{
 				tmp = outlets[i].featureVector
 				tmp["Rating"]=ratings[i]
-				console.log(tmp["Rating"]+"***")
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
 			}
@@ -346,9 +378,7 @@ function getPersonalisedRatings(req,res){
 	       		sortedArray.reverse()
 	       		sortedArray = sortedArray.splice(0,8)
 	       		session = res;
-	       		// console.log(req.noOfRated)
-				// res.send("profile",{ratings:ratings,learntData:sortedArray,location:req.location});
-				var msg = new builder.Message(session);
+	       		var msg = new builder.Message(session);
 			    msg.attachmentLayout(builder.AttachmentLayout.carousel)
 			    msg.attachments([
 			        new builder.HeroCard(session)
@@ -418,7 +448,6 @@ function GetGroupRecommendations(req,friends,res){
 			if(foundUser){
 				actualFriends.push(foundUser.username)
 				for(var j=0;j<foundUser.ratings.length;j++){
-					console.log(foundUser.ratings[j]+"*")
 					if(!foundUser.ratings[j])
 						continue
 					else if(foundUser.ratings[j] && !avgRatings[j])
