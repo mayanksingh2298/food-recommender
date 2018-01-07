@@ -1,0 +1,105 @@
+#wrap {
+  position: relative;
+}
+
+#navthing {
+  margin-left: 50px;
+}
+
+fieldset {
+  border: none;
+}
+
+.login,.register{
+  width: 15%;
+  display: none;
+  position: absolute;
+  right: 1%;
+  top:80px;
+}
+
+.formholder {
+  /*background: #ecf0f1;*/
+  background:rgba(255,255,255,0.7);
+  width: 100%;
+  border-radius: 5px;
+  padding-top: 5px;
+}
+.formholder input[type="text"], .formholder input[type="password"] {
+  text-align: center;
+  padding: 7px 5px;
+  margin: 10px 0;
+  width: 96%;
+  display: block;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+  -webkit-transition: 0.3s linear;
+  -moz-transition: 0.3s linear;
+  -o-transition: 0.3s linear;
+  transition: 0.3s linear;
+}
+.formholder input[type="text"]:focus, .formholder input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0 0 1px 1px #1abc9c;
+}
+.formholder input[type="submit"], #getLocation {
+  background:rgba(131,255,73,0.3);
+  margin:0 auto;
+  padding: 5px;
+  font-size: 15px;
+  display: block;
+  width: 60%;
+  border: none;
+  color: black;
+  border-radius: 5px;
+}
+.formholder input[type="submit"]:hover,#getLocation:hover {
+  background:rgba(131,255,73,0.6);
+
+}
+
+.randompad {
+  padding: 10px;
+}
+
+.green {
+  color: #1abc9c;
+}
+
+a {
+  color: #ecf0f1;
+  text-decoration: none;
+}
+a:hover {
+  color: #1abc9c;
+}
+#loginform{
+  position: absolute;
+  right:9%;
+  padding: 10px;
+  color: white;
+  background:rgba(0,0,0,0.3);
+  border-radius: 5px;
+  margin-top: 20px;
+  border: 1.5px solid white;
+  text-decoration: none;
+  width:5%;
+  text-align: center;
+}
+#registerform{
+  position: absolute;
+  right:1%;
+  padding: 10px;
+  color: white;
+  background:rgba(0,0,0,0.3);
+  border-radius: 5px;
+  margin-top: 20px;
+  border: 1.5px solid white;
+  text-decoration: none;
+  width:5%;
+  text-align: center;
+}
+.disabledButton{
+   background:rgba(211,220,234,0.3) !important;
+}
