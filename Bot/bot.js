@@ -10,7 +10,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
-var GroupUser = undefined;
+// var GroupUser = undefined;
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -150,13 +150,30 @@ bot.dialog('RateRestaurants', [
 bot.dialog('RecommendRestaurant', [
     function (session) {
     	var validUser = false;
-	    session.send("Sure. I advice you to try these restaurants.");
-	    if(!session.userData.name) {
-	    	getPersonalisedRatings(MainUser,session); // ---------------------------
-	    } else {
-	    	getPersonalisedRatings(MainUser,session);
-		}
-    }
+    	builder.Prompts.attachment(session, "Please send me your location. Just click on + icon and click the location icon to share location.");
+    },function (session,results) {
+	    console.log(results.response);
+	    var latitude = results.response.attachments[0].payload.coordinates.lat;
+	    var longitude = results.response.attachments[0].payload.coordinates.long;
+	    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
+	        session.send("Sure. I advice you to try these restaurants.");
+		    if(!session.userData.name){
+		    	getPersonalisedRatings(MainUser,session); // ---------------------------
+		    }else{
+		    	MainUser.location.latitude = latitude;
+		    	MainUser.location.longitude = longitude;
+		    	MainUser.location.name = data.results[0].formatted_address;
+	    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+					if(err){
+						res.send("Server error");
+					}
+					else{
+						getPersonalisedRatings(MainUser,session);
+					}
+				} );
+			}
+      	})
+    },
 ]);
 
 bot.dialog('Combined', [
@@ -174,9 +191,6 @@ bot.dialog('Combined', [
 					session.send("Sorry. This username does not exist.");
 				}
 				else {
-					// if(users.length === 1){
-					// 	GroupUser = [];
-					// }
 					users.push(username);
 				}
 				session.send("Continue with more friends?");
