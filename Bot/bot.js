@@ -1,11 +1,15 @@
 /*-----------------------------------------------------------------------------
 A simple echo bot for the Microsoft Bot Framework. 
 -----------------------------------------------------------------------------*/
+var http = require("http");
+var https = require("https");
+var querystring = require("querystring");
+var fs = require('fs');
 
 var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
-var FunDatabase = require('./../Database/Bot_database');
+var MainUser = undefined;
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -13,9 +17,9 @@ var mongoose 				= require('mongoose'),
     outlets					= require("../scrape/output.json")
     methodOverride          = require("method-override"),
     azureML                 = require("../public/ML-API.js")
-// console.log(outlets.length)
-// azureML.test("hello world")
-mongoose.connect("mongodb://localhost/foodrecos");
+
+// mongoose.connect("mongodb://localhost/foodrecos");
+mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -43,14 +47,14 @@ var tableName = 'botdata';
 var azureTableClient = new botbuilder_azure.AzureTableClient(tableName, process.env['AzureWebJobsStorage']);
 var tableStorage = new botbuilder_azure.AzureBotStorage({ gzipData: false }, azureTableClient);
 var inMemoryStorage = new builder.MemoryBotStorage();
-var useEmulator = (process.env.NODE_ENV === 'development');
-var Finalstorage;
-console.log(useEmulator);
-if(useEmulator){
-	Finalstorage = inMemoryStorage;
-}else{
-	Finalstorage = tableStorage;
-}
+// var useEmulator = (process.env.NODE_ENV === 'development');
+// var Finalstorage;
+// console.log(useEmulator);
+// if(useEmulator){
+// 	Finalstorage = inMemoryStorage;
+// }else{
+// 	Finalstorage = tableStorage;
+// }
 
 // Create your bot with a function to receive messages from the user
 var bot = new builder.UniversalBot(connector);
@@ -64,6 +68,7 @@ var users = [];
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
+
 intents.matches('Greeting', (session) => {
     if(!session.userData.name) {
 		session.send("Hi! My name is Frudo. I am your Food Assistant.");
@@ -127,13 +132,14 @@ bot.dialog('RecommendRestaurant', [
     function (session) {
 	    session.send("Sure. I advice you to try these restaurants.");
 	    if(!session.userData.name) {
-	    	// Genral Retrieval--------------------------------------
+	    	// General Retrieval--------------------------------------
 	    } else {
+	    	getPersonalisedRatings(MainUser,session);
 	    	// Retrieve restaurants from database--------------------------------------------------
 		}
-	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
-	    friendsYesNo = true;
-	    session.beginDialog('/');
+	    // session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
+	    // friendsYesNo = true;
+	    // session.beginDialog('/');
     }
 ]);
 
@@ -148,7 +154,6 @@ bot.dialog('RateRestaurant', [
     		session.endDialog();
     	}
     	else {
-    		// builder.Prompts.text(session, "Please provide a restaurant name");
     		session.dialogData.restaurantName = results.response;
     		if (true /*Condition to check restaurant from db*/) {
 		        builder.Prompts.text(session, "Yes this exists.");
@@ -209,7 +214,6 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
-		// builder.Prompts.choice(session, "Please choose what help you need.", "Personal Recommendations|Group Recommendations|Rate Restaurants|Introduction");
 		var msg = new builder.Message(session)
 		.text("Here are the things I can do for you.")
 		.suggestedActions(
@@ -221,7 +225,6 @@ bot.dialog('Help', [
 				builder.CardAction.imBack(session, "Introduction", "Introduction")
 			]
 		));
-		// session.send(msg);
 		builder.Prompts.text(session, msg);
 	},
 	function (session, results) {
@@ -260,6 +263,7 @@ bot.dialog('GetUsername', [
 				session.send("Some database error has occured. Please try again");
 			}else{
 				if(foundUser /*false Check username in database------------------------------------------done*/) {
+					MainUser = foundUser;
 					session.userData.name = results.response;
 					users.push(session.userData.name);
 					session.send("How may I help you?");
@@ -282,70 +286,144 @@ bot.dialog('Nothing', [
 	}
 ]);
 
-// bot.dialog('AskforContinue', [
-//     function (session) {
-//         builder.Prompts.text(session, "Do you want to Continue rating restaurants? y/n?");
-//     },
-//     function (session, results) {
-//     	if(results.response === "exit"){
-//     		session.send("Thank You for rating restaurants");
-//     		session.endDialog();
-//     	}else{
-//     		if(results.response === "y"){
-// 	        	session.beginDialog('Raterestaurant');
-// 	        }else{
-// 	        	session.send("Thank You for rating restaurants");
-// 	        	session.beginDialog('MetastableState');
-// 	        	// session.endDialog();
-// 	        }
-//     	}
-//     }
-// ]);
 
-// bot.dialog('MetastableState', [
-//     function (session) {
-//         builder.Prompts.text(session, "Anything else can I do?");
-//     },
-//     function (session, results) {
-//     	if(results.response === "exit"){
-//     		session.send("Thank You. Hope you like my service");
-//     		session.endDialog();
-//     	}else{
-//     		if(results.response === "Yes, please recommend a restaurant"){
-// 	        	session.beginDialog('RecommendRestaurant');
-// 	        }else if(results.response === "no"){
-// 	        	session.send("Thank You. Hope you like my service");
-// 	        	session.endDialog();
-// 	        }else{
-// 	        	session.send("Sorry I don't understand :(. Let's start over");
-// 	        	session.beginDialog('MetastableState');
-// 	        }
-//     	}
-//     }
-// ]);
+function getPersonalisedRatings(req,res){
+	var learnt=[]
+	var toLearn=[]
+	var toLearnInd=[]
+	var predictedData=[]
+	var ratings = req.ratings
+	if (req.noOfRated<4){
+		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit <a href='#'>here</a> and rate some more restaurants.");//---------------------------------
+	}else{
+		for(var i=0;i<outlets.length;i++){
+			if(ratings[i]==null){
+				toLearn.push(JSON.stringify(outlets[i].featureVector))
+				toLearnInd.push(i)
+			}else{
+				tmp = outlets[i].featureVector
+				tmp["Rating"]=ratings[i]
+				console.log(tmp["Rating"]+"***")
+				tmp =JSON.stringify(tmp)
+				learnt.push(tmp)
+			}
+		}
 
-// function Converse(){
-// 	console.log(Finalstorage);
-// 	var bot = new builder.UniversalBot(connector, function(session){
-// 		console.log("starting cocnversation");
-// 	    session.beginDialog('StartConverse');
-// 	});
-// 	bot.set('storage', inMemoryStorage); // Register in-memory storage 
-// 	//bot.set('storage', tableStorage);
-	    	
-// 	bot.dialog('StartConverse', [
-// 	   function (session) {
-// 	    	builder.Prompts.text(session, "Hi, My name is Frudi. I am your Food Assistant. How may I help you?");
-// 	    },
-// 	    function (session, results) {
-// 	   		if(results.response === "I want to rate restaurants"){
-// 	   			session.beginDialog('Raterestaurant');
-// 	   		}else if(results.response === "I want to have food"){
-// 	   			session.beginDialog('Recommendrestaurant');
-// 	   		}else{
-// 	   			var mm = "I don't recognize this sorry :(";
-// 	   			session.send(mm);
-// 	   		}
-// 	    }
-// 	]);
-// }
+		data1new=[]
+	    data2new=[]
+	    for(var i=0;i<learnt.length;i++){
+	        data1new.push(JSON.parse(learnt[i]))
+	    }
+	    for(var i=0;i<toLearn.length;i++){
+	        data2new.push(JSON.parse(toLearn[i]))
+	    }
+
+		var data = {
+	        "Inputs": {
+	                "input1":data1new
+	                ,
+	                "input2":data2new
+	                ,
+	        },
+		    "GlobalParameters":  {
+		    }
+		}
+		var dataString = JSON.stringify(data)
+	    var host = 'ussouthcentral.services.azureml.net'
+	    var path = '/workspaces/28e0446f7f3f475083aef3186ce5e9b1/services/23160a643d124e87974fee18d2572197/execute?api-version=2.0&format=swagger'
+	    var method = 'POST'
+	    var api_key = 'H36SNAlOQpz19IIIAcgFcbO6nrSdFrk8ieqMe/QIi3+dqx66tyqJyM36Ykm4Ua0QuRlc8WFqLuNnEG9vQiSzTA=='
+	    var headers = {'Content-Type':'application/json', 'Authorization':'Bearer ' + api_key};
+	    var options = {
+	        host: host,
+	        port: 443,
+	        path: path,
+	        method: 'POST',
+	        headers: headers
+		};
+	    var reqPost = https.request(options, function (res2) {
+	        res2.on('data', function(d) {
+	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
+	       		sortedArray=[]
+	       		maxDiff=0
+	       		maxRate=0
+	       		for (var i=0;i<predictedData.length;i++){//to get max to scale them
+	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
+	       			tmpLat = tmpLatLong[0]
+	       			tmpLong = tmpLatLong[1]
+	       			diff = Math.abs(req.location.latitude-tmpLat)+Math.abs(req.location.longitude-tmpLong)
+	       			maxDiff	= Math.max(maxDiff,diff)
+	       			predRate = Number(predictedData[i]["Scored Labels"])
+	       			maxRate = Math.max(maxRate,predRate)
+	       		}
+	       		for (var i=0;i<predictedData.length;i++){
+	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
+	       			tmpLat = tmpLatLong[0]
+	       			tmpLong = tmpLatLong[1]
+	       			diff = Math.abs(req.location.latitude-tmpLat)+Math.abs(req.location.longitude-tmpLong)
+	       			predRate = Number(predictedData[i]["Scored Labels"])
+	       			sortedArray.push([-diff/maxDiff+predRate/maxRate,predRate,toLearnInd[i]])
+	       		}
+	       		sortedArray.sort()
+	       		sortedArray.reverse()
+	       		sortedArray = sortedArray.splice(0,8)
+	       		session = res;
+	       		// console.log(req.noOfRated)
+				// res.send("profile",{ratings:ratings,learntData:sortedArray,location:req.location});
+				var msg = new builder.Message(session);
+			    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+			    msg.attachments([
+			        new builder.HeroCard(session)
+			            .title(outlets[0].name)
+			            .subtitle("Best Cuisines: " + outlets[0].cuisine)
+			            .text("Address : " + outlets[0].address)
+			            .images([builder.CardImage.create(session, outlets[0].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[1].name)
+			            .subtitle("Best Cuisines: " + outlets[1].cuisine)
+			            .text("Address : " + outlets[1].address)
+			            .images([builder.CardImage.create(session, outlets[1].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[2].name)
+			            .subtitle("Best Cuisines: " + outlets[2].cuisine)
+			            .text("Address : " + outlets[2].address)
+			            .images([builder.CardImage.create(session, outlets[2].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[3].name)
+			            .subtitle("Best Cuisines: " + outlets[3].cuisine)
+			            .text("Address : " + outlets[3].address)
+			            .images([builder.CardImage.create(session, outlets[3].img)]),			            
+			        new builder.HeroCard(session)
+			            .title(outlets[4].name)
+			            .subtitle("Best Cuisines: " + outlets[4].cuisine)
+			            .text("Address : " + outlets[4].address)
+			            .images([builder.CardImage.create(session, outlets[4].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[5].name)
+			            .subtitle("Best Cuisines: " + outlets[5].cuisine)
+			            .text("Address : " + outlets[5].address)
+			            .images([builder.CardImage.create(session, outlets[5].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[6].name)
+			            .subtitle("Best Cuisines: " + outlets[6].cuisine)
+			            .text("Address : " + outlets[6].address)
+			            .images([builder.CardImage.create(session, outlets[6].img)]),
+			        new builder.HeroCard(session)
+			            .title(outlets[7].name)
+			            .subtitle("Best Cuisines: " + outlets[7].cuisine)
+			            .text("Address : " + outlets[7].address)
+			            .images([builder.CardImage.create(session, outlets[7].img)]),
+			    ]);
+			    session.send(msg);
+	    	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
+			    friendsYesNo = true;
+			    session.beginDialog('/');
+	        });
+	    });
+	    reqPost.write(dataString);
+	    reqPost.end();
+	    reqPost.on('error', function(e){
+	        console.error(e);
+	        });
+	}
+}
