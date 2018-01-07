@@ -14,6 +14,7 @@
 	<!-- /// -->
 	<div id="topDetails">
 		<% if(isLoggedIn==1){ %>
+			<a id="right1" href="/profile">Profile</a>
 			<a id="right2" href="/logout">Logout</a>
 		<% }else{ %>
 			<!-- <a id="right1" href="/login">Login</a>
@@ -78,7 +79,7 @@
 				  <div class="w3-card-4" style="width:100%">
 				    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Norway" style="width:100%">
 				    <div  id="hei2" class="w3-container w3-center">
-				      <p> <%= outlets[i]["name"] %></p>
+				      <p > <%= outlets[i]["name"] %></p>
 				    </div>
 				  </div>
 				</div>	
