@@ -2,10 +2,10 @@
   "name": "imagincup-foodreco",
   "version": "1.0.0",
   "description": "A food recommender app to tell the best resturant nearby automatically after learning the user",
-  "main": "index.js",
+  "main": "./Bot/bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./Bot/bot.js"
   },
   "repository": {
     "type": "git",
