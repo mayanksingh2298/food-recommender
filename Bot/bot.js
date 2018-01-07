@@ -13,9 +13,11 @@ var mongoose 				= require('mongoose'),
     outlets					= require("../scrape/output.json")
     methodOverride          = require("method-override"),
     azureML                 = require("../public/ML-API.js")
+
 // console.log(outlets.length)
 // azureML.test("hello world")
-mongoose.connect("mongodb://localhost/foodrecos");
+// mongoose.connect("mongodb://localhost/foodrecos");
+mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -88,8 +90,7 @@ intents.matches('Recommend', (session) => {
 	session.beginDialog('RecommendRestaurant');
 });
 intents.matches('RateRestaurants', (session) => {
-	session.send("Let's rate the restaurant in steps.");
-	session.beginDialog('RateRestaurant');
+	session.beginDialog('RateRestaurants');
 });
 intents.matches('Yes', (session) => {
 	if (friendsYesNo) {
@@ -123,63 +124,41 @@ var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
 bot.dialog('/', intents);    
 
+
+bot.dialog('RateRestaurants', [
+   	function (session) {
+   		session.send("For security reasons, you can rate restaurants on our webapp only.");
+   		session.send("Please follow [this](http://www.iitd.ac.in) link to register yourself and/or rate restaurants");
+   		session.beginDialog('Nothing');
+    }
+]);
+
 bot.dialog('RecommendRestaurant', [
     function (session) {
+    	var validUser = false;
 	    session.send("Sure. I advice you to try these restaurants.");
 	    if(!session.userData.name) {
-	    	// Genral Retrieval--------------------------------------
+	    	// General Retrieval--------------------------------------
 	    } else {
-	    	// Retrieve restaurants from database--------------------------------------------------
+	    	// Retrieve restaurants from database-------------------------Done
+	    	var username = session.userData.name;
+		    User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
+				if(err){
+					session.send("Some database error has occured. Please try again");
+				}else{
+					if (!foundUser) {
+						session.send("Sorry. This username does not exist. Please check out the following general recommendations.");
+						// General Retrieval-------------------------------------
+					}
+					else {
+
+					}
+				}
+			});
 		}
 	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
 	    friendsYesNo = true;
 	    session.beginDialog('/');
-    }
-]);
-
-bot.dialog('RateRestaurant', [
-   	function (session) {
-   		builder.Prompts.text(session, "Please provide a restaurant name");
-    },
-    function (session, results) {
-    	if(results.response === "exit") {
-    		console.log("check");
-    		session.send("Thank You for rating restaurants");
-    		session.endDialog();
-    	}
-    	else {
-    		// builder.Prompts.text(session, "Please provide a restaurant name");
-    		session.dialogData.restaurantName = results.response;
-    		if (true /*Condition to check restaurant from db*/) {
-		        builder.Prompts.text(session, "Yes this exists.");
-		        var msg = new builder.Message(session)
-				.text("Please rate the restaurant out of 5. It will help us to learn your taste. Thank You")
-				.suggestedActions(
-				builder.SuggestedActions.create(
-					session, [
-						builder.CardAction.imBack(session, "1", "1"),	// (actual value, value displayed to user)
-						builder.CardAction.imBack(session, "2", "2"),
-						builder.CardAction.imBack(session, "3", "3"),
-						builder.CardAction.imBack(session, "4", "4"),
-						builder.CardAction.imBack(session, "5", "5")
-					]
-				));
-				session.send(msg);
-    		}
-    		else {
-    			session.send("Sorry. I could not find the mentioned restaurant.");
-    		}
-    	}
-    },
-    function (session, results) {
-    	if(results.response === "exit"){
-    		session.send("Thank You for rating restaurants");
-    		session.endDialog();
-    	}else{
-	     	session.dialogData.restaurantRating = results.response;   
-	    	session.send(`Thank You.<br/> Details: <br/>Name: ${session.dialogData.restaurantName} <br/>rating: ${session.dialogData.restaurantRating}`);
-	    	session.beginDialog('Nothing');
-	    }
     }
 ]);
 
@@ -250,8 +229,8 @@ bot.dialog('Help', [
 
 bot.dialog('GetUsername', [
 	function (session) {
-		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register <a href='#'>here</a> so that I can know you.");
-		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself <a href='https://www.iitd.ac.in'>here</a>"); //---------------------
+		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register [here](http://www.iitd.ac.in) so that I can know you.");
+		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://www.iitd.ac.in)"); //---------------------
 	},
 	function (session, results) {
 		var username = results.response;
@@ -263,13 +242,14 @@ bot.dialog('GetUsername', [
 					session.userData.name = results.response;
 					users.push(session.userData.name);
 					session.send("How may I help you?");
+					session.beginDialog('/');
 				}
 				else {
-					session.send("Sorry. This username does not exist.");
-					session.send("If you don't have a username yet please register yourself <a href='#'>here</a>"); //----------------------------------
+					session.send("Sorry. This username does not exist. However, I can provide you general recommendations as well.");
+					session.send("To get personalized recommendations, please register yourself [here](http://www.iitd.ac.in)"); //----------------------------------
+					session.beginDialog('Nothing');
 				}
 			}
-			session.endDialog();
 		});
 	}
 ]);
