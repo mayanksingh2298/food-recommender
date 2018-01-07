@@ -75,15 +75,14 @@ intents.matches('Greeting', (session) => {
     }
 });
 
-/////////////
+//-------------------------------------------------------------Done
 intents.matches('Help', (session) => {
     session.beginDialog('Help');
 });
-////////////////
+//-------------------------------------------------------------Done
 intents.matches('Cancel', (session) => {
-    session.send("Thank you for visiting Frudo. Please do come again!");
+    session.send("Hope you liked my service. Thanks!");
 });
-////////////////
 
 intents.matches('Recommend', (session) => {
 	session.beginDialog('RecommendRestaurant');
@@ -96,17 +95,17 @@ intents.matches('Yes', (session) => {
 	if (friendsYesNo) {
 		session.send("Please continue if you know the usernames of your friends.");
 		session.send("Continue? Yes/No.");
-		friends = false;
-		haveFriends = true;
+		friendsYesNo = false;
+		haveFriendsYesNo = true;
 	}
-	if(haveFriendsYesNo) {
+	else if(haveFriendsYesNo) {
 		session.beginDialog('Combined');
 		// haveFriends to be false in dialog-----------------------------------------------
 	}
 });
 intents.matches('No', (session) => {
 	if(combinedYesNo) {
-		haveFriends = false;
+		haveFriendsYesNo = false;
 		if(users.length!=1) {
 			session.send("Here are your combined recommendations");
 			// Display recommendation combined------------------------------------------------
@@ -132,7 +131,7 @@ bot.dialog('RecommendRestaurant', [
 	    	// Retrieve restaurants from database--------------------------------------------------
 		}
 	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
-	    friends = true;
+	    friendsYesNo = true;
 	    session.beginDialog('/');
     }
 ]);
@@ -148,7 +147,7 @@ bot.dialog('RateRestaurant', [
     		session.endDialog();
     	}
     	else {
-    		builder.Prompts.text(session, "Please provide a restaurant name");
+    		// builder.Prompts.text(session, "Please provide a restaurant name");
     		session.dialogData.restaurantName = results.response;
     		if (true /*Condition to check restaurant from db*/) {
 		        builder.Prompts.text(session, "Yes this exists.");
@@ -164,11 +163,11 @@ bot.dialog('RateRestaurant', [
 						builder.CardAction.imBack(session, "5", "5")
 					]
 				));
+				session.send(msg);
     		}
     		else {
-    			builder.Prompts.text(session, "Sorry. I could not find the mentioned restaurant.");
+    			session.send("Sorry. I could not find the mentioned restaurant.");
     		}
-			session.send(msg);
     	}
     },
     function (session, results) {
@@ -203,10 +202,23 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session) {
-		builder.Prompts.choice(session, "Please choose what help you need.", "Personal Recommendations|Group Recommendations|Rate Restaurants|Introduction")
+		// builder.Prompts.choice(session, "Please choose what help you need.", "Personal Recommendations|Group Recommendations|Rate Restaurants|Introduction");
+		var msg = new builder.Message(session)
+		.text("Please choose what help you need.")
+		.suggestedActions(
+		builder.SuggestedActions.create(
+			session, [
+				builder.CardAction.imBack(session, "Personal Recommendations", "Personal Recommendations"),
+				builder.CardAction.imBack(session, "Group Recommendations", "Group Recommendations"),
+				builder.CardAction.imBack(session, "Rate Restaurants", "Rate Restaurants"),
+				builder.CardAction.imBack(session, "Introduction", "Introduction")
+			]
+		));
+		session.send(msg);
 	},
 	function (session, results) {
-		switch(results.response.entity){
+		var response = results.response;
+		switch(response){
             case "Personal Recommendations":
                 session.beginDialog('RecommendRestaurant');
                 break;
@@ -220,6 +232,7 @@ bot.dialog('Help', [
                 session.beginDialog('GetUsername');
                 break;
         }
+        session.beginDialog('/');
 	}
 ]);
 
@@ -241,47 +254,55 @@ bot.dialog('GetUsername', [
 	}
 ]);
 
-bot.dialog('AskforContinue', [
-    function (session) {
-        builder.Prompts.text(session, "Do you want to Continue rating restaurants? y/n?");
-    },
-    function (session, results) {
-    	if(results.response === "exit"){
-    		session.send("Thank You for rating restaurants");
-    		session.endDialog();
-    	}else{
-    		if(results.response === "y"){
-	        	session.beginDialog('Raterestaurant');
-	        }else{
-	        	session.send("Thank You for rating restaurants");
-	        	session.beginDialog('MetastableState');
-	        	// session.endDialog();
-	        }
-    	}
-    }
+// Here's the nothing dialog, to be run when no other dialog is required
+bot.dialog('Nothing', [
+	function (session) {
+		session.send("Is there anything else I can do for you?");
+		session.beginDialog('/');
+	}
 ]);
 
-bot.dialog('MetastableState', [
-    function (session) {
-        builder.Prompts.text(session, "Anything else can I do?");
-    },
-    function (session, results) {
-    	if(results.response === "exit"){
-    		session.send("Thank You. Hope you like my service");
-    		session.endDialog();
-    	}else{
-    		if(results.response === "Yes, please recommend a restaurant"){
-	        	session.beginDialog('RecommendRestaurant');
-	        }else if(results.response === "no"){
-	        	session.send("Thank You. Hope you like my service");
-	        	session.endDialog();
-	        }else{
-	        	session.send("Sorry I don't understand :(. Let's start over");
-	        	session.beginDialog('MetastableState');
-	        }
-    	}
-    }
-]);
+// bot.dialog('AskforContinue', [
+//     function (session) {
+//         builder.Prompts.text(session, "Do you want to Continue rating restaurants? y/n?");
+//     },
+//     function (session, results) {
+//     	if(results.response === "exit"){
+//     		session.send("Thank You for rating restaurants");
+//     		session.endDialog();
+//     	}else{
+//     		if(results.response === "y"){
+// 	        	session.beginDialog('Raterestaurant');
+// 	        }else{
+// 	        	session.send("Thank You for rating restaurants");
+// 	        	session.beginDialog('MetastableState');
+// 	        	// session.endDialog();
+// 	        }
+//     	}
+//     }
+// ]);
+
+// bot.dialog('MetastableState', [
+//     function (session) {
+//         builder.Prompts.text(session, "Anything else can I do?");
+//     },
+//     function (session, results) {
+//     	if(results.response === "exit"){
+//     		session.send("Thank You. Hope you like my service");
+//     		session.endDialog();
+//     	}else{
+//     		if(results.response === "Yes, please recommend a restaurant"){
+// 	        	session.beginDialog('RecommendRestaurant');
+// 	        }else if(results.response === "no"){
+// 	        	session.send("Thank You. Hope you like my service");
+// 	        	session.endDialog();
+// 	        }else{
+// 	        	session.send("Sorry I don't understand :(. Let's start over");
+// 	        	session.beginDialog('MetastableState');
+// 	        }
+//     	}
+//     }
+// ]);
 
 // function Converse(){
 // 	console.log(Finalstorage);
