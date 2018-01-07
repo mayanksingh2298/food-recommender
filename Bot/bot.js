@@ -99,7 +99,7 @@ intents.matches('No', (session) => {
 			// Display recommendation combined------------------------------------------------
 		}
 	}
-	session.beginDialog('/');
+	session.beginDialog('Nothing');
 })
 intents.onDefault((session) => {
     session.send('Sorry, I did not understand that. :(');
