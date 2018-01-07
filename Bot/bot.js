@@ -117,25 +117,23 @@ intents.matches('No', (session) => {
 			if(session.message.entities[0]){
 			    var latitude = session.message.entities[0].geo.latitude;
 			    var longitude = session.message.entities[0].geo.longitude;
-			    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
-					session.send("Thanks,Here are your combined recommendations");
-				    if(!session.userData.name){
-				    	getPersonalisedRatings(MainUser,session); // ---------------------------
-				    }else{
-				    	MainUser.location.latitude = latitude;
-				    	MainUser.location.longitude = longitude;
-				    	MainUser.location.name = data.results[0].formatted_address;
-			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-							if(err){
-								res.send("Server error");
-							}
-							else{
-								GetGroupRecommendations(MainUser,users,session);
-							}
-						} );
-					}
-		      	})
-			}			
+		    	session.send("Thanks,Here are your combined recommendations");
+			    if(!session.userData.name){
+			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    }else{
+			    	MainUser.location.latitude = latitude;
+			    	MainUser.location.longitude = longitude;
+			    	MainUser.location.name = "";
+		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+						if(err){
+							res.send("Server error");
+						}
+						else{
+							GetGroupRecommendations(MainUser,users,session);
+						}
+					} );
+				}
+		    }			
 			// Display recommendation combined------------------------------------------------
 		}else{
 			session.beginDialog('Nothing');
@@ -175,24 +173,23 @@ bot.dialog('RecommendRestaurant', [
 		if(session.message.entities[0]){
 		    var latitude = session.message.entities[0].geo.latitude;
 		    var longitude = session.message.entities[0].geo.longitude;
-		    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
-		        session.send("Sure. I advice you to try these restaurants.");
-			    if(!session.userData.name){
-			    	getPersonalisedRatings(MainUser,session); // ---------------------------
-			    }else{
-			    	MainUser.location.latitude = latitude;
-			    	MainUser.location.longitude = longitude;
-			    	MainUser.location.name = data.results[0].formatted_address;
-		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-						if(err){
-							res.send("Server error");
-						}
-						else{
-							getPersonalisedRatings(MainUser,session);
-						}
-					} );
-				}
-	      	})
+	        session.send("Sure. I advice you to try these restaurants.");
+		    if(!session.userData.name){
+		    	getPersonalisedRatings(MainUser,session); // ---------------------------
+		    }else{
+		    	MainUser.location.latitude = latitude;
+		    	MainUser.location.longitude = longitude;
+		    	MainUser.location.name = "";
+	    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+					if(err){
+						res.send("Server error");
+					}
+					else{
+						getPersonalisedRatings(MainUser,session);
+					}
+				} );
+			}
+      	
 		}
     }
 ]);
