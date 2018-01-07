@@ -91,9 +91,23 @@ intents.matches('Cancel', (session) => {
     session.send("Hope you liked my service. Thanks!");
 });
 
-intents.matches('Recommend', (session) => {
-	session.beginDialog('RecommendRestaurant');
-});
+intents.matches('Recommend', [(session, args, next) => {
+		session.send(args.entities[0]["entity"]);
+		session.send(args.entities[0]["type"]);
+		var title = builder.EntityRecognizer.findEntity(args.entities, 'Restaurants.Cuisine');
+		var cuisine = title ? title.entity : null;
+		if(cuisine) {
+			session.send("I found the cuisine");
+			session.beginDialog('/');
+			// getCuisineRecommendations(MainUser, session);---------------------
+		} else {
+			next();	
+		}
+	},
+	(session, results) => {
+		session.beginDialog('RecommendRestaurant');
+	}
+]);
 intents.matches('RateRestaurants', (session) => {
 	session.beginDialog('RateRestaurants');
 });
@@ -189,7 +203,6 @@ bot.dialog('RecommendRestaurant', [
 					}
 				} );
 			}
-      	
 		}
     }
 ]);
