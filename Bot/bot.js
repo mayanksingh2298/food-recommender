@@ -10,6 +10,7 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
+var GroupUser = undefined;
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -113,9 +114,11 @@ intents.matches('No', (session) => {
 		haveFriendsYesNo = false;
 		if(users.length!=1) {
 			session.send("Here are your combined recommendations");
+			GetGroupRecommendations(MainUser,users,session);
 			// Display recommendation combined------------------------------------------------
+		}else{
+			session.beginDialog('Nothing');
 		}
-		session.beginDialog('Nothing');
 	}
 	if(inNothing) {
 		inNothing = false;
@@ -163,6 +166,7 @@ bot.dialog('Combined', [
 	function (session, results) {
 		var username = results.response;
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
+			MainUser = foundUser;
 			if(err){
 				session.send("Some database error has occured. Please try again");
 			}else{
@@ -170,6 +174,9 @@ bot.dialog('Combined', [
 					session.send("Sorry. This username does not exist.");
 				}
 				else {
+					// if(users.length === 1){
+					// 	GroupUser = [];
+					// }
 					users.push(username);
 				}
 				session.send("Continue with more friends?");
@@ -345,45 +352,45 @@ function getPersonalisedRatings(req,res){
 			    msg.attachmentLayout(builder.AttachmentLayout.carousel)
 			    msg.attachments([
 			        new builder.HeroCard(session)
-			            .title(outlets[0].name)
-			            .subtitle("Best Cuisines: " + outlets[0].cuisine)
-			            .text("Address : " + outlets[0].address)
-			            .images([builder.CardImage.create(session, outlets[0].img)]),
+			            .title(outlets[sortedArray[0][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[0][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[0][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[0][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[1].name)
-			            .subtitle("Best Cuisines: " + outlets[1].cuisine)
-			            .text("Address : " + outlets[1].address)
-			            .images([builder.CardImage.create(session, outlets[1].img)]),
+			            .title(outlets[sortedArray[1][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[1][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[1][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[1][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[2].name)
-			            .subtitle("Best Cuisines: " + outlets[2].cuisine)
-			            .text("Address : " + outlets[2].address)
-			            .images([builder.CardImage.create(session, outlets[2].img)]),
+			            .title(outlets[sortedArray[2][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[2][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[2][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[2][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[3].name)
-			            .subtitle("Best Cuisines: " + outlets[3].cuisine)
-			            .text("Address : " + outlets[3].address)
-			            .images([builder.CardImage.create(session, outlets[3].img)]),			            
+			            .title(outlets[sortedArray[3][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[3][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[3][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[3][2]].img)]),			            
 			        new builder.HeroCard(session)
-			            .title(outlets[4].name)
-			            .subtitle("Best Cuisines: " + outlets[4].cuisine)
-			            .text("Address : " + outlets[4].address)
-			            .images([builder.CardImage.create(session, outlets[4].img)]),
+			            .title(outlets[sortedArray[4][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[4][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[4][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[4][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[5].name)
-			            .subtitle("Best Cuisines: " + outlets[5].cuisine)
-			            .text("Address : " + outlets[5].address)
-			            .images([builder.CardImage.create(session, outlets[5].img)]),
+			            .title(outlets[sortedArray[5][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[5][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[5][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[5][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[6].name)
-			            .subtitle("Best Cuisines: " + outlets[6].cuisine)
-			            .text("Address : " + outlets[6].address)
-			            .images([builder.CardImage.create(session, outlets[6].img)]),
+			            .title(outlets[sortedArray[6][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[6][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[6][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[6][2]].img)]),
 			        new builder.HeroCard(session)
-			            .title(outlets[7].name)
-			            .subtitle("Best Cuisines: " + outlets[7].cuisine)
-			            .text("Address : " + outlets[7].address)
-			            .images([builder.CardImage.create(session, outlets[7].img)]),
+			            .title(outlets[sortedArray[7][2]].name)
+			            .subtitle("Best Cuisines: " + outlets[sortedArray[7][2]].cuisine)
+			            .text("Address : " + outlets[sortedArray[7][2]].address)
+			            .images([builder.CardImage.create(session, outlets[sortedArray[7][2]].img)]),
 			    ]);
 			    session.send(msg);
 	    	    session.send("Are you going out with some friends? I can recommend you the best place according to your common taste.");
@@ -396,5 +403,171 @@ function getPersonalisedRatings(req,res){
 	    reqPost.on('error', function(e){
 	        console.error(e);
 	        });
+	}
+}
+
+
+function GetGroupRecommendations(req,friends,res){
+	session = res;
+	var actualFriends=[req.username]
+	var avgRatings=req.ratings
+	counter=0
+	for(var i=0;i<friends.length;i++){
+		User.findOne({username:new RegExp('^'+friends[i]+'$',"i")},function(err,foundUser){	
+			counter++
+			if(foundUser){
+				actualFriends.push(foundUser.username)
+				for(var j=0;j<foundUser.ratings.length;j++){
+					console.log(foundUser.ratings[j]+"*")
+					if(!foundUser.ratings[j])
+						continue
+					else if(foundUser.ratings[j] && !avgRatings[j])
+						avgRatings[j] = foundUser.ratings[j]
+					else
+						avgRatings[j] = Number(avgRatings[j])+Number(foundUser.ratings[j])
+				}
+			}
+			if(counter==friends.length){
+				noOfRated=0
+				for(var j=0;j<avgRatings.length;j++){
+					if (avgRatings[j]){
+						noOfRated++
+						avgRatings[j] = Number(avgRatings[j])/actualFriends.length
+					}
+				}
+				learnt=[]
+				toLearn=[]
+				toLearnInd=[]
+				predictedData=[]
+				if (noOfRated<4){
+					res.send("You have entered a wrong name");
+					res.beginDialog('/');
+				}else{
+					for(var j=0;j<outlets.length;j++){
+						if(avgRatings[j]==null){
+							toLearn.push(JSON.stringify(outlets[j].featureVector))
+							toLearnInd.push(j)
+						}else{
+							tmp = outlets[j].featureVector
+							tmp["Rating"]=Math.round(avgRatings[j]).toString()
+							tmp =JSON.stringify(tmp)
+							learnt.push(tmp)
+						}
+					}
+					
+					data1new=[]
+				    data2new=[]
+				    for(var j=0;j<learnt.length;j++){
+				        data1new.push(JSON.parse(learnt[j]))
+				    }
+				    for(var j=0;j<toLearn.length;j++){
+				        data2new.push(JSON.parse(toLearn[j]))
+				    }
+					var data = {
+				        "Inputs": {
+				                "input1":data1new
+				                ,
+				                "input2":data2new
+				                ,
+				        },
+					    "GlobalParameters":  {
+					    }
+					}
+					var dataString = JSON.stringify(data)
+				    var host = 'ussouthcentral.services.azureml.net'
+				    var path = '/workspaces/28e0446f7f3f475083aef3186ce5e9b1/services/23160a643d124e87974fee18d2572197/execute?api-version=2.0&format=swagger'
+				    var method = 'POST'
+				    var api_key = 'H36SNAlOQpz19IIIAcgFcbO6nrSdFrk8ieqMe/QIi3+dqx66tyqJyM36Ykm4Ua0QuRlc8WFqLuNnEG9vQiSzTA=='
+				    var headers = {'Content-Type':'application/json', 'Authorization':'Bearer ' + api_key};
+				    var options = {
+				        host: host,
+				        port: 443,
+				        path: path,
+				        method: 'POST',
+				        headers: headers
+					};
+				    var reqPost = https.request(options, function (res2) {
+				        res2.on('data', function(d) {
+				            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
+				       		sortedArray=[]
+				       		maxDiff=0
+				       		maxRate=0
+				       		for (var j=0;j<predictedData.length;j++){//to get max to scale them
+				       			tmpLatLong = outlets[toLearnInd[j]]["lat,long"].split(",")
+				       			tmpLat = tmpLatLong[0]
+				       			tmpLong = tmpLatLong[1]
+				       			diff = Math.abs(req.location.latitude-tmpLat)+Math.abs(req.location.longitude-tmpLong)
+				       			maxDiff	= Math.max(maxDiff,diff)
+				       			predRate = Number(predictedData[j]["Scored Labels"])
+				       			maxRate = Math.max(maxRate,predRate)
+				       		}
+				       		for (var j=0;j<predictedData.length;j++){
+				       			tmpLatLong = outlets[toLearnInd[j]]["lat,long"].split(",")
+				       			tmpLat = tmpLatLong[0]
+				       			tmpLong = tmpLatLong[1]
+				       			diff = Math.abs(req.location.latitude-tmpLat)+Math.abs(req.location.longitude-tmpLong)
+				       			predRate = Number(predictedData[j]["Scored Labels"])
+				       			sortedArray.push([-diff/maxDiff+predRate/maxRate,predRate,toLearnInd[j]])
+				       		}
+				       		sortedArray.sort()
+				       		sortedArray.reverse()
+				       		sortedArray=sortedArray.splice(0,8)
+
+							var msg = new builder.Message(session);
+						    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+						    msg.attachments([
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[0][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[0][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[0][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[0][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[1][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[1][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[1][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[1][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[2][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[2][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[2][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[2][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[3][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[3][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[3][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[3][2]].img)]),			            
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[4][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[4][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[4][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[4][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[5][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[5][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[5][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[5][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[6][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[6][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[6][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[6][2]].img)]),
+						        new builder.HeroCard(session)
+						            .title(outlets[sortedArray[7][2]].name)
+						            .subtitle("Best Cuisines: " + outlets[sortedArray[7][2]].cuisine)
+						            .text("Address : " + outlets[sortedArray[7][2]].address)
+						            .images([builder.CardImage.create(session, outlets[sortedArray[7][2]].img)]),
+						    ]);
+						    session.send(msg);
+				        });
+				    });
+					reqPost.write(dataString);
+				    reqPost.end();
+				    reqPost.on('error', function(e){
+				        console.error(e);
+				        });
+					res.beginDialog('Nothing');
+				}
+			}
+		})
 	}
 }
