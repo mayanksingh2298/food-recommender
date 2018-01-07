@@ -19,6 +19,8 @@ var mongoose 				= require('mongoose'),
     methodOverride          = require("method-override"),
     azureML                 = require("../public/ML-API.js")
 
+var longitude = undefined;
+var latitude = undefined;
 // mongoose.connect("mongodb://localhost/foodrecos");
 mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
 
@@ -113,28 +115,38 @@ intents.matches('No', (session) => {
 	if(combinedYesNo) {
 		haveFriendsYesNo = false;
 		if(users.length > 1) {
-			session.send("Please send me your location. Just click on + icon and click the location icon to share location");
-			if(session.message.entities[0]){
-			    var latitude = session.message.entities[0].geo.latitude;
-			    var longitude = session.message.entities[0].geo.longitude;
-		    	session.send("Thanks,Here are your combined recommendations");
-			    if(!session.userData.name){
+			if(longitude && latitude){
+				if(!session.userData.name){
+			    	session.send("Here are the general choice of most favorable restaurants");
 			    	getPersonalisedRatings(MainUser,session); // ---------------------------
 			    }else{
-			    	MainUser.location.latitude = latitude;
-			    	MainUser.location.longitude = longitude;
-			    	MainUser.location.name = "";
-		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-						if(err){
-							res.send("Server error");
-						}
-						else{
-							GetGroupRecommendations(MainUser,users,session);
-						}
-					} );
-				}
-		    }			
-			// Display recommendation combined------------------------------------------------
+			    	session.send("Thanks,Here are your combined recommendations");
+	    			GetGroupRecommendations(MainUser,users,session);
+				}				
+			}else{
+				session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+				if(session.message.entities[0]){
+				    latitude = session.message.entities[0].geo.latitude;
+				    longitude = session.message.entities[0].geo.longitude;
+			    	session.send("Thanks,Here are your combined recommendations");
+				    if(!session.userData.name){
+			    		session.send("Here are the general choice of most favorable restaurants");
+				    	getPersonalisedRatings(MainUser,session); // ---------------------------
+				    }else{
+				    	MainUser.location.latitude = latitude;
+				    	MainUser.location.longitude = longitude;
+				    	MainUser.location.name = "";
+			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+							if(err){
+								res.send("Server error");
+							}
+							else{
+								GetGroupRecommendations(MainUser,users,session);
+							}
+						} );
+					}
+			    }
+			}    			
 		}else{
 			session.beginDialog('Nothing');
 		}
@@ -170,27 +182,36 @@ bot.dialog('RecommendRestaurant', [
     function (session,args,next) {
     	var validUser = false;
     	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
-		if(session.message.entities[0]){
-		    var latitude = session.message.entities[0].geo.latitude;
-		    var longitude = session.message.entities[0].geo.longitude;
-	        session.send("Sure. I advice you to try these restaurants.");
-		    if(!session.userData.name){
+		if(longitude && latitude){
+			if(!session.userData.name){
+		    	session.send("Here are the general choice of most favorable restaurants");
 		    	getPersonalisedRatings(MainUser,session); // ---------------------------
 		    }else{
-		    	MainUser.location.latitude = latitude;
-		    	MainUser.location.longitude = longitude;
-		    	MainUser.location.name = "";
-	    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-					if(err){
-						res.send("Server error");
-					}
-					else{
-						getPersonalisedRatings(MainUser,session);
-					}
-				} );
-			}
-      	
-		}
+		    	getPersonalisedRatings(MainUser,session);
+			}				
+		}else{
+			if(session.message.entities[0]){
+			    latitude = session.message.entities[0].geo.latitude;
+			    longitude = session.message.entities[0].geo.longitude;
+		        session.send("Sure. I advice you to try these restaurants.");
+			    if(!session.userData.name){
+			    	session.send("Here are the general choice of most favorable restaurants");
+			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    }else{
+			    	MainUser.location.latitude = latitude;
+			    	MainUser.location.longitude = longitude;
+			    	MainUser.location.name = "";
+		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+						if(err){
+							res.send("Server error");
+						}
+						else{
+							getPersonalisedRatings(MainUser,session);
+						}
+					} );
+				}
+	    	}
+	    }	
     }
 ]);
 
@@ -206,7 +227,7 @@ bot.dialog('Combined', [
 			if(err){
 				session.send("Some database error has occured. Please try again");
 			}else{
-				if(!foundUser /*false Check username in database------------------------------------------done*/) {
+				if(!foundUser) {
 					session.send("Sorry. This username does not exist.");
 				}
 				else {
@@ -469,7 +490,7 @@ function GetGroupRecommendations(req,friends,res){
 				toLearnInd=[]
 				predictedData=[]
 				if (noOfRated<4){
-					res.send("You have entered a wrong name");
+					res.send("You have rated less restaurants than required.");
 					res.beginDialog('/');
 				}else{
 					for(var j=0;j<outlets.length;j++){
@@ -587,6 +608,7 @@ function GetGroupRecommendations(req,friends,res){
 						            .images([builder.CardImage.create(session, outlets[sortedArray[7][2]].img)]),
 						    ]);
 						    session.send(msg);
+						    session.beginDialog('/');
 				        });
 				    });
 					reqPost.write(dataString);
@@ -594,7 +616,6 @@ function GetGroupRecommendations(req,friends,res){
 				    reqPost.on('error', function(e){
 				        console.error(e);
 				        });
-					res.beginDialog('Nothing');
 				}
 			}
 		})
