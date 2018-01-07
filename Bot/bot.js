@@ -177,7 +177,7 @@ bot.dialog('RateRestaurant', [
     	}else{
 	     	session.dialogData.restaurantRating = results.response;   
 	    	session.send(`Thank You.<br/> Details: <br/>Name: ${session.dialogData.restaurantName} <br/>rating: ${session.dialogData.restaurantRating}`);
-	    	session.beginDialog('AskforContinue');
+	    	session.beginDialog('Nothing');
 	    }
     }
 ]);
@@ -201,10 +201,10 @@ bot.dialog('Combined', [
 ]);
 
 bot.dialog('Help', [
-	function (session) {
+	function (session, args, next) {
 		// builder.Prompts.choice(session, "Please choose what help you need.", "Personal Recommendations|Group Recommendations|Rate Restaurants|Introduction");
 		var msg = new builder.Message(session)
-		.text("Please choose what help you need.")
+		.text("Here are the things I can do for you.")
 		.suggestedActions(
 		builder.SuggestedActions.create(
 			session, [
@@ -214,21 +214,28 @@ bot.dialog('Help', [
 				builder.CardAction.imBack(session, "Introduction", "Introduction")
 			]
 		));
-		session.send(msg);
+		// session.send(msg);
+		builder.Prompts.text(session, msg);
 	},
 	function (session, results) {
+		console.log("yo");
 		var response = results.response;
+		console.log(response);
 		switch(response){
             case "Personal Recommendations":
+            	console.log("1");
                 session.beginDialog('RecommendRestaurant');
                 break;
             case "Group Recommendations":
+                console.log("2");
                 session.beginDialog('Combined');
                 break;
             case "Rate Restaurants":
+            	console.log("3");
                 session.beginDialog('RateRestaurants');
                 break;
             case "Introduction":
+            	console.log("4");
                 session.beginDialog('GetUsername');
                 break;
         }
