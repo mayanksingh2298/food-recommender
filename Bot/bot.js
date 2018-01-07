@@ -45,18 +45,6 @@ if(useEmulator){
 var bot = new builder.UniversalBot(connector);
 bot.set('storage', inMemoryStorage);
 
-// Make sure you add code to validate these fields
-// var luisAppId = process.env.LuisAppId;
-// var luisAPIKey = process.env.LuisAPIKey;
-// var luisAppId = '313572bf-d67d-4bd1-bc70-cde449f43ae2';
-// var luisAPIKey = '2c7627c91a234133bf23a24cfb15a021';
-// var luisAPIHostName = process.env.LuisAPIHostName || 'westus.api.cognitive.microsoft.com';
-// console.log(luisAppId);
-// console.log(luisAPIKey);
-// console.log(luisAPIHostName);
-
-// const LuisModelUrl = 'https://' + luisAPIHostName + '/luis/v1/application?id=' + luisAppId + '&subscription-key=' + luisAPIKey;
-
 var friendsYesNo = false;
 var haveFriendsYesNo = false;
 var combinedYesNo = false;
@@ -67,10 +55,10 @@ var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.micros
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 intents.matches('Greeting', (session) => {
     session.send("Hi! My name is Frudo. I am your Food Assistant.");
-    if(!session.username) {
+    if(!session.userData.name) {
     	session.beginDialog('GetUsername');
     } else {
-    	users.push(session.username);
+    	users.push(session.userData.name);
 	    session.send("How may I help you?");    	
     }
 });
@@ -100,7 +88,7 @@ intents.matches('Yes', (session) => {
 	}
 	else if(haveFriendsYesNo) {
 		session.beginDialog('Combined');
-		// haveFriends to be false in dialog-----------------------------------------------
+		// haveFriends to be false in dialog-----------------------------------------------Done
 	}
 });
 intents.matches('No', (session) => {
@@ -111,6 +99,7 @@ intents.matches('No', (session) => {
 			// Display recommendation combined------------------------------------------------
 		}
 	}
+	session.beginDialog('/');
 })
 intents.onDefault((session) => {
     session.send('Sorry, I did not understand that. :(');
@@ -125,7 +114,7 @@ bot.dialog('/', intents);
 bot.dialog('RecommendRestaurant', [
     function (session) {
 	    session.send("Sure. I advice you to try these restaurants.");
-	    if(!session.username) {
+	    if(!session.userData.name) {
 	    	// Genral Retrieval--------------------------------------
 	    } else {
 	    	// Retrieve restaurants from database--------------------------------------------------
@@ -250,14 +239,14 @@ bot.dialog('GetUsername', [
 	},
 	function (session, results) {
 		if(true /*Check with db for username------------------------------*/) {
-			session.username = results.response;
-			users.push(session.username);
+			session.userData.name = results.response;
+			users.push(session.userData.name);
 			session.send("How may I help you?");
 		} else {
 			session.send("Sorry. This username does not exist.");
 			session.send("If you don't have a username yet please register yourself <a href='#'>here</a>"); //----------------------------------
 		}
-		session.beginDialog('/');
+		session.endDialog();
 	}
 ]);
 
