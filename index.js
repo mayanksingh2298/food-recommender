@@ -19,6 +19,7 @@ mongoose.connect("mongodb://localhost/foodrecos");
 // mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
 //this is the online database
 var app = express();
+app.use('/static',express.static(__dirname+"/static"));
 app.use(methodOverride("_method"));
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
