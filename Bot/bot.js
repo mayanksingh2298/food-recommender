@@ -5,6 +5,17 @@ A simple echo bot for the Microsoft Bot Framework.
 var restify = require('restify');
 var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
+var FunDatabase = require('./../Database/Bot_database');
+
+var mongoose 				= require('mongoose'),
+    bodyParser 				= require("body-parser"),
+    User					= require("../models/user"),
+    outlets					= require("../scrape/output.json")
+    methodOverride          = require("method-override"),
+    azureML                 = require("../public/ML-API.js")
+// console.log(outlets.length)
+// azureML.test("hello world")
+mongoose.connect("mongodb://localhost/foodrecos");
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -54,10 +65,11 @@ var users = [];
 var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 intents.matches('Greeting', (session) => {
-    session.send("Hi! My name is Frudo. I am your Food Assistant.");
     if(!session.userData.name) {
+		session.send("Hi! My name is Frudo. I am your Food Assistant.");
     	session.beginDialog('GetUsername');
     } else {
+	    session.send("Hi! " + session.userData.name);
     	users.push(session.userData.name);
 	    session.send("How may I help you?");    	
     }
@@ -177,15 +189,21 @@ bot.dialog('Combined', [
 	},
 	function (session, results) {
 		var username = results.response;
-		if(false /* Check username in database------------------------------------------*/) {
-			session.send("Sorry. This username does not exist.");
-		}
-		else {
-			users.push(username);
-		}
-		session.send("Continue with more friends?");
-		combinedYesNo = true;
-		session.beginDialog('/');
+		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
+			if(err){
+				session.send("Some database error has occured. Please try again");
+			}else{
+				if(!foundUser /*false Check username in database------------------------------------------done*/) {
+					session.send("Sorry. This username does not exist.");
+				}
+				else {
+					users.push(username);
+				}
+				session.send("Continue with more friends?");
+				combinedYesNo = true;
+			}
+			session.beginDialog('/');
+		});
 	}
 ]);
 
@@ -207,9 +225,7 @@ bot.dialog('Help', [
 		builder.Prompts.text(session, msg);
 	},
 	function (session, results) {
-		console.log("yo");
 		var response = results.response;
-		console.log(response);
 		switch(response){
             case "Personal Recommendations":
             	console.log("1");
@@ -238,15 +254,23 @@ bot.dialog('GetUsername', [
 		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself <a href='https://www.iitd.ac.in'>here</a>"); //---------------------
 	},
 	function (session, results) {
-		if(true /*Check with db for username------------------------------*/) {
-			session.userData.name = results.response;
-			users.push(session.userData.name);
-			session.send("How may I help you?");
-		} else {
-			session.send("Sorry. This username does not exist.");
-			session.send("If you don't have a username yet please register yourself <a href='#'>here</a>"); //----------------------------------
-		}
-		session.endDialog();
+		var username = results.response;
+		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
+			if(err){
+				session.send("Some database error has occured. Please try again");
+			}else{
+				if(foundUser /*false Check username in database------------------------------------------done*/) {
+					session.userData.name = results.response;
+					users.push(session.userData.name);
+					session.send("How may I help you?");
+				}
+				else {
+					session.send("Sorry. This username does not exist.");
+					session.send("If you don't have a username yet please register yourself <a href='#'>here</a>"); //----------------------------------
+				}
+			}
+			session.endDialog();
+		});
 	}
 ]);
 
