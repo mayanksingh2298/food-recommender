@@ -129,38 +129,38 @@ intents.matches('No', (session) => {
 	if(combinedYesNo) {
 		haveFriendsYesNo = false;
 		if(users.length > 1) {
-			if(longitude && latitude){
+			// if(longitude && latitude){
 				if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants");
 			    	getPersonalisedRatings(MainUser,session); // ---------------------------
 			    }else{
-			    	session.send("Thanks,Here are your combined recommendations");
+			    	session.send("Thanks, here are your combined recommendations");
 	    			GetGroupRecommendations(MainUser,users,session);
 				}				
-			}else{
-				session.send("Please send me your location. Just click on + icon and click the location icon to share location");
-				if(session.message.entities[0]){
-				    latitude = session.message.entities[0].geo.latitude;
-				    longitude = session.message.entities[0].geo.longitude;
-			    	session.send("Thanks,Here are your combined recommendations");
-				    if(!session.userData.name){
-			    		session.send("Here are the general choice of most favorable restaurants");
-				    	getPersonalisedRatings(MainUser,session); // ---------------------------
-				    }else{
-				    	MainUser.location.latitude = latitude;
-				    	MainUser.location.longitude = longitude;
-				    	MainUser.location.name = "";
-			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-							if(err){
-								res.send("Server error");
-							}
-							else{
-								GetGroupRecommendations(MainUser,users,session);
-							}
-						} );
-					}
-			    }
-			}    			
+			// }else{
+			// 	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+			// 	if(session.message.entities[0]){
+			// 	    latitude = session.message.entities[0].geo.latitude;
+			// 	    longitude = session.message.entities[0].geo.longitude;
+			//     	session.send("Thanks,Here are your combined recommendations");
+			// 	    if(!session.userData.name){
+			//     		session.send("Here are the general choice of most favorable restaurants");
+			// 	    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			// 	    }else{
+			// 	    	MainUser.location.latitude = latitude;
+			// 	    	MainUser.location.longitude = longitude;
+			// 	    	MainUser.location.name = "";
+			//     		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+			// 				if(err){
+			// 					res.send("Server error");
+			// 				}
+			// 				else{
+			// 					GetGroupRecommendations(MainUser,users,session);
+			// 				}
+			// 			} );
+			// 		}
+			//     }
+			// }    			
 		}else{
 			session.beginDialog('Nothing');
 		}
@@ -187,7 +187,7 @@ bot.dialog('/', intents);
 bot.dialog('RateRestaurants', [
    	function (session) {
    		session.send("For security reasons, you can rate restaurants on our webapp only.");
-   		session.send("Please follow [this](http://www.iitd.ac.in) link to register yourself and/or rate restaurants");
+   		session.send("Please follow [this](http://foodreco.azurewebsites.net) link to register yourself and/or rate restaurants");
    		session.beginDialog('Nothing');
     }
 ]);
@@ -195,37 +195,37 @@ bot.dialog('RateRestaurants', [
 bot.dialog('RecommendRestaurant', [
     function (session,args,next) {
     	var validUser = false;
-    	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
-		if(longitude && latitude){
+		// if(longitude && latitude){
 			if(!session.userData.name){
 		    	session.send("Here are the general choice of most favorable restaurants");
 		    	getPersonalisedRatings(MainUser,session); // ---------------------------
 		    }else{
 		    	getPersonalisedRatings(MainUser,session);
 			}				
-		}else{
-			if(session.message.entities[0]){
-			    latitude = session.message.entities[0].geo.latitude;
-			    longitude = session.message.entities[0].geo.longitude;
-		        session.send("Sure. I advice you to try these restaurants.");
-			    if(!session.userData.name){
-			    	session.send("Here are the general choice of most favorable restaurants");
-			    	getPersonalisedRatings(MainUser,session); // ---------------------------
-			    }else{
-			    	MainUser.location.latitude = latitude;
-			    	MainUser.location.longitude = longitude;
-			    	MainUser.location.name = "";
-		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-						if(err){
-							res.send("Server error");
-						}
-						else{
-							getPersonalisedRatings(MainUser,session);
-						}
-					} );
-				}
-	    	}
-	    }
+		// }else{
+	 //    	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+		// 	if(session.message.entities[0]){
+		// 	    latitude = session.message.entities[0].geo.latitude;
+		// 	    longitude = session.message.entities[0].geo.longitude;
+		//         session.send("Sure. I advice you to try these restaurants.");
+		// 	    if(!session.userData.name){
+		// 	    	session.send("Here are the general choice of most favorable restaurants");
+		// 	    	getPersonalisedRatings(MainUser,session); // ---------------------------
+		// 	    }else{
+		// 	    	MainUser.location.latitude = latitude;
+		// 	    	MainUser.location.longitude = longitude;
+		// 	    	MainUser.location.name = "";
+		//     		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+		// 				if(err){
+		// 					res.send("Server error");
+		// 				}
+		// 				else{
+		// 					getPersonalisedRatings(MainUser,session);
+		// 				}
+		// 			} );
+		// 		}
+	 //    	}
+	 //    }
     }
 ]);
 
@@ -296,8 +296,8 @@ bot.dialog('Help', [
 
 bot.dialog('GetUsername', [
 	function (session) {
-		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register [here](http://www.iitd.ac.in) so that I can know you.");
-		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://www.iitd.ac.in)"); //---------------------
+		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register [here](http://foodreco.azurewebsites.net) so that I can know you.");
+		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://foodreco.azurewebsites.net)"); //---------------------
 	},
 	function (session, results) {
 		var username = results.response;
@@ -307,6 +307,7 @@ bot.dialog('GetUsername', [
 			}else{
 				if(foundUser /*false Check username in database------------------------------------------done*/) {
 					MainUser = foundUser;
+					// console.log(MainUser);
 					session.userData.name = results.response;
 					users.push(session.userData.name);
 					session.send("How may I help you?");
@@ -314,7 +315,7 @@ bot.dialog('GetUsername', [
 				}
 				else {
 					session.send("Sorry. This username does not exist. However, I can provide you general recommendations as well.");
-					session.send("To get personalized recommendations, please register yourself [here](http://www.iitd.ac.in)"); //----------------------------------
+					session.send("To get personalized recommendations, please register yourself [here](http://foodreco.azurewebsites.net)"); //----------------------------------
 					session.beginDialog('Nothing');
 				}
 			}
@@ -338,8 +339,10 @@ function getPersonalisedRatings(req,res){
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
+	// var noOfRated = ratings.length;
+	// console.log(req.noOfRated);
 	if (req.noOfRated<4){
-		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://www.iitd.ac.in) and rate some more restaurants.");//---------------------------------
+		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net) and rate some more restaurants.");//---------------------------------
 		res.beginDialog('/');
 	}else{
 		for(var i=0;i<outlets.length;i++){
@@ -473,6 +476,7 @@ function getPersonalisedRatings(req,res){
 
 
 function GetGroupRecommendations(req,friends,res){
+	combinedYesNo = false;
 	session = res;
 	var actualFriends=[req.username]
 	var avgRatings=req.ratings
