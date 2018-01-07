@@ -74,7 +74,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 intents.matches('Greeting', (session) => {
     if(!session.userData.name) {
 		session.send("Hi! My name is Frudo. I am your Food Assistant.");
-    	session.beginDialog('GetUsername');
+		session.beginDialog('GetUsername');
     } else {
 	    session.send("Hi! " + session.userData.name);
     	users.push(session.userData.name);
@@ -112,9 +112,30 @@ intents.matches('Yes', (session) => {
 intents.matches('No', (session) => {
 	if(combinedYesNo) {
 		haveFriendsYesNo = false;
-		if(users.length!=1) {
-			session.send("Here are your combined recommendations");
-			GetGroupRecommendations(MainUser,users,session);
+		if(users.length > 1) {
+			session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+			if(session.message.entities[0]){
+			    var latitude = session.message.entities[0].geo.latitude;
+			    var longitude = session.message.entities[0].geo.longitude;
+			    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
+					session.send("Thanks,Here are your combined recommendations");
+				    if(!session.userData.name){
+				    	getPersonalisedRatings(MainUser,session); // ---------------------------
+				    }else{
+				    	MainUser.location.latitude = latitude;
+				    	MainUser.location.longitude = longitude;
+				    	MainUser.location.name = data.results[0].formatted_address;
+			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+							if(err){
+								res.send("Server error");
+							}
+							else{
+								GetGroupRecommendations(MainUser,users,session);
+							}
+						} );
+					}
+		      	})
+			}			
 			// Display recommendation combined------------------------------------------------
 		}else{
 			session.beginDialog('Nothing');
@@ -148,33 +169,34 @@ bot.dialog('RateRestaurants', [
 ]);
 
 bot.dialog('RecommendRestaurant', [
-    function (session) {
+    function (session,args,next) {
     	var validUser = false;
-    	builder.Prompts.attachment(session, "Please send me your location. Just click on + icon and click the location icon to share location.");
-    },function (session,results) {
-	    console.log(results.response);
-	    var latitude = results.response.attachments[0].payload.coordinates.lat;
-	    var longitude = results.response.attachments[0].payload.coordinates.long;
-	    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
-	        session.send("Sure. I advice you to try these restaurants.");
-		    if(!session.userData.name){
-		    	getPersonalisedRatings(MainUser,session); // ---------------------------
-		    }else{
-		    	MainUser.location.latitude = latitude;
-		    	MainUser.location.longitude = longitude;
-		    	MainUser.location.name = data.results[0].formatted_address;
-	    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
-					if(err){
-						res.send("Server error");
-					}
-					else{
-						getPersonalisedRatings(MainUser,session);
-					}
-				} );
-			}
-      	})
-    },
+    	session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+		if(session.message.entities[0]){
+		    var latitude = session.message.entities[0].geo.latitude;
+		    var longitude = session.message.entities[0].geo.longitude;
+		    $.getJSON("https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&key=AIzaSyD5Rds-FEP3YaTUZ4H5R22wR7WACcua1f4",function(data){
+		        session.send("Sure. I advice you to try these restaurants.");
+			    if(!session.userData.name){
+			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    }else{
+			    	MainUser.location.latitude = latitude;
+			    	MainUser.location.longitude = longitude;
+			    	MainUser.location.name = data.results[0].formatted_address;
+		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
+						if(err){
+							res.send("Server error");
+						}
+						else{
+							getPersonalisedRatings(MainUser,session);
+						}
+					} );
+				}
+	      	})
+		}
+    }
 ]);
+
 
 bot.dialog('Combined', [
 	function (session) {
@@ -295,7 +317,6 @@ function getPersonalisedRatings(req,res){
 			}else{
 				tmp = outlets[i].featureVector
 				tmp["Rating"]=ratings[i]
-				console.log(tmp["Rating"]+"***")
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
 			}
@@ -360,9 +381,7 @@ function getPersonalisedRatings(req,res){
 	       		sortedArray.reverse()
 	       		sortedArray = sortedArray.splice(0,8)
 	       		session = res;
-	       		// console.log(req.noOfRated)
-				// res.send("profile",{ratings:ratings,learntData:sortedArray,location:req.location});
-				var msg = new builder.Message(session);
+	       		var msg = new builder.Message(session);
 			    msg.attachmentLayout(builder.AttachmentLayout.carousel)
 			    msg.attachments([
 			        new builder.HeroCard(session)
@@ -432,7 +451,6 @@ function GetGroupRecommendations(req,friends,res){
 			if(foundUser){
 				actualFriends.push(foundUser.username)
 				for(var j=0;j<foundUser.ratings.length;j++){
-					console.log(foundUser.ratings[j]+"*")
 					if(!foundUser.ratings[j])
 						continue
 					else if(foundUser.ratings[j] && !avgRatings[j])
