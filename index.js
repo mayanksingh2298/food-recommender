@@ -56,7 +56,7 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 	user.ratings[req.body.id] = req.body.rating
 	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
 		if(err){
-			res.redirect("/login");
+			res.redirect("/");
 		}
 		else{
 			res.redirect("/profile");
@@ -208,7 +208,7 @@ app.put("/editLocation",isLoggedIn,function(req,res){
 	}
 	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
 		if(err){
-			res.redirect("/login");
+			res.redirect("/");
 		}
 		else{
 			console.log(updatedUser)
@@ -323,9 +323,6 @@ app.get("/profile",isLoggedIn,function(req,res){
 	// res.render("secret",{ratings:ratings});
 });
 //Auth routes
-app.get("/register",function(req,res){
-	res.render("register");
-});
 //This one here registers the user to the database, we dont store the passoword but we store a hash
 app.post("/register",function(req,res){
 
@@ -354,16 +351,12 @@ app.post("/register",function(req,res){
 });
 
 //LOGIn
-//render login form
-app.get("/login",function(req,res){
-	res.render("login");
-});
 //this is a post request to login
 //this is what is known as a middleware
 //it runs before the callback function_which is empty here
 app.post("/login", passport.authenticate("local",{
 	successRedirect: "/profile",
-	failureRedirect: "/login"
+	failureRedirect: "/"
 }) ,function(req,res){
 	//empty
 });
@@ -382,7 +375,7 @@ function isLoggedIn(req,res,next){
 	if(req.isAuthenticated()){
 		return next();
 	}
-	res.redirect("/login");
+	res.redirect("/");
 }
 app.get("*",function(req,res){
 	res.send("This page doesn't exist...What were you looking for?")
