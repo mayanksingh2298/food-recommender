@@ -15,8 +15,8 @@ var express  				= require('express'),
     azureML                 = require("./public/ML-API.js")
 // console.log(outlets.length)
 // azureML.test("hello world")
-mongoose.connect("mongodb://localhost/foodrecos");
-// mongoose.connect("mongodb://imaginecup:imaginecup@ds054118.mlab.com:54118/foodreco-imagine-test");
+// mongoose.connect("mongodb://localhost/foodrecos");
+mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
 //this is the online database
 var app = express();
 app.use('/static',express.static(__dirname+"/static"));
@@ -105,7 +105,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				toLearnInd=[]
 				predictedData=[]
 				if (noOfRated<4){
-					res.render("friends",{actualFriends:actualFriends,learntData:[]});
+					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
 				}else{
 					for(var j=0;j<outlets.length;j++){
 						// console.log(i)
@@ -183,7 +183,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				       		sortedArray=sortedArray.splice(0,8)
 				       		// console.log(sortedArray)
 				       		console.log(req.user.noOfRated)
-							res.render("friends",{actualFriends:actualFriends,learntData:sortedArray});
+							res.render("friends",{actualFriends:actualFriends,learntData:sortedArray,outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
 
 				        });
 				    });
