@@ -12,6 +12,19 @@ var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
 // var GroupUser = undefined;
 
+// var todelete = {
+// 	username: "String",
+// 	password: "String",
+// 	ratings: [],
+// 	noOfRated: 5,
+// 	location:{
+// 		latitude: 45,
+// 		longitude: 45,
+// 		name: "String"
+// 	}
+// };
+
+
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
     User					= require("../models/user"),
@@ -21,6 +34,7 @@ var mongoose 				= require('mongoose'),
 
 var longitude = undefined;
 var latitude = undefined;
+
 // mongoose.connect("mongodb://localhost/foodrecos");
 mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
 
@@ -132,7 +146,7 @@ intents.matches('No', (session) => {
 			if(longitude && latitude){
 				if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants");
-			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    	getGeneralisedRatings(MainUser,session); // ---------------------------
 			    }else{
 			    	session.send("Thanks,Here are your combined recommendations");
 	    			GetGroupRecommendations(MainUser,users,session);
@@ -145,11 +159,13 @@ intents.matches('No', (session) => {
 			    	session.send("Thanks,Here are your combined recommendations");
 				    if(!session.userData.name){
 			    		session.send("Here are the general choice of most favorable restaurants");
-				    	getPersonalisedRatings(MainUser,session); // ---------------------------
+				    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 				    }else{
 				    	MainUser.location.latitude = latitude;
 				    	MainUser.location.longitude = longitude;
 				    	MainUser.location.name = "";
+			    		var TewntyKmResto = SetTwentyKmResto(MainUser);
+		    			MainUser.TewntyKmResto = TewntyKmResto;
 			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 							if(err){
 								res.send("Server error");
@@ -199,7 +215,7 @@ bot.dialog('RecommendRestaurant', [
 		if(longitude && latitude){
 			if(!session.userData.name){
 		    	session.send("Here are the general choice of most favorable restaurants");
-		    	getPersonalisedRatings(MainUser,session); // ---------------------------
+		    	getGeneralisedRatings(MainUser,session); // ---------------------------
 		    }else{
 		    	getPersonalisedRatings(MainUser,session);
 			}				
@@ -210,11 +226,13 @@ bot.dialog('RecommendRestaurant', [
 		        session.send("Sure. I advice you to try these restaurants.");
 			    if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants");
-			    	getPersonalisedRatings(MainUser,session); // ---------------------------
+			    	getGeneralisedRatings(MainUser,session); // ---------------------------
 			    }else{
 			    	MainUser.location.latitude = latitude;
 			    	MainUser.location.longitude = longitude;
 			    	MainUser.location.name = "";
+		    		var TewntyKmResto = SetTwentyKmResto(MainUser);
+		    		MainUser.TewntyKmResto = TewntyKmResto;
 		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 						if(err){
 							res.send("Server error");
@@ -222,7 +240,7 @@ bot.dialog('RecommendRestaurant', [
 						else{
 							getPersonalisedRatings(MainUser,session);
 						}
-					} );
+					});
 				}
 	    	}
 	    }
@@ -342,13 +360,13 @@ function getPersonalisedRatings(req,res){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://www.iitd.ac.in) and rate some more restaurants.");//---------------------------------
 		res.beginDialog('/');
 	}else{
-		for(var i=0;i<outlets.length;i++){
-			if(ratings[i]==null){
-				toLearn.push(JSON.stringify(outlets[i].featureVector))
-				toLearnInd.push(i)
+		for(var i=0;i<req.TewntyKmResto.length;i++){
+			if(ratings[TewntyKmResto[i].id]==null){
+				toLearn.push(JSON.stringify(TewntyKmResto[i].featureVector))
+				toLearnInd.push(TewntyKmResto[i].id)
 			}else{
-				tmp = outlets[i].featureVector
-				tmp["Rating"]=ratings[i]
+				tmp = TewntyKmResto[i].featureVector
+				tmp["Rating"]=ratings[TewntyKmResto[i].id]
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
 			}
@@ -507,13 +525,13 @@ function GetGroupRecommendations(req,friends,res){
 					res.send("You have rated less restaurants than required.");
 					res.beginDialog('/');
 				}else{
-					for(var j=0;j<outlets.length;j++){
-						if(avgRatings[j]==null){
-							toLearn.push(JSON.stringify(outlets[j].featureVector))
-							toLearnInd.push(j)
+					for(var i=0;i<req.TewntyKmResto.length;i++){
+						if(ratings[TewntyKmResto[i].id]==null){
+							toLearn.push(JSON.stringify(TewntyKmResto[i].featureVector))
+							toLearnInd.push(TewntyKmResto[i].id)
 						}else{
-							tmp = outlets[j].featureVector
-							tmp["Rating"]=Math.round(avgRatings[j]).toString()
+							tmp = TewntyKmResto[i].featureVector
+							tmp["Rating"]=ratings[TewntyKmResto[i].id]
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
 						}
@@ -634,4 +652,89 @@ function GetGroupRecommendations(req,friends,res){
 			}
 		})
 	}
+}
+
+function GetGeneralisedRecommendations(lat,long,session){
+	var ToRecommend = [];
+	var user = {
+		location:{
+			latitude: lat,
+			longitude: long
+		}
+	};
+	var ReqdRestaurants = SetTwentyKmResto(user);
+	ToRecommend.sort(function(a, b){
+		return b.genrat-a.genrat;	// Automatic descending
+	})
+
+	var sortedArray=ToRecommend.splice(0,8);
+	var msg = new builder.Message(session);
+    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+    msg.attachments([
+        new builder.HeroCard(session)
+            .title(sortedArray[0].name)
+            .subtitle("Best Cuisines: " + sortedArray[0].cuisine)
+            .text("Address : " + sortedArray[0].address)
+            .images([builder.CardImage.create(session, sortedArray[0].img)]),
+        new builder.HeroCard(session)
+            .title(outlets[sortedArray[1][2]].name)
+            .subtitle("Best Cuisines: " + sortedArray[1].cuisine)
+            .text("Address : " + sortedArray[1].address)
+            .images([builder.CardImage.create(session, sortedArray[1].img)]),
+        new builder.HeroCard(session)
+            .title(sortedArray[2].name)
+            .subtitle("Best Cuisines: " + sortedArray[2].cuisine)
+            .text("Address : " + sortedArray[2].address)
+            .images([builder.CardImage.create(session, sortedArray[2].img)]),
+        new builder.HeroCard(session)
+            .title(sortedArray[3].name)
+            .subtitle("Best Cuisines: " + sortedArray[3].cuisine)
+            .text("Address : " + sortedArray[3].address)
+            .images([builder.CardImage.create(session, sortedArray[3].img)]),			            
+        new builder.HeroCard(session)
+            .title(sortedArray[4].name)
+            .subtitle("Best Cuisines: " + sortedArray[4].cuisine)
+            .text("Address : " + sortedArray[4].address)
+            .images([builder.CardImage.create(session, sortedArray[4].img)]),
+        new builder.HeroCard(session)
+            .title(sortedArray[5].name)
+            .subtitle("Best Cuisines: " + sortedArray[5].cuisine)
+            .text("Address : " + sortedArray[5].address)
+            .images([builder.CardImage.create(session, sortedArray[5].img)]),
+        new builder.HeroCard(session)
+            .title(sortedArray[6].name)
+            .subtitle("Best Cuisines: " + sortedArray[6].cuisine)
+            .text("Address : " + sortedArray[6].address)
+            .images([builder.CardImage.create(session, sortedArray[6].img)]),
+        new builder.HeroCard(session)
+            .title(sortedArray[7].name)
+            .subtitle("Best Cuisines: " + sortedArray[7].cuisine)
+            .text("Address : " + sortedArray[7].address)
+            .images([builder.CardImage.create(session, sortedArray[7].img)]),
+    ]);
+    session.send(msg);
+    session.beginDialog('/');
+}
+
+function SetTwentyKmResto(updatedUser){
+	var TewntyKmResto = [];
+	for(var i = 0;i<outlets.length;i++){
+		var fields = outlets[i]["lat,long"].split(',');
+		tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
+		if(tmpDist <= 20){
+			TewntyKmResto.push(outlets[i]);
+		}
+		// console.log(tmpDist);
+	}
+	return TewntyKmResto;
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
