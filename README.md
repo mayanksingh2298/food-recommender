@@ -28,3 +28,4 @@ We may add what to eat option too later<br><br>
 - [ ] Prettify code (console.log) 
 - [ ] Bootstrap - divyanshu
 - [ ] QnA api
+- [ ] Get more data
