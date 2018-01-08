@@ -21,7 +21,7 @@ We may add what to eat option too later<br><br>
 - [X] generalised recommendations - mayank (scrape) 
 - [ ] cuisine recommendations - bot
 - [ ] location based recommendations  bot
-- [ ] search on web app - mayank
+- [X] search on web app - mayank
 - [ ] example questions in help
 - [ ] About page
 - [ ] Environment Variables to be set
@@ -29,3 +29,4 @@ We may add what to eat option too later<br><br>
 - [ ] Bootstrap - divyanshu
 - [ ] QnA api
 - [ ] Get more data
+- [ ] register seperate page
