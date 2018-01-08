@@ -148,4 +148,15 @@ $(".nameOfResto").each(function(){
   });
 })
 
-    $("#topDetails").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.6)")
+    $("#topDetails").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.4");
+
+    
+      var elementPosition = $('#search').offset();
+
+      $(window).scroll(function(){
+          if($(window).scrollTop() > elementPosition.top){
+                $('#search').css('position','fixed').css('top','0');
+          } else {
+              $('#search').css('position','static');
+          }    
+      });

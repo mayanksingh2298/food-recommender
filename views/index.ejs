@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="static/css/dropdownLogin.css">
+	<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="static/css/styleMain.css">
 </head>
 <body>
@@ -24,7 +25,7 @@
 			<!-- <a id="right1" href="/login">Login</a>
 			<a id="right2" href="/register">Signup</a> -->
 			<div id="wrap">
-      <a href="#" id="loginform">Login</a> <a id="registerform" href="#">Register</a>
+      <a href="#" id="loginform" class="btn btn-primary">Login</a> <a id="registerform" href="#">Register</a>
     <div class="login">
       <div class="formholder">
         <div class="randompad">
@@ -68,33 +69,39 @@
 		<br>
 		<br>
 		<br>
-		<div id="heading">			
-			<h1 style="padding-top:30px"><strong>RestoRecommendo</strong></h1>
-			<h4 style="padding-bottom:30px" >we use our magic sauces to make sure your food is always to your taste</h4>
-			<input id="search" class="form-input" type="text" name="" placeholder="search for your favourite restaurant">
+		<div class="container">
+			<div class="row">
+			<div id="heading" class="col-sm-8 col-sm-offset-2">			
+				<h1 style="padding-top:30px;"><strong>Frudo</strong></h1>
+				<h4 style="padding-bottom:30px" >We use our magic sauces to make sure your food is always to your taste</h4>
+				<input id="search" class="form-input text-center" type="text" name="" placeholder="search for your favourite restaurant">
+			</div>
+			</div>
 		</div>
 		<br>
 	</div>
 	<br>
 
+
+	<div class="container-fluid">
 	<% for(var i=0; i < outlets.length; i++) { %>
-		<div style="width:33.33%;" class="container" ontouchstart="this.classList.toggle('hover');">
+		<div class="container-custom col-md-4 col-sm-6" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
 				<div class="front">		
-				  <div class="w3-card-4" style="width:100%">
-				    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Norway" style="width:100%">
+				  <div class="w3-card-4">
+				    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Image" style="width: 100%;">
 				    <div  id="hei2" class="w3-container w3-center">
 				      <p class="nameOfResto"> <%= outlets[i]["name"] %></p>
 				    </div>
 				  </div>
 				</div>	
 				<div class="back">		
-				  <div class="w3-card-4" style="width:100%">
+				  <div class="w3-card-4">
 				    <div class="w3-container w3-left">
 				      <p>Address: <%= outlets[i]["address"] %></p>
 				      <p>Cuisine: <%= outlets[i]["cuisine"] %></p>
 				      <p>Phone: <%= outlets[i]["phone"] %></p>
-				      <p style="font-size: 0.7em">About: <%= outlets[i]["about"] %></p>
+				      <p style="font-size: 0.9em">About: <%= outlets[i]["about"] %></p>
 						<% if(isLoggedIn==1){ %>
 			      
 				      <p>Rate</p>
@@ -143,6 +150,7 @@
 			<hr>
 		</div> -->
 	<%}%>
+	</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script  src="static/js/dropdownLogin.js"></script>
 </body>

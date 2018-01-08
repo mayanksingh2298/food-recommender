@@ -45,15 +45,14 @@ h1,h4{
 	margin-top: 20px;
 	border: 1.5px solid white;
 	text-decoration: none;
-	width:5%;
 	text-align: center;
 
 }
 #heading{
 	text-align: center;
-	margin: 0 auto;
+	/*margin: 0 auto;*/
 	color: #fff7f7;
-	width:60%;
+	/*width:60%;*/
 	background:rgba(0,0,0,0.3);
 	padding-left: 20px;
 	padding-right: 20px;
@@ -72,6 +71,7 @@ h1,h4{
 	background-size: 140%;
 	background-repeat: no-repeat;
 	height:60%;
+	max-height: 400px;
 	/*width: 60%;*/
 	 transition: box-shadow 1s linear;
     -moz-transition: box-shadow 1s linear; /* Firefox 4 */
@@ -87,20 +87,21 @@ h1,h4{
 
 /*card flip*/
 /* entire container, keeps perspective */
-.container {
+
+.container-custom {
 	perspective: 1000px;
 	margin: 0px;
 	float:left;
 	padding: 1%;
 	background-color: white;
 }
-	/* flip the pane when hovered */
-	.container:hover .flipper, .container.hover .flipper {
-		transform: rotateY(180deg);
-	}
 
-.container, .front, .back {
-	width: 100%;
+/* flip the pane when hovered */
+.container-custom:hover .flipper, .container-custom .hover .flipper {
+	transform: rotateY(180deg);
+}
+
+.container-custom, .front, .back {
 	height: 46%;
 }
 
@@ -115,8 +116,7 @@ h1,h4{
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
-
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 }
@@ -131,6 +131,7 @@ h1,h4{
 /* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
+	position: absolute;
 }
 
 .back p{
@@ -210,17 +211,18 @@ input[type="text"] {
 }
 #search{
 	color:black;
-	position: fixed;
+	position: absolute;
 	text-align: center;
 	margin-bottom: 10px;
 	border-radius: 5px;
 	font-size: 0.8em;
-	height:25px;
-	width: 40%;
+	height:20px;
+	width: 80%;
 	margin-left: 10%;
 	border:0;
-	left: 20%;
+	right: 10%;
 	background: rgba(255,255,255,0.9);
+	z-index: 100;
 }
 #search:focus {
     outline: none;

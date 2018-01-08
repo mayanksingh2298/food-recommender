@@ -157,7 +157,6 @@
 					return $header.height() - 2;
 				}
 			});
-
 	});
 
 })(jQuery);
