@@ -147,7 +147,7 @@ intents.matches('No', (session) => {
 			if(longitude && latitude){
 				if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants");
-			    	getGeneralisedRatings(MainUser,session); // ---------------------------
+			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
 			    	session.send("Thanks, here are your combined recommendations");
 	    			GetGroupRecommendations(MainUser,users,session);
@@ -217,7 +217,7 @@ bot.dialog('RecommendRestaurant', [
 			console.log("LatLong known");
 			if(!session.userData.name){
 		    	session.send("Here are the general choice of most favorable restaurants");
-		    	getGeneralisedRatings(MainUser,session); // ---------------------------
+		    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 		    }else{
 		    	getPersonalisedRatings(MainUser,session);
 			}
@@ -229,7 +229,7 @@ bot.dialog('RecommendRestaurant', [
 		        session.send("Sure. I advice you to try these restaurants.");
 			    if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants");
-			    	getGeneralisedRatings(MainUser,session); // ---------------------------
+			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
 			    	MainUser.location.latitude = latitude;
 			    	MainUser.location.longitude = longitude;
