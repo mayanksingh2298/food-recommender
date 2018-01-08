@@ -121,6 +121,7 @@ intents.matches('Recommend', [(session, args, next) => {
 		}
 	},
 	(session, results) => {
+		console.log("Going to recommend dialog");
 		session.beginDialog('RecommendRestaurant');
 	}
 ]);
@@ -211,7 +212,9 @@ bot.dialog('RateRestaurants', [
 bot.dialog('RecommendRestaurant', [
     function (session,args,next) {
     	var validUser = false;
+    	console.log("In recommend");
 		if(longitude && latitude){
+			console.log("LatLong known");
 			if(!session.userData.name){
 		    	session.send("Here are the general choice of most favorable restaurants");
 		    	getGeneralisedRatings(MainUser,session); // ---------------------------
@@ -219,6 +222,7 @@ bot.dialog('RecommendRestaurant', [
 		    	getPersonalisedRatings(MainUser,session);
 			}
 		}else{
+			session.send("Please send me your location. Just click on + icon and click the location icon to share location");
 			if(session.message.entities[0]){
 			    latitude = session.message.entities[0].geo.latitude;
 			    longitude = session.message.entities[0].geo.longitude;
