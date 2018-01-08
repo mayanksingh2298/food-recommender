@@ -807,13 +807,16 @@ function getLocationBasedRatings(lat,long,session,dist){
 
 function SetDistKmResto(updatedUser,dist){
 	var TwentyKmResto = [];
-	for(var i = 0;i<outlets.length;i++){
-		var fields = outlets[i]["lat,long"].split(',');
-		tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
-		if(tmpDist <= dist){
-			TwentyKmResto.push(outlets[i]);
+	while(TwentyKmResto.length <= 8){
+		for(var i = 0;i<outlets.length;i++){
+			var fields = outlets[i]["lat,long"].split(',');
+			tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
+			if(tmpDist <= dist){
+				TwentyKmResto.push(outlets[i]);
+			}
+			// console.log(tmpDist);
 		}
-		// console.log(tmpDist);
+		dist = dist+1;
 	}
 	return TwentyKmResto;
 }
