@@ -149,8 +149,8 @@ intents.matches('Yes', (session) => {
 		session.beginDialog('Combined');
 		// haveFriends to be false in dialog-----------------------------------------------Done
 	}else if(locationYesNo){
-		var locLat = googleResponse.results[0].geometry.location.lat;
-		var locLng = googleResponse.results[0].geometry.location.lng;
+		var locLat = ToKnowLocationResponse.results[0].geometry.location.lat;
+		var locLng = ToKnowLocationResponse.results[0].geometry.location.lng;
 		session.send("Here, are the restaurants that you will like :)");
 		getLocationBasedRatings(locLat,locLng,session,0.1);	// within 100m distance from location
 	}
