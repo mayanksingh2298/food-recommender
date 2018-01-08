@@ -13,11 +13,11 @@ We may add what to eat option too later<br><br>
 - [X] rate remove
 - [X] entity recognise
 - [X] location update in bot
-- [ ] hard limit for locaation - bot
+- [X] hard limit for locaation - bot
 - [X] registered users 4 atishya
 - [X] text formatting
 - [X] small case user creation - mayank
-- [ ] set list of retaurant within the hard limit - bot
+- [X] set list of retaurant within the hard limit - bot
 - [X] generalised recommendations - mayank (scrape) 
 - [ ] cuisine recommendations - bot
 - [ ] location based recommendations  bot
