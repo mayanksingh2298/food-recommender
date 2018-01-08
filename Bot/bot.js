@@ -164,8 +164,8 @@ intents.matches('No', (session) => {
 				    	MainUser.location.latitude = latitude;
 				    	MainUser.location.longitude = longitude;
 				    	MainUser.location.name = "";
-			    		var TewntyKmResto = SetTwentyKmResto(MainUser);
-		    			MainUser.TewntyKmResto = TewntyKmResto;
+			    		var TwentyKmResto = SetTwentyKmResto(MainUser);
+		    			MainUser.TwentyKmResto = TwentyKmResto;
 			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 							if(err){
 								res.send("Server error");
@@ -230,8 +230,8 @@ bot.dialog('RecommendRestaurant', [
 			    	MainUser.location.latitude = latitude;
 			    	MainUser.location.longitude = longitude;
 			    	MainUser.location.name = "";
-		    		var TewntyKmResto = SetTwentyKmResto(MainUser);
-		    		MainUser.TewntyKmResto = TewntyKmResto;
+		    		var TwentyKmResto = SetTwentyKmResto(MainUser);
+		    		MainUser.TwentyKmResto = TwentyKmResto;
 		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 						if(err){
 							res.send("Server error");
@@ -362,13 +362,13 @@ function getPersonalisedRatings(req,res){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net) and rate some more restaurants.");//---------------------------------
 		res.beginDialog('/');
 	}else{
-		for(var i=0;i<req.TewntyKmResto.length;i++){
-			if(ratings[TewntyKmResto[i].id]==null){
-				toLearn.push(JSON.stringify(TewntyKmResto[i].featureVector))
-				toLearnInd.push(TewntyKmResto[i].id)
+		for(var i=0;i<req.TwentyKmResto.length;i++){
+			if(ratings[TwentyKmResto[i].id]==null){
+				toLearn.push(JSON.stringify(TwentyKmResto[i].featureVector))
+				toLearnInd.push(TwentyKmResto[i].id)
 			}else{
-				tmp = TewntyKmResto[i].featureVector
-				tmp["Rating"]=ratings[TewntyKmResto[i].id]
+				tmp = TwentyKmResto[i].featureVector
+				tmp["Rating"]=ratings[TwentyKmResto[i].id]
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
 			}
@@ -528,13 +528,13 @@ function GetGroupRecommendations(req,friends,res){
 					res.send("You have rated less restaurants than required.");
 					res.beginDialog('/');
 				}else{
-					for(var i=0;i<req.TewntyKmResto.length;i++){
-						if(ratings[TewntyKmResto[i].id]==null){
-							toLearn.push(JSON.stringify(TewntyKmResto[i].featureVector))
-							toLearnInd.push(TewntyKmResto[i].id)
+					for(var i=0;i<req.TwentyKmResto.length;i++){
+						if(ratings[TwentyKmResto[i].id]==null){
+							toLearn.push(JSON.stringify(TwentyKmResto[i].featureVector))
+							toLearnInd.push(TwentyKmResto[i].id)
 						}else{
-							tmp = TewntyKmResto[i].featureVector
-							tmp["Rating"]=ratings[TewntyKmResto[i].id]
+							tmp = TwentyKmResto[i].featureVector
+							tmp["Rating"]=ratings[TwentyKmResto[i].id]
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
 						}
@@ -657,7 +657,7 @@ function GetGroupRecommendations(req,friends,res){
 	}
 }
 
-function GetGeneralisedRecommendations(lat,long,session){
+function getGeneralisedRatings(lat,long,session){
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -720,16 +720,16 @@ function GetGeneralisedRecommendations(lat,long,session){
 }
 
 function SetTwentyKmResto(updatedUser){
-	var TewntyKmResto = [];
+	var TwentyKmResto = [];
 	for(var i = 0;i<outlets.length;i++){
 		var fields = outlets[i]["lat,long"].split(',');
 		tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
 		if(tmpDist <= 20){
-			TewntyKmResto.push(outlets[i]);
+			TwentyKmResto.push(outlets[i]);
 		}
 		// console.log(tmpDist);
 	}
-	return TewntyKmResto;
+	return TwentyKmResto;
 }
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
