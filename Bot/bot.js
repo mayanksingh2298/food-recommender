@@ -123,7 +123,6 @@ intents.matches('Recommend', [(session, args, next) => {
 				session.beginDialog('/');
 			}else{
 				getLocation(place,session);
-				// session.send
 			}
 			// getCuisineRecommendations(MainUser, session);---------------------
 		}else{
@@ -131,7 +130,7 @@ intents.matches('Recommend', [(session, args, next) => {
 		}
 	},
 	(session, results) => {
-		console.log("Going to recommend dialog");
+		// console.log("Going to recommend dialog");
 		session.beginDialog('RecommendRestaurant');
 	}
 ]);
@@ -149,6 +148,7 @@ intents.matches('Yes', (session) => {
 		session.beginDialog('Combined');
 		// haveFriends to be false in dialog-----------------------------------------------Done
 	}else if(locationYesNo){
+		locationYesNo = false;
 		var locLat = ToKnowLocationResponse.results[0].geometry.location.lat;
 		var locLng = ToKnowLocationResponse.results[0].geometry.location.lng;
 		session.send("Here, are the restaurants that you will like :)");
@@ -197,8 +197,9 @@ intents.matches('No', (session) => {
 			session.beginDialog('Nothing');
 		}
 	}else if(locationYesNo){
-		session.send("Please send your message again by specifying the location properly as I am unable to get such a location. Sorry, for inconvenience :(");
-		session.beginDialog('/');
+		locationYesNo = false;
+		session.beginDialog('AskAgainForLocation');
+		// session.beginDialog('/');
 	}
 	if(inNothing) {
 		inNothing = false;
@@ -219,6 +220,15 @@ var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 bot.dialog('/', intents);    
 
 
+bot.dialog('AskAgainForLocation', [
+	function(session){
+		session.send("Please tell me your location only again properly as I am unable to find such a location. Sorry, for inconvenience :(");
+	},
+	function(session,results){
+		getLocation(results.response,session);
+	}
+]);
+
 bot.dialog('RateRestaurants', [
    	function (session) {
    		session.send("For security reasons, you can rate restaurants on our webapp only.");
@@ -230,9 +240,9 @@ bot.dialog('RateRestaurants', [
 bot.dialog('RecommendRestaurant', [
     function (session,args,next) {
     	var validUser = false;
-    	console.log("In recommend");
+    	// console.log("In recommend");
 		if(longitude && latitude){
-			console.log("LatLong known");
+			// console.log("LatLong known");
 			if(!session.userData.name){
 		    	session.send("Here are the general choice of most favorable restaurants");
 		    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
@@ -366,7 +376,7 @@ bot.dialog('GetUsername', [
 bot.dialog('Nothing', [
 	function (session) {
 		inNothing = true;
-		session.send("Is there anything else I can do for you?");
+		session.send("Is there anything I can do for you?");
 		session.beginDialog('/');
 	}
 ]);
