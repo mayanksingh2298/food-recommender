@@ -13,18 +13,17 @@ var MainUser = undefined;
 var ToKnowLocationResponse = undefined;
 // var GroupUser = undefined;
 
-// var todelete = {
-// 	username: "String",
-// 	password: "String",
-// 	ratings: [],
-// 	noOfRated: 5,
-// 	location:{
-// 		latitude: 45,
-// 		longitude: 45,
-// 		name: "String"
-// 	}
-// };
-
+var todelete = {
+	username: "String",
+	password: "String",
+	ratings: [],
+	noOfRated: 5,
+	location:{
+		latitude: 28.55,
+		longitude: 77.195,
+		name: "String"
+	}
+};
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -35,6 +34,7 @@ var mongoose 				= require('mongoose'),
 
 var longitude = undefined;
 var latitude = undefined;
+SetDistKmResto(todelete,0.1);
 
 // mongoose.connect("mongodb://localhost/foodrecos");
 mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
@@ -704,7 +704,7 @@ function getGeneralisedRatings(lat,long,session){
             .text("Address : " + sortedArray[0].address)
             .images([builder.CardImage.create(session, sortedArray[0].img)]),
         new builder.HeroCard(session)
-            .title(outlets[sortedArray[1][2]].name)
+            .title(sortedArray[1].name)
             .subtitle("Best Cuisines: " + sortedArray[1].cuisine)
             .text("Address : " + sortedArray[1].address)
             .images([builder.CardImage.create(session, sortedArray[1].img)]),
@@ -766,7 +766,7 @@ function getLocationBasedRatings(lat,long,session,dist){
             .text("Address : " + sortedArray[0].address)
             .images([builder.CardImage.create(session, sortedArray[0].img)]),
         new builder.HeroCard(session)
-            .title(outlets[sortedArray[1][2]].name)
+            .title(sortedArray[1].name)
             .subtitle("Best Cuisines: " + sortedArray[1].cuisine)
             .text("Address : " + sortedArray[1].address)
             .images([builder.CardImage.create(session, sortedArray[1].img)]),
@@ -804,7 +804,6 @@ function getLocationBasedRatings(lat,long,session,dist){
     session.send(msg);
     session.beginDialog('/');
 }
-
 function SetDistKmResto(updatedUser,dist){
 	var TwentyKmResto = [];
 	while(TwentyKmResto.length <= 8){
@@ -817,6 +816,7 @@ function SetDistKmResto(updatedUser,dist){
 			// console.log(tmpDist);
 		}
 		dist = dist+1;
+		console.log(dist + " distance after " + TwentyKmResto.length);
 	}
 	return TwentyKmResto;
 }
