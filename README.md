@@ -29,3 +29,5 @@ We may add what to eat option too later<br><br>
 - [ ] Bootstrap - divyanshu
 - [ ] QnA api
 - [ ] Get more data
+- [ ] Add some emojis in conversations
+- [ ] To handle if less than 8 restaurants found within radius
