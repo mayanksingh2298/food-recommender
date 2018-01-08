@@ -20,15 +20,15 @@ We may add what to eat option too later<br><br>
 - [X] set list of retaurant within the hard limit - bot
 - [X] generalised recommendations - mayank (scrape) 
 - [ ] cuisine recommendations - bot
-- [ ] location based recommendations  bot
+- [X] location based recommendations  bot
 - [X] search on web app - mayank
 - [ ] example questions in help
-- [ ] About page
+- [X] About page
 - [ ] Environment Variables to be set
 - [ ] Prettify code (console.log) 
 - [ ] Bootstrap - divyanshu
 - [ ] QnA api
 - [ ] Get more data
 - [ ] Add some emojis in conversations
-- [ ] To handle if less than 8 restaurants found within radius
-- [ ] register seperate page
+- [X] To handle if less than 8 restaurants found within radius
+- [X] register seperate page (mobile)
