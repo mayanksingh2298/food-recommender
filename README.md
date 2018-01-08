@@ -16,9 +16,9 @@ We may add what to eat option too later<br><br>
 - [ ] hard limit for locaation - bot
 - [X] registered users 4 atishya
 - [X] text formatting
-- [ ] small case user creation - mayank
+- [X] small case user creation - mayank
 - [ ] set list of retaurant within the hard limit - bot
-- [ ] generalised recommendations - mayank (scrape) 
+- [X] generalised recommendations - mayank (scrape) 
 - [ ] cuisine recommendations - bot
 - [ ] location based recommendations  bot
 - [ ] search on web app - mayank
