@@ -367,12 +367,12 @@ function getPersonalisedRatings(req,res){
 		res.beginDialog('/');
 	}else{
 		for(var i=0;i<req.TwentyKmResto.length;i++){
-			if(ratings[TwentyKmResto[i].id]==null){
-				toLearn.push(JSON.stringify(TwentyKmResto[i].featureVector))
-				toLearnInd.push(TwentyKmResto[i].id)
+			if(ratings[req.TwentyKmResto[i].id]==null){
+				toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
+				toLearnInd.push(req.TwentyKmResto[i].id)
 			}else{
-				tmp = TwentyKmResto[i].featureVector
-				tmp["Rating"]=ratings[TwentyKmResto[i].id]
+				tmp = req.TwentyKmResto[i].featureVector
+				tmp["Rating"]=ratings[req.TwentyKmResto[i].id]
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
 			}
@@ -533,12 +533,12 @@ function GetGroupRecommendations(req,friends,res){
 					res.beginDialog('/');
 				}else{
 					for(var i=0;i<req.TwentyKmResto.length;i++){
-						if(ratings[TwentyKmResto[i].id]==null){
-							toLearn.push(JSON.stringify(TwentyKmResto[i].featureVector))
-							toLearnInd.push(TwentyKmResto[i].id)
+						if(ratings[req.TwentyKmResto[i].id]==null){
+							toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
+							toLearnInd.push(req.TwentyKmResto[i].id)
 						}else{
-							tmp = TwentyKmResto[i].featureVector
-							tmp["Rating"]=ratings[TwentyKmResto[i].id]
+							tmp = req.TwentyKmResto[i].featureVector
+							tmp["Rating"]=ratings[req.TwentyKmResto[i].id]
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
 						}
