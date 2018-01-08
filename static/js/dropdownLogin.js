@@ -67,3 +67,55 @@ $("#getLocation").click(function(){
       $("#submitButton").removeAttr('disabled');
     });
   })
+
+$("#star1").hover(function(){
+  $("#star1").css("color","#09f")
+},function(){
+  $("#star1").css("color","black")
+})
+$("#star2").hover(function(){
+  $("#star1").css("color","#09f")
+  $("#star2").css("color","#09f")
+},function(){
+  $("#star1").css("color","black")
+  $("#star2").css("color","black")
+})
+$("#star3").hover(function(){
+  $("#star1").css("color","#09f")
+  $("#star2").css("color","#09f")
+  $("#star3").css("color","#09f")
+
+},function(){
+  $("#star1").css("color","black")
+  $("#star2").css("color","black")
+  $("#star3").css("color","black")
+})
+$("#star4").hover(function(){
+  $("#star1").css("color","#09f")
+  $("#star2").css("color","#09f")
+  $("#star3").css("color","#09f")
+  $("#star4").css("color","#09f")
+},function(){
+  $("#star1").css("color","black")
+  $("#star2").css("color","black")
+  $("#star3").css("color","black")
+  $("#star4").css("color","black")
+})
+$("#star5").hover(function(){
+  $("#star1").css("color","#09f")
+  $("#star2").css("color","#09f")
+  $("#star3").css("color","#09f")
+  $("#star4").css("color","#09f")
+  $("#star5").css("color","#09f")
+},function(){
+  $("#star1").css("color","black")
+  $("#star2").css("color","black")
+  $("#star3").css("color","black")
+  $("#star4").css("color","black")
+  $("#star5").css("color","black")
+})
+
+$(".starRate").click(function(){
+  console.log("rating")
+  $("#rating").submit()
+})

@@ -62,8 +62,8 @@
 				</div>
 			</div>
 		<%}%>
-	<%}%>
 	</div>
+	<%}%>
 
 	
 	
@@ -82,24 +82,34 @@
 		    var rest6 ={lat:Number($(".lat")[5].innerHTML), lng: Number($(".long")[5].innerHTML)}
 		    var rest7 ={lat:Number($(".lat")[6].innerHTML), lng: Number($(".long")[6].innerHTML)}
 		    var rest8 ={lat:Number($(".lat")[7].innerHTML), lng: Number($(".long")[7].innerHTML)}
+		    var map=""
+		    if($("#myLat").html()){
+			    var map = new google.maps.Map(document.getElementById('map'), {
+			      zoom: 13,
+			      center: myLoc
+			    });
+			}else{
+				var map = new google.maps.Map(document.getElementById('map'), {
+				 zoom: 13,
+				 center: rest1
+				});
+			}
+		    if($("#myLat").html()){
+			    var marker = new google.maps.Marker({
+			      position: myLoc,
+			      map: map,
+			      title: "My location",
+			      label:"H",
+			      animation: google.maps.Animation.DROP,
 
-
-		    var map = new google.maps.Map(document.getElementById('map'), {
-		      zoom: 13,
-		      center: myLoc
-		    });
-		    var marker = new google.maps.Marker({
-		      position: myLoc,
-		      map: map,
-		      title: "My location",
-		      animation: google.maps.Animation.DROP,
-
-		    });
+			    });
+			}
 
 		    var restMarker1 = new google.maps.Marker({
 		      position: rest1,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"1",
 		      title: $(".restName")[0].innerHTML
 
 		    });
@@ -107,42 +117,49 @@
 		      position: rest2,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"2",
 		      title: $(".restName")[1].innerHTML
 		    });
 		    var restMarker3 = new google.maps.Marker({
 		      position: rest3,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"3",
 		      title: $(".restName")[2].innerHTML
 		    });
 		    var restMarker4 = new google.maps.Marker({
 		      position: rest4,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"4",
 		      title: $(".restName")[3].innerHTML
 		    });
 		    var restMarker5 = new google.maps.Marker({
 		      position: rest5,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"5",
 		      title: $(".restName")[4].innerHTML
 		    });
 		    var restMarker6 = new google.maps.Marker({
 		      position: rest6,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"6",
 		      title: $(".restName")[5].innerHTML
 		    });
 		    var restMarker7 = new google.maps.Marker({
 		      position: rest7,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"7",
 		      title: $(".restName")[6].innerHTML
 		    });
 		    var restMarker8 = new google.maps.Marker({
 		      position: rest8,
 		      map: map,
 		      animation: google.maps.Animation.DROP,
+		      label:"8",
 		      title: $(".restName")[7].innerHTML
 		    });
 		    

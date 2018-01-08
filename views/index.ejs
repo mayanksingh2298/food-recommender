@@ -89,7 +89,45 @@
 				      <p>Address: <%= outlets[i]["address"] %></p>
 				      <p>Cuisine: <%= outlets[i]["cuisine"] %></p>
 				      <p>Phone: <%= outlets[i]["phone"] %></p>
-				      <p style="font-size: 0.9em">About: <%= outlets[i]["about"] %></p>
+				      <p style="font-size: 0.7em">About: <%= outlets[i]["about"] %></p>
+						<% if(isLoggedIn==1){ %>
+			      
+				      <p>Rate</p>
+						<form id="rating" class="rating" action="/editRatings/?_method=PUT" method="post">
+							<input style="display:none" type="text" name="id" placeholder="id of outlet" value="<%=i%>">
+							<!-- <input type="text" name="rating" placeholder="rating of that outlet">  -->
+							<label>
+							    <input class="starRate" type="radio" name="rating" value="1" />
+							    <span id="star1" class="icon">★</span>
+							  </label>
+							  <label>
+							    <input class="starRate" type="radio" name="rating" value="2" />
+							    <span id="star2" class="icon">★</span>
+							    <!-- <span class="icon">★</span> -->
+							  </label>
+							  <label>
+							    <input class="starRate" type="radio" name="rating" value="3" />
+							    <span id="star3" class="icon">★</span>
+							    <!-- <span class="icon">★</span> -->
+							    <!-- <span class="icon">★</span>    -->
+							  </label>
+							  <label>
+							    <input class="starRate" type="radio" name="rating" value="4" />
+							    <span id="star4" class="icon">★</span>
+							    <!-- <span class="icon">★</span> -->
+							    <!-- <span class="icon">★</span> -->
+							    <!-- <span class="icon">★</span> -->
+							  </label>
+							  <label>
+							    <input class="starRate" type="radio" name="rating" value="5" />
+							    <span id="star5" class="icon">★</span>
+							    <!-- <span class="icon">★</span>
+							    <span class="icon">★</span>
+							    <span class="icon">★</span>
+							    <span class="icon">★</span> -->
+							  </label>	
+						</form>
+				<% } %>
 				    </div>
 				  </div>
 				</div>

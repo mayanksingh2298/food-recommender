@@ -1,48 +1,118 @@
-<h2>After the user logs in, we'd display them the recommendations</h2>
-<li><a href="/">Home</a></li>
-<li><a href="/logout">Logout</a></li>
-
-<p>Plan a trip with friends</p>
-<form action="/friends" method="post">
-	<div id="divMoreFriend">
-		<input type="text" name="friends[]" placeholder="username of friend">
-	</div>
-	<button id="addMoreFriends" type="button" onclick="addInput('divMoreFriend')">Add another friend</button>
-	<button>Plan</button>
-</form>
-
-<p>Your location: </p>
-
-<% if(location.name){ %>
-<p><%=location.name%></p>
-<% }else{ %>
-<p><%=location.latitude%>,<%=location.longitude%></p>
-<%}%>
-<p>Your given ratings are: </p>
-<p><%= ratings %></p>
-<form action="/editRatings/?_method=PUT" method="post">
-	<input type="text" name="id" placeholder="id of outlet">
-	<input type="text" name="rating" placeholder="rating of that outlet"> 
-	<button>Edit!</button>
-</form>
-
-<form id="changeLocation" action="/editLocation/?_method=PUT" method="post">
-	<input id="locationName" style="display:none" type="text" name="locationName">
-	<input id="lat" style="display:none" type="text" name="latitude">
-	<input id="long" style="display:none" type="text" name="longitude">
-	<button id="getLocation" type="button">Get Location</button>
-</form>
-
-<% if(learntData.length==0){ %>
-   <h3>Please rate atleast 4 restaurants to receive recommendations</h3>
- <% } else{ %>  
-   <p>Your predicted ratings are: </p>
-	<% for(var i=0; i < learntData.length; i++) { %>
-			<div>
-				<p><%= learntData[i][2] %> is predicted to be <%= learntData[i][1] %> </p>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="static/css/styleProfile.css">
+</head>
+<body>
+	<div id="heading" class="container">
+		<div id="topDetails">
+			<p id="myLat" style="display: none"><%=location.latitude%></p>
+			<p id="myLong" style="display: none"><%=location.longitude%></p>
+  			<a id="right1" href="/">Home</a>
+			<a id="right2" href="/logout">Logout</a>
+			<div id="left">
+				<p>Your last location was:</p>
+				<p><% if(location.name){ %>
+					<%=location.name || "not provided"%>
+				<% }else{ %>
+					<%=location.latitude%>,<%=location.longitude%></p>
+				<%}%></p>
+				<form id="changeLocation" action="/editLocation/?_method=PUT" method="post">
+					<input id="locationName" style="display:none" type="text" name="locationName">
+					<input id="lat" style="display:none" type="text" name="latitude">
+					<input id="long" style="display:none" type="text" name="longitude">
+					<button class="btn btn-success" id="getLocation" type="button">Get Location</button>
+				</form>
 			</div>
-		<%}%>
-<% } %>
+		</div>
+	 	<div id="heading2">
+	    	<h1>Plan a trip with friends</h1> 
+			<form id="getFriends" action="/friends" method="post">
+				<div id="divMoreFriend" class="form-group">
+					<input class="form-control" type="text" name="friends[]" placeholder="username of friend">
+				</div>
+				<button class="btn btn-warning" id="addMoreFriends" type="button" onclick="addInput('divMoreFriend')">Add another friend</button>
+				<button class="btn btn-success">Plan</button>
+			</form>
+
+	 	 </div>
+	 	<div id="heading3">
+			<% if(learntData.length==0){ %>
+			   <h3>Please rate atleast 4 restaurants to receive recommendations</h3>
+			 <% } else{ %>  
+	   			 <h3>The following best matches your taste</h3>
+			<% } %>
+		</div>	
+	</div>
+	<% if(learntData.length!=0){ %>
+		<div id="map"></div>	
+		<div id="cards">	
+			<% for(var i=0; i < learntData.length; i++) { %>
+				<div style="width:33.33%" class="container" ontouchstart="this.classList.toggle('hover');">
+					<div class="flipper">
+						<div class="front">		
+						  <div class="w3-card-4" style="width:100%">
+						    <img id="hei1" src="<%= outlets[learntData[i][2]]['img'] %>" alt="Norway" style="width:100%">
+						    <div  id="hei2" class="w3-container w3-center">
+						      <p class="restName"> <%= outlets[learntData[i][2]]["name"] %></p>
+						    </div>
+						  </div>
+						</div>	
+						<div class="back">		
+						  <div class="w3-card-4" style="width:100%">
+						    <div class="w3-container w3-left">
+						      <p>Address: <%= outlets[learntData[i][2]]["address"] %></p>
+						      <p>Cuisine: <%= outlets[learntData[i][2]]["cuisine"] %></p>
+						      <p>Phone: <%= outlets[learntData[i][2]]["phone"] %></p>
+						      <p style="font-size: 0.9em">About: <%= outlets[learntData[i][2]]["about"] %></p>
+						      <p class="lat" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[0] %></p>
+						      <p class="long" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[1]%></p>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			<%}%>
+		</div>
+	<%}%>
+</body>
+</html>
+
+<div id="rated">
+	<hr style="margin-top: 0;padding-top: 0">
+	<% if(Number(noOfRated)==0){ %>
+	<%}else{%>
+		<p>You have rated the following:</p>
+		<div id="cards">	
+			<% for(var i=0; i < ratings.length; i++) { %>
+				<%if(ratings[i]){%>
+				<div style="width:33.33%" class="container" ontouchstart="this.classList.toggle('hover');">
+					<div class="flipper">
+						<div class="front">		
+						  <div class="w3-card-4" style="width:100%">
+						    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Norway" style="width:100%">
+						    <div  id="hei2" class="w3-container w3-center">
+						      <p class="restName"> <%= outlets[i]["name"] %></p>
+						    </div>
+						  </div>
+						</div>	
+						<div class="back">		
+						  <div class="w3-card-4" style="width:100%">
+						    <div id="tmpRate" class="w3-container w3-left">
+						    	<h3 id="myRating"><span class="label label-default"><%=ratings[i]%></span></h3>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				<%}%>
+			<%}%>
+		</div>
+	<%}%>
+</div>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -64,7 +134,106 @@
 <script type="text/javascript">
 	function addInput(divName){
       var newdiv = document.createElement('div');
-      newdiv.innerHTML = "<input type='text' name='friends[]' placeholder='username of friend'>";
+      newdiv.innerHTML = "<input type='text' class='form-control' name='friends[]' placeholder='username of friend'>";
       document.getElementById(divName).appendChild(newdiv);
 }
+</script>
+
+		<script>
+		  function initMap() {
+		    var myLoc = {lat:Number($("#myLat").html()) , lng: Number($("#myLong").html())};
+		    var rest1 ={lat:Number($(".lat")[0].innerHTML), lng: Number($(".long")[0].innerHTML)}
+		    var rest2 ={lat:Number($(".lat")[1].innerHTML), lng: Number($(".long")[1].innerHTML)}
+		    var rest3 ={lat:Number($(".lat")[2].innerHTML), lng: Number($(".long")[2].innerHTML)}
+		    var rest4 ={lat:Number($(".lat")[3].innerHTML), lng: Number($(".long")[3].innerHTML)}
+		    var rest5 ={lat:Number($(".lat")[4].innerHTML), lng: Number($(".long")[4].innerHTML)}
+		    var rest6 ={lat:Number($(".lat")[5].innerHTML), lng: Number($(".long")[5].innerHTML)}
+		    var rest7 ={lat:Number($(".lat")[6].innerHTML), lng: Number($(".long")[6].innerHTML)}
+		    var rest8 ={lat:Number($(".lat")[7].innerHTML), lng: Number($(".long")[7].innerHTML)}
+		    var map=""
+		    if($("#myLat").html()){
+			    var map = new google.maps.Map(document.getElementById('map'), {
+			      zoom: 13,
+			      center: myLoc
+			    });
+			}else{
+				var map = new google.maps.Map(document.getElementById('map'), {
+				 zoom: 13,
+				 center: rest1
+				});
+			}
+		    if($("#myLat").html()){
+			    var marker = new google.maps.Marker({
+			      position: myLoc,
+			      map: map,
+			      title: "My location",
+			      label:"H",
+			      animation: google.maps.Animation.DROP,
+
+			    });
+			}
+
+		    var restMarker1 = new google.maps.Marker({
+		      position: rest1,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"1",
+		      title: $(".restName")[0].innerHTML
+
+		    });
+		    var restMarker2 = new google.maps.Marker({
+		      position: rest2,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"2",
+		      title: $(".restName")[1].innerHTML
+		    });
+		    var restMarker3 = new google.maps.Marker({
+		      position: rest3,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"3",
+		      title: $(".restName")[2].innerHTML
+		    });
+		    var restMarker4 = new google.maps.Marker({
+		      position: rest4,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"4",
+		      title: $(".restName")[3].innerHTML
+		    });
+		    var restMarker5 = new google.maps.Marker({
+		      position: rest5,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"5",
+		      title: $(".restName")[4].innerHTML
+		    });
+		    var restMarker6 = new google.maps.Marker({
+		      position: rest6,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"6",
+		      title: $(".restName")[5].innerHTML
+		    });
+		    var restMarker7 = new google.maps.Marker({
+		      position: rest7,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"7",
+		      title: $(".restName")[6].innerHTML
+		    });
+		    var restMarker8 = new google.maps.Marker({
+		      position: rest8,
+		      map: map,
+		      animation: google.maps.Animation.DROP,
+		      label:"8",
+		      title: $(".restName")[7].innerHTML
+		    });
+		    
+
+		  }
+		</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzAuBSIq6lUOLTNjNbFCt5uo7QbD7WZo8&callback=initMap">
 </script>

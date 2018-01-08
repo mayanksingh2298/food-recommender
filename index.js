@@ -226,8 +226,9 @@ app.get("/profile",isLoggedIn,function(req,res){
 	toLearnInd=[]
 	predictedData=[]
 	ratings = req.user.ratings
+	console.log(ratings)
 	if (req.user.noOfRated<4){
-		res.render("profile",{ratings:ratings,learntData:[],location:req.user.location});
+		res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:[],location:req.user.location});
 	}else{
 
 
@@ -309,7 +310,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	       		sortedArray=sortedArray.splice(0,8)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
-				res.render("profile",{ratings:ratings,learntData:sortedArray,location:req.user.location});
+				res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:sortedArray,location:req.user.location});
 
 	        });
 	    });
