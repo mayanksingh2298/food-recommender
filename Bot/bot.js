@@ -153,7 +153,7 @@ intents.matches('No', (session) => {
 	    			GetGroupRecommendations(MainUser,users,session);
 				}				
 			}else{
-				session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+				session.send("Please send me your location. Just click on + icon and click the location icon to share location. Combined");
 				if(session.message.entities[0]){
 				    latitude = session.message.entities[0].geo.latitude;
 				    longitude = session.message.entities[0].geo.longitude;
@@ -222,7 +222,7 @@ bot.dialog('RecommendRestaurant', [
 		    	getPersonalisedRatings(MainUser,session);
 			}
 		}else{
-			session.send("Please send me your location. Just click on + icon and click the location icon to share location");
+			session.send("Please send me your location. Just click on + icon and click the location icon to share location. Recommend");
 			if(session.message.entities[0]){
 			    latitude = session.message.entities[0].geo.latitude;
 			    longitude = session.message.entities[0].geo.longitude;
@@ -364,6 +364,8 @@ function getPersonalisedRatings(req,res){
 	// console.log(req.noOfRated);
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net) and rate some more restaurants.");//---------------------------------
+		res.send("However, I can still provide you the most favourable restaurants.");
+		getGeneralisedRatings(latitude,longitude,req);
 		res.beginDialog('/');
 	}else{
 		for(var i=0;i<req.TwentyKmResto.length;i++){
