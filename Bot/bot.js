@@ -13,17 +13,17 @@ var MainUser = undefined;
 var ToKnowLocationResponse = undefined;
 // var GroupUser = undefined;
 
-var todelete = {
-	username: "String",
-	password: "String",
-	ratings: [],
-	noOfRated: 5,
-	location:{
-		latitude: 28.55,
-		longitude: 77.195,
-		name: "String"
-	}
-};
+// var todelete = {
+// 	username: "String",
+// 	password: "String",
+// 	ratings: [],
+// 	noOfRated: 5,
+// 	location:{
+// 		latitude: 28.55,
+// 		longitude: 77.195,
+// 		name: "String"
+// 	}
+// };
 
 var mongoose 				= require('mongoose'),
     bodyParser 				= require("body-parser"),
@@ -34,7 +34,7 @@ var mongoose 				= require('mongoose'),
 
 var longitude = undefined;
 var latitude = undefined;
-SetDistKmResto(todelete,0.1);
+// SetDistKmResto(todelete,0.1);
 
 // mongoose.connect("mongodb://localhost/foodrecos");
 mongoose.connect("mongodb://imagine:123@ds054118.mlab.com:54118/foodreco-imagine-test");
@@ -813,10 +813,8 @@ function SetDistKmResto(updatedUser,dist){
 			if(tmpDist <= dist){
 				TwentyKmResto.push(outlets[i]);
 			}
-			// console.log(tmpDist);
 		}
 		dist = dist+1;
-		console.log(dist + " distance after " + TwentyKmResto.length);
 	}
 	return TwentyKmResto;
 }
