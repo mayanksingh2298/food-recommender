@@ -21,7 +21,7 @@ We may add what to eat option too later<br><br>
 - [X] generalised recommendations - mayank (scrape) 
 - [ ] cuisine recommendations - bot
 - [ ] location based recommendations  bot
-- [ ] search on web app - mayank
+- [X] search on web app - mayank
 - [ ] example questions in help
 - [ ] About page
 - [ ] Environment Variables to be set
@@ -31,3 +31,4 @@ We may add what to eat option too later<br><br>
 - [ ] Get more data
 - [ ] Add some emojis in conversations
 - [ ] To handle if less than 8 restaurants found within radius
+- [ ] register seperate page
