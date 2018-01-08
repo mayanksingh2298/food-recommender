@@ -32,5 +32,5 @@ We may add what to eat option too later<br><br>
 - [ ] Add some emojis in conversations
 - [X] To handle if less than 8 restaurants found within radius
 - [X] register seperate page (mobile)
-- [ ] rating database object
+- [X] rating database object
 
