@@ -403,15 +403,22 @@ function SetTwentyKmResto(updatedUser){
 				tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
 				if(tmpDist <= 20){
 					TwentyKmResto.push(outlets[i]);
+				}else if(updatedUser.ratings[i]){
+					TwentyKmResto.push(outlets[i]);
 				}
 				// console.log(tmpDist);
 			}
 		}else{
 			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
 			outletsDeepCopy.sort(function(a, b){
-				return b.genrat-a.genrat;	// Automatic descending
+				if(ratings[b.id] && !ratings[a.id])
+					return 1
+				else if(!ratings[b.id] && ratings[a.id])
+					return -1
+				else
+					return b.genrat-a.genrat;	// Automatic descending
 			})
-			TwentyKmResto=outletsDeepCopy.splice(0,19)
+			TwentyKmResto=outletsDeepCopy.splice(0,20)
 		}
 		dist++
 	}
