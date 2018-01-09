@@ -188,7 +188,7 @@ intents.matches('No', (session) => {
 	    			GetGroupRecommendations(MainUser,users,session);
 				}				
 			}else{
-				session.send("Please send me your location. Just click on + icon and click the location icon to share location. Combined");
+				session.send("Please send me your location. Just click on + icon and click the location icon to share location.");
 				if(session.message.entities[0]){
 				    latitude = session.message.entities[0].geo.latitude;
 				    longitude = session.message.entities[0].geo.longitude;
@@ -295,7 +295,7 @@ bot.dialog('RecommendRestaurant', [
 			}
 		}else{
 			if(!session.message.entities[0]){
-				session.send("Please send me your location. Just click on + icon and click the location icon to share location. Recommend");
+				session.send("Please send me your location. Just click on + icon and click the location icon to share location.");
 			}
 			if(session.message.entities[0]){
 			    latitude = session.message.entities[0].geo.latitude;
@@ -352,40 +352,76 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
-	// 	var msg = new builder.Message(session)
-	// 	.text("Here are the things I can do for you.")
-	// 	.suggestedActions(
-	// 	builder.SuggestedActions.create(
-	// 		session, [
-	// 			builder.CardAction.imBack(session, "Personal Recommendations", "Personal Recommendations"),
-	// 			builder.CardAction.imBack(session, "Group Recommendations", "Group Recommendations"),
-	// 			builder.CardAction.imBack(session, "Rate Restaurants", "Rate Restaurants"),
-	// 			builder.CardAction.imBack(session, "Introduction", "Introduction")
-	// 		]
-	// 	));
-	// 	builder.Prompts.text(session, msg);
-	// },
-	// function (session, results) {
-	// 	var response = results.response;
-	// 	switch(response){
- //            case "Personal Recommendations":
- //                session.beginDialog('RecommendRestaurant');
- //                break;
- //            case "Group Recommendations":
- //                session.beginDialog('Combined');
- //                break;
- //            case "Rate Restaurants":
- //                session.beginDialog('RateRestaurants');
- //                break;
- //            case "Introduction":
- //                session.beginDialog('GetUsername');
- //                break;
- //            default:
- //            	session.send("You needed to tap on one of the options.");
- //            	session.beginDialog('/');
- //        }
- 		session.send("Help needs remanufacturing")
-        session.beginDialog('/');
+		builder.Prompts.text(session, "I can learn your taste and recommend the best restaurants that will definitely suit your taste!!!");
+ 		var msg = new builder.Message(session);
+	    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+	    msg.attachments([
+	        new builder.HeroCard(session)
+	            .title("Personalised Recommendations")
+	            .subtitle("Get the best restaurants for you based on your previous ratings.\n\n")
+	            .text("Try asking me the following:\n\n-Suggest me the best restaurants to have Chinese.\n\n-Recommend me some restaurant in Connaught Place.\n\n-What should I have today")
+	            .buttons([
+                	builder.CardAction.imBack(session, "Personalised Recommendations", "Read More")
+            	]),
+	        new builder.HeroCard(session)
+	            .title("Group Recommendations")
+	            .subtitle("Give usernames of your friends and get the best recommendations for your group as a whole\n\n")
+	            .text("Try the personalised recommendation and then input your friends' usernames. And voila, it's done!!!")
+	            .buttons([
+                	builder.CardAction.imBack(session, "Group Recommendations", "Read More")
+            	]),
+            new builder.HeroCard(session)
+	            .title("Location Based Recommendations")
+	            .subtitle("Provide me your desired location and I'll tell you the most favoured restaurants at the location\n\n")
+	            .text("Try the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan")
+	            .buttons([
+                	builder.CardAction.imBack(session, "Location Recommendations", "Read More")
+            	]),
+            new builder.HeroCard(session)
+	            .title("Cuisine Based Recommendations")
+	            .subtitle("Provide me cuisine you desire today and leave the rest on me!!!\n\n")
+	            .text("Try the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental")
+	            .buttons([
+                	builder.CardAction.imBack(session, "Cuisine Recommendations", "Read More")
+            	]),            
+            new builder.HeroCard(session)
+	            .title("Register")
+	            .subtitle("I can provide you personalised recommendations only if I know you!\n\n")
+	            .text("Please register yourself at http://foodreco.azurewebsites.net/registerPhone\n\nThereafter, rate any four restaurants to get the best results")
+	            .buttons([
+                	builder.CardAction.imBack(session, "Register", "Read More")
+            	]),
+            new builder.HeroCard(session)
+	            .title("Team")
+	            .subtitle("Here are my Developers\n\n")
+	            .text("-Mayank Singh Chauhan\n\n-Atishya Jain\n\n-Divyanshu Saxena"),            
+	    ]);
+		session.send(msg);
+ 		// session.send("Help needs remanufacturing");
+	},
+	function(session, results) {
+		var response = results.response;
+		// session.send(response);
+		switch (response) {
+			case "Personalised Recommendations":
+				session.send("Get the best restaurants for you based on your previous ratings.\n\nTry asking me the following:\n\n-Suggest me the best restaurants to have Chinese.\n\n-Recommend me some restaurant in Connaught Place.\n\n-What should I have today");
+				break;
+			case "Group Recommendations":
+				session.send("Give usernames of your friends and get the best recommendations for your group as a whole\n\nTry the personalised recommendation and then input your friends' usernames. And voila, it's done!!!");
+				break;
+			case "Location Based Recommendations":
+				session.send("Provide me your desired location and I'll tell you the most favoured restaurants at the location\n\nTry the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan");
+				break;
+			case "Cuisine Based Recommendations":
+				session.send("Provide me cuisine you desire today and leave the rest on me!!!\n\nTry the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental");
+				break;
+			case "Register":
+				session.send("I can provide you personalised recommendations only if I know you!\n\nPlease register yourself at http://foodreco.azurewebsites.net/registerPhone\n\nThereafter, rate any four restaurants to get the best results");
+				break;	
+			default:
+				break;
+		}
+		session.beginDialog('/');
 	}
 ]);
 
@@ -405,7 +441,7 @@ bot.dialog('GetUsername', [
 					// console.log(MainUser);
 					session.userData.name = results.response;
 					users.push(session.userData.name);
-					session.send("How may I help you?");
+					session.send("How may I help you? (Type help to get started)");
 					session.beginDialog('/');
 				}
 				else {
