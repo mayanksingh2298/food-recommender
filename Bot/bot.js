@@ -391,8 +391,8 @@ bot.dialog('Help', [
 
 bot.dialog('GetUsername', [
 	function (session) {
-		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly. To get started, please register [here](http://foodreco.azurewebsites.net) so that I can know you.");
-		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://foodreco.azurewebsites.net)"); //---------------------
+		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly.");
+		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://foodreco.azurewebsites.net/registerPhone)"); //---------------------
 	},
 	function (session, results) {
 		var username = results.response;
@@ -410,7 +410,7 @@ bot.dialog('GetUsername', [
 				}
 				else {
 					session.send("Sorry. This username does not exist. However, I can provide you general recommendations as well.");
-					session.send("To get personalized recommendations, please register yourself [here](http://foodreco.azurewebsites.net) . However, I can still recommend you some restaurants based on general recommendations/cuisines/specific location for you :)"); //----------------------------------
+					session.send("To get personalized recommendations, please register yourself [here](http://foodreco.azurewebsites.net/registerPhone) . However, I can still recommend you some restaurants based on general recommendations/cuisines/specific location for you :)"); //----------------------------------
 					session.beginDialog('Nothing');
 				}
 			}
@@ -437,7 +437,7 @@ function getPersonalisedRatings(req,res){
 	// var noOfRated = ratings.length;
 	// console.log(req.noOfRated);
 	if (req.noOfRated<4){
-		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net) and rate some more restaurants.");//---------------------------------
+		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/registerPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
 		getGeneralisedRatings(latitude,longitude,req);
 		res.beginDialog('/');
