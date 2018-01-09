@@ -334,6 +334,9 @@ app.get("/profile",isLoggedIn,function(req,res){
 app.get("/registerPhone",function(req,res){
 	res.render("regPhone")
 })
+app.get("/loginPhone",function(req,res){
+	res.render("loginPhone")
+})
 
 app.post("/register",function(req,res){
 
