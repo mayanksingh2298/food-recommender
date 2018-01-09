@@ -130,7 +130,7 @@ intents.matches('Recommend', [(session, args, next) => {
 		if(cuisine || place) {
 			if(cuisine){
 				session.send("I found the cuisine");
-				session.beginDialog('/');
+				getCuisineRecommendations(MainUser, session);
 			}else{
 				getLocation(place,session);
 			}
@@ -352,51 +352,51 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
-		builder.Prompts.text(session, "I can learn your taste and recommend the best restaurants that will definitely suit your taste!!!");
+		session.send("I can learn your taste and recommend the best restaurants that will definitely suit your taste!!!");
  		var msg = new builder.Message(session);
 	    msg.attachmentLayout(builder.AttachmentLayout.carousel)
 	    msg.attachments([
 	        new builder.HeroCard(session)
 	            .title("Personalised Recommendations")
 	            .subtitle("Get the best restaurants for you based on your previous ratings.\n\n")
-	            .text("Try asking me the following:\n\n-Suggest me the best restaurants to have Chinese.\n\n-Recommend me some restaurant in Connaught Place.\n\n-What should I have today")
-	            .buttons([
-                	builder.CardAction.imBack(session, "Personalised Recommendations", "Read More")
-            	]),
+	            .text("Try asking me the following:\n\n-Suggest me the best restaurants to have Chinese.\n\n-Recommend me some restaurant in Connaught Place.\n\n-What should I have today"),
 	        new builder.HeroCard(session)
 	            .title("Group Recommendations")
 	            .subtitle("Give usernames of your friends and get the best recommendations for your group as a whole\n\n")
 	            .text("Try the personalised recommendation and then input your friends' usernames. And voila, it's done!!!")
 	            .buttons([
-                	builder.CardAction.imBack(session, "Group Recommendations", "Read More")
             	]),
             new builder.HeroCard(session)
 	            .title("Location Based Recommendations")
 	            .subtitle("Provide me your desired location and I'll tell you the most favoured restaurants at the location\n\n")
-	            .text("Try the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan")
-	            .buttons([
-                	builder.CardAction.imBack(session, "Location Recommendations", "Read More")
-            	]),
+	            .text("Try the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan"),
             new builder.HeroCard(session)
 	            .title("Cuisine Based Recommendations")
 	            .subtitle("Provide me cuisine you desire today and leave the rest on me!!!\n\n")
-	            .text("Try the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental")
-	            .buttons([
-                	builder.CardAction.imBack(session, "Cuisine Recommendations", "Read More")
-            	]),            
+	            .text("Try the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental"),
             new builder.HeroCard(session)
 	            .title("Register")
 	            .subtitle("I can provide you personalised recommendations only if I know you!\n\n")
-	            .text("Please register yourself at http://foodreco.azurewebsites.net/registerPhone\n\nThereafter, rate any four restaurants to get the best results")
-	            .buttons([
-                	builder.CardAction.imBack(session, "Register", "Read More")
-            	]),
+	            .text("Please register yourself at http://foodreco.azurewebsites.net/registerPhone\n\nThereafter, rate any four restaurants to get the best results"),
             new builder.HeroCard(session)
 	            .title("Team")
 	            .subtitle("Here are my Developers\n\n")
-	            .text("-Mayank Singh Chauhan\n\n-Atishya Jain\n\n-Divyanshu Saxena"),            
+	            .text("Mayank Singh Chauhan\n\nAtishya Jain\n\nDivyanshu Saxena"),            
 	    ]);
 		session.send(msg);
+		// builder.Prompts.text(session, "Read More about:");
+		msg = new builder.Message(session)
+		.text("Read more about: ")
+		.suggestedActions(
+			builder.SuggestedActions.create(
+				session, [
+        	builder.CardAction.postBack(session, "Personalised Recommendations", "Personalised Recommendations"),
+            builder.CardAction.postBack(session, "Group Recommendations", "Group Recommendations"),
+           	builder.CardAction.postBack(session, "Cuisine Recommendations", "Cuisine Recommendations"),
+        	builder.CardAction.postBack(session, "Location Recommendations", "Location Recommendations"),
+        	builder.CardAction.postBack(session, "Register", "Register")
+    	]));
+    	builder.Prompts.text(session, msg);
  		// session.send("Help needs remanufacturing");
 	},
 	function(session, results) {
