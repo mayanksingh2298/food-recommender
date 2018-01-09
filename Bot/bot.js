@@ -92,10 +92,10 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 
 intents.matches('Greeting', (session) => {
     if(!session.userData.name) {
-		session.send("Hi! My name is Frudo. I am your Food Assistant. 👇🏻");
+		session.send("Hi! My name is Frudo. I am your Food Assistant.");
 		session.beginDialog('GetUsername');
     } else {
-	    session.send("Hi! " + session.userData.name);
+	    session.send("Hi! " + session.userData.name + " 😎");
     	users.push(session.userData.name);
 	    session.send("How may I help you?");    	
     }
@@ -111,7 +111,7 @@ intents.matches('Thanks', (session) => {
 });
 
 intents.matches('Cancel', (session) => {
-    session.send("Hope you liked my service. Thanks!");
+    session.send("Hope you liked my service 😎. Thanks!");
 });
 
 intents.matches('Recommend', [(session, args, next) => {
@@ -163,7 +163,7 @@ intents.matches('Yes', (session) => {
 		locationYesNo = false;
 		var locLat = ToKnowLocationResponse.results[0].geometry.location.lat;
 		var locLng = ToKnowLocationResponse.results[0].geometry.location.lng;
-		session.send("Here, are the restaurants that you will like :)");
+		session.send("Here 👇, are the restaurants that you will like :)");
 		getLocationBasedRatings(locLat,locLng,session,0.1);	// within 100m distance from location
 	}
 });
@@ -173,10 +173,10 @@ intents.matches('No', (session) => {
 		if(users.length > 1) {
 			if(longitude && latitude){
 				if(!session.userData.name){
-			    	session.send("Here are the general choice of most favorable restaurants");
+			    	session.send("Here are the general choice of most favorable restaurants 👇");
 			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
-			    	session.send("Thanks, here are your combined recommendations");
+			    	session.send("Thanks, here are your combined recommendations 👇");
 	    			GetGroupRecommendations(MainUser,users,session);
 				}				
 			}else{
@@ -184,9 +184,9 @@ intents.matches('No', (session) => {
 				if(session.message.entities[0]){
 				    latitude = session.message.entities[0].geo.latitude;
 				    longitude = session.message.entities[0].geo.longitude;
-			    	session.send("Thanks,Here are your combined recommendations");
+			    	session.send("Thanks,Here are your combined recommendations 👇");
 				    if(!session.userData.name){
-			    		session.send("Here are the general choice of most favorable restaurants");
+			    		session.send("Here are the general choice of most favorable restaurants 👇");
 				    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 				    }else{
 				    	MainUser.location.latitude = latitude;
@@ -196,7 +196,7 @@ intents.matches('No', (session) => {
 		    			MainUser.TwentyKmResto = TwentyKmResto;
 			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 							if(err){
-								res.send("Server error");
+								res.send("Server error 😕");
 							}
 							else{
 								GetGroupRecommendations(MainUser,users,session);
@@ -229,11 +229,11 @@ intents.matches('No', (session) => {
 })
 intents.onDefault((session) => {
 	if(friendsYesNo || locationYesNo || combinedYesNo || haveFriendsYesNo || inNothing){
-		session.send("Sorry, I didn't understand it. Maybe a typo.....");
+		session.send("Sorry, I didn't understand it 😕. Maybe a typo.....");
 		session.beginDialog('/');
 	}else{
-	    session.send('Sorry, I did not understand that. :(');
-	    session.send('But here are the things I can do for you.')
+	    session.send('Sorry, I did not understand that. 😕');
+	    session.send('But here 👇 are the things I can do for you.')
 	    session.beginDialog('Help');		
 	}
 });
@@ -244,7 +244,7 @@ bot.dialog('/', intents);
 
 bot.dialog('Thanks', [
 	function(session){
-		session.send("My pleasure :). I will be there to help at all times (y)");
+		session.send("My pleasure 💓. I will be there to help at all times (y)");
 	}
 ]);
 
@@ -259,7 +259,7 @@ bot.dialog('AskAgainForLocation', [
 
 bot.dialog('RateRestaurants', [
    	function (session) {
-   		session.send("For security reasons, you can rate restaurants on our webapp only.");
+   		session.send("For security reasons, you can rate restaurants on our webapp only. :)");
    		session.send("Please follow [this](http://foodreco.azurewebsites.net) link to register yourself and/or rate restaurants");
    		session.beginDialog('Nothing');
     }
@@ -278,7 +278,7 @@ bot.dialog('RecommendRestaurant', [
 				session.beginDialog('/');				
 			}else{
 				if(!session.userData.name){
-			    	session.send("Here are the general choice of most favorable restaurants");
+			    	session.send("Here are the general choice of most favorable restaurants 👇");
 			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
 			    	getPersonalisedRatings(MainUser,session);
@@ -293,7 +293,7 @@ bot.dialog('RecommendRestaurant', [
 			    longitude = session.message.entities[0].geo.longitude;
 		        session.send("Sure. I advice you to try these restaurants.");
 			    if(!session.userData.name){
-			    	session.send("Here are the general choice of most favorable restaurants");
+			    	session.send("Here are the general choice of most favorable restaurants 👇");
 			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
 			    	MainUser.location.latitude = latitude;
@@ -303,7 +303,7 @@ bot.dialog('RecommendRestaurant', [
 		    		MainUser.TwentyKmResto = TwentyKmResto;
 		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 						if(err){
-							res.send("Server error");
+							res.send("Server error 😕");
 						}
 						else{
 							getPersonalisedRatings(MainUser,session);
@@ -325,7 +325,7 @@ bot.dialog('Combined', [
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
 			MainUser = foundUser;
 			if(err){
-				session.send("Some database error has occured. Please try again");
+				session.send("Some database error has occured 😕. Please try again");
 			}else{
 				if(!foundUser) {
 					session.send("Sorry. This username does not exist.");
@@ -389,7 +389,7 @@ bot.dialog('GetUsername', [
 		var username = results.response;
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
 			if(err){
-				session.send("Some database error has occured. Please try again");
+				session.send("Some database error has occured 😕. Please try again");
 			}else{
 				if(foundUser /*false Check username in database------------------------------------------done*/) {
 					MainUser = foundUser;
