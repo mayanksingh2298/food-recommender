@@ -4,6 +4,7 @@
 	<title>Plan with friends!</title>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Slabo+27px" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="static/css/styleFriends.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
 		</div>
 	 	 <div id="heading2" class="jumbotron">
 
-	    <h1>Your group consists of:</h1> 
+	    <h1 style="font-size: 40px;">Your group consists of:</h1> 
 	    <p>|
 	    	<% for(var i=0; i < actualFriends.length; i++) { %>
 				<span><%=actualFriends[i]%> |</span>
@@ -36,8 +37,9 @@
 	<!-- sd -->
 	<div id="cards">	
 	
+	<div class="container-fluid">
 		<% for(var i=0; i < learntData.length; i++) { %>
-			<div style="width:33.33%" class="container" ontouchstart="this.classList.toggle('hover');">
+			<div class="container-custom col-md-4 col-sm-6" ontouchstart="this.classList.toggle('hover');">
 				<div class="flipper">
 					<div class="front">		
 					  <div class="w3-card-4" style="width:100%">
@@ -49,11 +51,11 @@
 					</div>	
 					<div class="back">		
 					  <div class="w3-card-4" style="width:100%">
-					    <div class="w3-container w3-left">
-					      <p>Address: <%= outlets[learntData[i][2]]["address"] %></p>
-					      <p>Cuisine: <%= outlets[learntData[i][2]]["cuisine"] %></p>
-					      <p>Phone: <%= outlets[learntData[i][2]]["phone"] %></p>
-					      <p style="font-size: 0.9em">About: <%= outlets[learntData[i][2]]["about"] %></p>
+					    <div class="w3-container w3-left back-font">
+					      <p class="text-center"><%= outlets[learntData[i][2]]["address"] %></p>
+					      <p class="text-center"><%= outlets[learntData[i][2]]["cuisine"] %></p>
+					      <p class="text-center"><%= outlets[learntData[i][2]]["phone"] %></p>
+					      <p style="font-size: 0.9em"><%= outlets[learntData[i][2]]["about"] %></p>
 					      <p class="lat" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[0] %></p>
 					      <p class="long" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[1]%></p>
 					    </div>
@@ -63,6 +65,7 @@
 			</div>
 		<%}%>
 	</div>
+</div>
 	<%}%>
 
 	
