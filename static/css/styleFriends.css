@@ -127,3 +127,10 @@ html{
 .restName {
 	font-family: 'Slabo 27px', serif; 
 }
+
+.card-heading {
+	background-color: #ccc;
+	border-radius: 5px;
+	/*border-top-right-radius: 5px;*/
+	padding: 2px; 
+}

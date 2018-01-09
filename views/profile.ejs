@@ -67,12 +67,16 @@
 						<div class="back">		
 						  <div class="w3-card-4">
 						    <div class="w3-container w3-left back-font">
-						      <p>Address: <%= outlets[learntData[i][2]]["address"] %></p>
-						      <p>Cuisine: <%= outlets[learntData[i][2]]["cuisine"] %></p>
-						      <p>Phone: <%= outlets[learntData[i][2]]["phone"] %></p>
-						      <p style="font-size: 0.9em">About: <%= outlets[learntData[i][2]]["about"] %></p>
+						    	<div class="card-heading rounded">
+						      <p class="text-center"><%= outlets[learntData[i][2]]["address"] %></p>
+						      <p class="text-center"><%= outlets[learntData[i][2]]["cuisine"] %></p>
+						      <p class="text-center"><%= outlets[learntData[i][2]]["phone"] %></p>
+						  		</div>
+						  		<div class="card-body rounded">
+						      <p style="font-size: 0.9em" class="text-center"><%= outlets[learntData[i][2]]["about"] %></p>
 						      <p class="lat" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[0] %></p>
 						      <p class="long" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[1]%></p>
+						      	</div>
 						    </div>
 						  </div>
 						</div>
@@ -104,7 +108,7 @@
 						    </div>
 						  </div>
 						</div>	
-						<div class="back">		
+						<div class="back rating-back">		
 						  <div class="container" style="width:100%">
 						    <div id="tmpRate">
 						    	<h3 id="myRating"><span class="label label-default"><%=ratings[i]%></span></h3>

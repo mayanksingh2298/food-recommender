@@ -52,12 +52,16 @@
 					<div class="back">		
 					  <div class="w3-card-4" style="width:100%">
 					    <div class="w3-container w3-left back-font">
+					    	<div class="card-heading rounded">
 					      <p class="text-center"><%= outlets[learntData[i][2]]["address"] %></p>
 					      <p class="text-center"><%= outlets[learntData[i][2]]["cuisine"] %></p>
 					      <p class="text-center"><%= outlets[learntData[i][2]]["phone"] %></p>
+					      	</div>
+					      	<div class="card-body">
 					      <p style="font-size: 0.9em"><%= outlets[learntData[i][2]]["about"] %></p>
 					      <p class="lat" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[0] %></p>
 					      <p class="long" style="display: none"><%= outlets[learntData[i][2]]["lat,long"].split(",")[1]%></p>
+					      	</div>
 					    </div>
 					  </div>
 					</div>
