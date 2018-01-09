@@ -1,6 +1,6 @@
 [
    {
-      "about": "Crazy Kitchen Lounge & Terrace is a casual dining restaurant and lounge with a cozy and comfortable ambiance. The place offers an amazing rooftop seating area that is colorful and throws a yellow tint of light that brings that euphoria in the moment. The low on pocket menu of this place serves a variety of North Indian, Italian, Chinese, and American cuisines. Crazy Kitchen Lounge & Terrace is an ideal place to be at if you want to experience an overall The lounge is located in Satya Niketan, Delhi and it stands nearby a branch of Central Bank of India.", 
+      "about": " The low on pocket menu of this place serves a variety of North Indian, Italian, Chinese, and American cuisines. Crazy Kitchen Lounge & Terrace is an ideal place to be at if you want to experience an overall The lounge is located in Satya Niketan, Delhi and it stands nearby a branch of Central Bank of India.", 
       "address": "37, 4th Floor, Satya Niketan, South Delhi, 110021", 
       "costfortwo": "700", 
       "cuisine": "North Indian,Italian,Chinese,American", 
@@ -43,6 +43,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Lift', 'Home Delivery', 'Take Away', 'Cards Accepted', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.5", 
       "id": 0, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/a/a/p22357-14947869185918a366f2b9c.jpg?w=400", 
       "lat,long": "28.588085,77.167944", 
@@ -51,7 +52,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "If you wish to explore the different cuisines under one common roof, The Construction Co. Cafe situated at Satya Niketan, South Delhi is a good option to go for. The cafe has a mesmerizing ambiance. One can devour at the amazing delights. The Construction Co. Cafe also offers quick services. You can enjoy this cafe at an economical budget with your family and friends. The cafe stands opposite to Shri Venkateshwara College.", 
+      "about": " The cafe has a mesmerizing ambiance. One can devour at the amazing delights. The Construction Co. Cafe also offers quick services. You can enjoy this cafe at an economical budget with your family and friends. The cafe stands opposite to Shri Venkateshwara College.", 
       "address": "6, Ground Floor, Satya Niketan, South Delhi,", 
       "costfortwo": "500", 
       "cuisine": "Multi-Cuisine", 
@@ -94,6 +95,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned']", 
+      "genrat": "4.0", 
       "id": 1, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/z/i/p34490-1502548924598f13bc2d397.jpg?w=400", 
       "lat,long": "28.587896,77.167345", 
@@ -102,7 +104,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Queen's Boulevard is located in Lajpat Nagar-4 and it stands nearby Raghunath Mandir. This casual dining restaurant takes that big leap of faith by serving the diners with a variety of North Indian, Italian, Chinese, and Mughlai dishes, inspired by different provinces across the world and comes out with flying colors because the dishes are very flavorful and of fine quality. The place assures you of good times, cost-efficient menu and most importantly good food. The varied dishes that you get here give you an at home taste. To complement the tasty dishes, Queen's Boulevard encompasses an equally laid-back and relaxing ambiance that just completes your dining out experience. It is an ideal place to spend time with your friends and family.", 
+      "about": " The place assures you of good times, cost-efficient menu and most importantly good food. The varied dishes that you get here give you an at home taste. To complement the tasty dishes, Queen's Boulevard encompasses an equally laid-back and relaxing ambiance that just completes your dining out experience. It is an ideal place to spend time with your friends and family.", 
       "address": "C-11, Ground &amp; First Floor, Main Market, Amar Colony, Lajpat Nagar - 4, South Delhi, 110024", 
       "costfortwo": "700", 
       "cuisine": "North Indian,Italian,Chinese,Mughlai", 
@@ -145,6 +147,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Dance Floor', 'Hookah', 'Screening']", 
+      "genrat": "4.0", 
       "id": 2, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/u/c/p29341-1479709892583294c45d4a9.jpg?w=400", 
       "lat,long": "28.562453,77.244512", 
@@ -153,7 +156,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Like Italy is a casual dining cafe located in M Block in Greater Kailash 1, Delhi. The place has an amazing ambiance and offers an affordable menu which serves a variety of delicious Italian delicacies. The food they serve is known for its use of diversified spices and ingredients. The menu is in line with the tastes and preferences of the diners and caters to people of all segments. Like Italy is the perfect place for people to enjoy sumptuous and authentic Italian dishes with family and friends.", 
+      "about": " The food they serve is known for its use of diversified spices and ingredients. The menu is in line with the tastes and preferences of the diners and caters to people of all segments. Like Italy is the perfect place for people to enjoy sumptuous and authentic Italian dishes with family and friends.", 
       "address": "Block M, Main Market, 34, Greater Kailash - 1, South Delhi, 110048", 
       "costfortwo": "1000", 
       "cuisine": "Italian", 
@@ -196,15 +199,16 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away']", 
+      "genrat": "4.0", 
       "id": 3, 
-      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/v/h/p37319-15115259055a180e1167e02.jpg?w=700", 
+      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/r/i/m37319-15115258685a180decbdff1.jpg?w=400", 
       "lat,long": "28.549720,77.236580", 
       "map": "http://maps.google.com?q=28.549720,77.236580", 
       "name": "Like Italy", 
       "phone": "011-49849855, 08860199093"
    }, 
    {
-      "about": "Kylin Experience is a chain of casual dining restaurants specializing in Chinese cuisine. The place is known for its Pan-Asian cooking techniques. Kylin Experience offers a nice and beautiful ambiance and an affordable menu. The menu is in line with the tastes and preferences of the people and caters to people of all age-groups. The various ingredients and spices used in the preparations are all authentic and flavorful. This is the perfect place for people to enjoy delicious and authentic Chinese delicacies with family and friends. The outlet is located in N Block in Greater Kailash 1, Delhi.", 
+      "about": " Kylin Experience offers a nice and beautiful ambiance and an affordable menu. The menu is in line with the tastes and preferences of the people and caters to people of all age-groups. The various ingredients and spices used in the preparations are all authentic and flavorful. This is the perfect place for people to enjoy delicious and authentic Chinese delicacies with family and friends. The outlet is located in N Block in Greater Kailash 1, Delhi.", 
       "address": "N block, 6, 1 st floor, Greater Kailash - 1, South Delhi, 110038", 
       "costfortwo": "1000", 
       "cuisine": "Chinese,Asian", 
@@ -247,6 +251,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Take Away']", 
+      "genrat": "4.3", 
       "id": 4, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/i/m/p35325-15126463065a2926a26db9f.jpg?w=400", 
       "lat,long": "28.556519,77.233612", 
@@ -255,7 +260,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Cafe Mechanix is a specialty cafe with a calm ambiance and a comfortable seating. The chefs pamper various dishes to make sure the diners meet the satiation of tempting and tasty dishes. Every dish on the menu has the finest taste and do not burn a hole in your pocket. The a-la-carte primarily features Italian and Mexican cuisines. Cafe Mechanix is located in Satya Niketan, South Delhi and stands nearby Snip Zone.", 
+      "about": " Every dish on the menu has the finest taste and do not burn a hole in your pocket. The a-la-carte primarily features Italian and Mexican cuisines. Cafe Mechanix is located in Satya Niketan, South Delhi and stands nearby Snip Zone.", 
       "address": "Block 29, 13, Satya Niketan, South Delhi, 110008", 
       "costfortwo": "400", 
       "cuisine": "Italian,Mexican", 
@@ -298,6 +303,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Take Away']", 
+      "genrat": 3.0, 
       "id": 5, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/t/f/p37698-15132374255a322bb1dfbf3.jpg?w=400", 
       "lat,long": "28.588461,77.168654", 
@@ -306,7 +312,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Achula's Kitchen is a cafe that serves delicious items in Italian and Continental cuisines at affordable rates. It is situated in Satya Niketan, South Delhi. It has a nice and beautiful ambiance. It is a perfect place to come with friends and family during weekends. Achula's Kitchen is a must-visit place for your short-lived cravings.", 
+      "about": " It has a nice and beautiful ambiance. It is a perfect place to come with friends and family during weekends. Achula's Kitchen is a must-visit place for your short-lived cravings.", 
       "address": "246, Satya Niketan, South Delhi, 110008", 
       "costfortwo": "300", 
       "cuisine": "Italian,Continental", 
@@ -349,6 +355,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned']", 
+      "genrat": 3.0, 
       "id": 6, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/v/y/p37701-15129870725a2e59c038928.jpg?w=400", 
       "lat,long": "28.588123,77.168191", 
@@ -357,7 +364,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "French Kiss Cafe is a casual dining cafe located in Lajpat Nagar 4, Delhi. The place offers an amazing and colorful ambiance and an affordable menu which serves a variety of delicious Continental delicacies to choose from. The menu is in line with the tastes and preferences of the diners and caters to people of all age-groups. French Kiss Cafe is the perfect place for people to enjoy sumptuous food and spend quality time with friends.", 
+      "about": " The menu is in line with the tastes and preferences of the diners and caters to people of all age-groups. French Kiss Cafe is the perfect place for people to enjoy sumptuous food and spend quality time with friends.", 
       "address": "BLock E, 137, Lajpat Nagar - 4, South Delhi, 110024", 
       "costfortwo": "500", 
       "cuisine": "Continental", 
@@ -400,6 +407,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away']", 
+      "genrat": 3.0, 
       "id": 7, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/t/a/p37572-15123892765a253a9c4b7f2.jpg?w=400", 
       "lat,long": "28.560916,77.239081", 
@@ -408,7 +416,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Being one of the best resto-pubs and lounges in the city, Uncultured Cafe & Bar offers a variety of Multi-cuisine delicacies along with an array of drinks and spirits from their extensive bar menu. Every cocktail is prepared by the trained mixologists offering the finest taste for the party people. The premium menu is in line with the varied tastes and preferences of the people and serves a range of Chinese, Italian, and other Continental dishes along with various finger food items to choose from. Uncultured Cafe & Bar also offers an awesome and comfortable ambiance. Uncultured Cafe & Bar is the perfect place for people to enjoy the nightlife. The additional feature is the open terrace area which provides a relaxing and enjoyable night with a spectacular view to all the guests. The place is located in Kailash Colony, Delhi.", 
+      "about": " The premium menu is in line with the varied tastes and preferences of the people and serves a range of Chinese, Italian, and other Continental dishes along with various finger food items to choose from. Uncultured Cafe & Bar also offers an awesome and comfortable ambiance. Uncultured Cafe & Bar is the perfect place for people to enjoy the nightlife. The additional feature is the open terrace area which provides a relaxing and enjoyable night with a spectacular view to all the guests. The place is located in Kailash Colony, Delhi.", 
       "address": "HS-12, Kailash Colony Market, Kailash Colony, South Delhi, 110048", 
       "costfortwo": "1500", 
       "cuisine": "Multi-Cuisine,Italian,Chinese,Continental,Finger Food", 
@@ -451,6 +459,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Serves Alcohol', 'Parking', 'Games', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening', 'Wallet Accepted']", 
+      "genrat": "4.3", 
       "id": 8, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/l/d/p32441-149103082758df532b6ac14.jpg?w=400", 
       "lat,long": "28.552562,77.241339", 
@@ -459,7 +468,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Caf\u00e9 Healthilicious is one of the best health food concepts in the city. The place is well known for serving healthy and delicious salads, pasta, sandwiches, juices, and a variety of Continental dishes. Caf\u00e9 Healthilicious aims at providing freshly tossed salads from its extensive salad bar. The place offers a fresh menu of some of the most delicious salads with exotic dressings. Whether it is breakfast, lunch, or dinner, they serve them all and that too of great tastes. Caf\u00e9 Healthilicioushas is located in Pacific Sports Complex in Greater Kailash -1, Delhi.", 
+      "about": " Caf\u00e9 Healthilicious aims at providing freshly tossed salads from its extensive salad bar. The place offers a fresh menu of some of the most delicious salads with exotic dressings. Whether it is breakfast, lunch, or dinner, they serve them all and that too of great tastes. Caf\u00e9 Healthilicioushas is located in Pacific Sports Complex in Greater Kailash -1, Delhi.", 
       "address": "Pacific Sports Complex, Near Petrol Pump, Greater Kailash - 1, South Delhi, 110048", 
       "costfortwo": "500", 
       "cuisine": "Health Food,Continental,Coffee", 
@@ -502,15 +511,16 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Wallet Accepted']", 
+      "genrat": 3.0, 
       "id": 9, 
-      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/d/k/p33952-1500357044596da1b406226.jpg?w=700", 
+      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/k/m/m33952-15124573935a2644b1db266.jpg?w=400", 
       "lat,long": "28.560239,77.233598", 
       "map": "http://maps.google.com?q=28.560239,77.233598", 
       "name": "Caf\u00e9 Healthilicious", 
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Lodi - The Garden Restaurant is an ideal place for people who want to give their palates a flavorful twist. This specialty restaurant serves Mediterranean and European cuisines with an innovative twist that takes one on a flavorful ride. The well-arranged ambiance paired up with a lush green outdoor seating instantly takes one to a different world of awesomeness. The well-stocked bar is an addition to the offering that the place has in store. Lodi is located in Lodhi Road and the nearest landmark is IIC Centre Delhi.", 
+      "about": " The well-arranged ambiance paired up with a lush green outdoor seating instantly takes one to a different world of awesomeness. The well-stocked bar is an addition to the offering that the place has in store. Lodi is located in Lodhi Road and the nearest landmark is IIC Centre Delhi.", 
       "address": "Gate No.1, Lodhi Road, South Delhi, 110003", 
       "costfortwo": "2000", 
       "cuisine": "Continental,Mediterranean,Lebanese", 
@@ -553,6 +563,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 10, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/m/r/p312-1445343950562632ce01d9f.jpg?w=400", 
       "lat,long": "28.590425,77.221276", 
@@ -561,7 +572,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "1 Oak Cafe & Bar is a casual dining restaurant that takes the endeavor to provide diners with fine quality of food and an overall pleasant experience of dining out. The light on the pocket menu serves Chinese, Italian, and Continental cuisines that are flavorful and freshly cooked. The adorable ambiance paired up with a shady outdoor seating does not leave a chance to amaze you. It is a must-visit place for folks who get that craving for good food, end of the month but cannot afford to miss out on tasty food just because they are short of money. 1 Oak Cafe & Bar is located in Defence Colony and it stands nearby French Book Center.", 
+      "about": " The adorable ambiance paired up with a shady outdoor seating does not leave a chance to amaze you. It is a must-visit place for folks who get that craving for good food, end of the month but cannot afford to miss out on tasty food just because they are short of money. 1 Oak Cafe & Bar is located in Defence Colony and it stands nearby French Book Center.", 
       "address": "49-50, Moolchand Flyover Complex, Defence Colony, South Delhi, 110024", 
       "costfortwo": "1600", 
       "cuisine": "Chinese,Italian,Continental", 
@@ -604,6 +615,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.0", 
       "id": 11, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/w/s/p666-144541605256274c746d32c.jpg?w=400", 
       "lat,long": "28.566395,77.233804", 
@@ -612,7 +624,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "The Flying Saucer is a casual-dining restaurant located in Nehru Place. It is a place where you can relish every bite of Italian, Continental, and Mediterranean cuisine and that too at a price that is economical. To complement the tasty dishes, The Flying Saucer Cafe encompasses a well-arranged ambiance that has the yellow tint all over the wooden set-up paired up with a spectacular outdoor seating. The cordial staff is always on its toes to make sure everything falls into place smoothly. It is a perfect place for people who want to go for a fulsome meal at affordable prices. The nearest landmark of The Flying Saucer is Nehru Place Metro Station.", 
+      "about": " To complement the tasty dishes, The Flying Saucer Cafe encompasses a well-arranged ambiance that has the yellow tint all over the wooden set-up paired up with a spectacular outdoor seating. The cordial staff is always on its toes to make sure everything falls into place smoothly. It is a perfect place for people who want to go for a fulsome meal at affordable prices. The nearest landmark of The Flying Saucer is Nehru Place Metro Station.", 
       "address": "Epicuria Food Mall, Lower Ground Floor, Nehru Place Metro Station, Nehru Place, South Delhi, 110019", 
       "costfortwo": "1500", 
       "cuisine": "Italian,Continental,Mediterranean", 
@@ -655,6 +667,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'DJ', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "3.8", 
       "id": 12, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/5/s/b/p543-149431415959116cafb12d0.jpg?w=400", 
       "lat,long": "28.551146,77.251614", 
@@ -663,7 +676,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Lord of the Drinks Forum has a uniquely built decor and is located in Nehru Place. The restaurant hosts a spacious place welcoming families, corporates and couples who are looking for some private time. The carefully selected decor of the place matches the taste of people from different backgrounds. Lord of the Drinks Forum serves Multiple Cuisines that take you on a delectable ride. The casual dining restaurant has a well-set bar that spoils you for choice with its varied options of spirits. An addition to the offering is a picturesque outdoor seating. It is a must visit place for the crowd who look for good food that is served with warmth and care and a good time. The nearest landmark is Nehru Place Metro Open Parking.", 
+      "about": " The carefully selected decor of the place matches the taste of people from different backgrounds. Lord of the Drinks Forum serves Multiple Cuisines that take you on a delectable ride. The casual dining restaurant has a well-set bar that spoils you for choice with its varied options of spirits. An addition to the offering is a picturesque outdoor seating. It is a must visit place for the crowd who look for good food that is served with warmth and care and a good time. The nearest landmark is Nehru Place Metro Open Parking.", 
       "address": "Epicuria Food Mall, Upper Ground Floor, Nehru Place Metro Station, Nehru Place, South Delhi, 110019", 
       "costfortwo": "2000", 
       "cuisine": "Multi-Cuisine,North Indian,Italian,Chinese,Continental", 
@@ -706,6 +719,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 13, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/s/g/p22382-1494310914591160022cbfe.jpg?w=400", 
       "lat,long": "28.551328,77.251965", 
@@ -714,7 +728,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "An all-day casual dining restaurant, Lord of the Drinks Meadow has carved a niche for itself in the hospitality industry with its delectable culinary delights, one of a kind ambiance and high-quality services that you as a diner cannot afford to miss. This Multi Cuisine restaurant is known for reinventing its dishes that are inspired by International Cuisines and you get a chance to savor all of them. The elaborate a la carte and the endless tasty dishes just spoil you for choice. An icing on the cake is the trendy and a well-stocked bar menu that has all the signature collections of spirits. Lord of the Drinks Meadow is located in one of the busiest places in South Delhi- Hauz Khas Village and the nearest landmark is Art Elements Gallery.", 
+      "about": " The elaborate a la carte and the endless tasty dishes just spoil you for choice. An icing on the cake is the trendy and a well-stocked bar menu that has all the signature collections of spirits. Lord of the Drinks Meadow is located in one of the busiest places in South Delhi- Hauz Khas Village and the nearest landmark is Art Elements Gallery.", 
       "address": "Inside Deer Park, Hauz Khas Village, South Delhi, 110016", 
       "costfortwo": "1600", 
       "cuisine": "Multi-Cuisine,North Indian,Italian,Chinese,European", 
@@ -757,6 +771,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Candle Light Dinner', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 14, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/q/z/p29426-1482315613585a575db02a8.jpg?w=400", 
       "lat,long": "28.559077,77.195423", 
@@ -765,7 +780,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "3 Pegs Down is a casual dining resto-pub and lounge located in Saket, Delhi. The place which serves one with exquisiteness and tastefulness. The lounge is known for its delectable Italian, North Indian, and Mediterranean delicacies served from its extensive multi-cuisine menu. The eclectic bar menu is in line with the tastes and preferences of the people and serves an array of drinks and spirits to choose from. Nothing can beat the taste that expert chefs of the place add to the culinary. 3 Pegs Down has a rustic yet classic ambiance with modern decor and comfortable lounges. The additional feature is the Live Music performances and the DJ nights hosted there which makes everyone groove and move. The Screening facility available surely keeps everyone entertained throughout and makes the visit worthwhile.", 
+      "about": " The lounge is known for its delectable Italian, North Indian, and Mediterranean delicacies served from its extensive multi-cuisine menu. The eclectic bar menu is in line with the tastes and preferences of the people and serves an array of drinks and spirits to choose from. Nothing can beat the taste that expert chefs of the place add to the culinary. 3 Pegs Down has a rustic yet classic ambiance with modern decor and comfortable lounges. The additional feature is the Live Music performances and the DJ nights hosted there which makes everyone groove and move. The Screening facility available surely keeps everyone entertained throughout and makes the visit worthwhile.", 
       "address": "Southern Park Mall, Ground Floor, Saket District Centre, Sector 6, Saket, South Delhi, 110017", 
       "costfortwo": "1500", 
       "cuisine": "North Indian,Italian,Continental,Mediterranean", 
@@ -808,6 +823,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Screening']", 
+      "genrat": "4.3", 
       "id": 15, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/y/m/p20874-1480322542583bedeea5cbc.jpg?w=400", 
       "lat,long": "28.527576,77.219186", 
@@ -816,7 +832,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "#Off Campus is a well-known cafe is located at Satya Niketan, Delhi. The place offers a superb ambiance and delicious food. The affordable menu of #Off Campus serves Chinese, North Indian, and Continental cuisines and is an instant attraction amongst youngsters. The cafe stands opposite to Sri Venkateshwara College. The ambiance of the place is pleasant and cozy with comfortable lounges. The Live Music performances make #Off Campus an enjoyable place for all people.", 
+      "about": " The affordable menu of #Off Campus serves Chinese, North Indian, and Continental cuisines and is an instant attraction amongst youngsters. The cafe stands opposite to Sri Venkateshwara College. The ambiance of the place is pleasant and cozy with comfortable lounges. The Live Music performances make #Off Campus an enjoyable place for all people.", 
       "address": "284, Top Floor , Satya Niketan, South Delhi, 110021", 
       "costfortwo": "1000", 
       "cuisine": "North Indian,Italian,Continental,Fast Food", 
@@ -859,6 +875,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Alcohol Free Bar', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening']", 
+      "genrat": "4.3", 
       "id": 16, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/c/b/p23092-149452214859149924db028.jpg?w=400", 
       "lat,long": "28.589217,77.168762", 
@@ -867,7 +884,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "LaidBack Cafe is a casual dining cafe and lounge located in DLF Place Saket, Delhi. The place has a beautiful and amazing ambiance and offers an exclusive menu which serves North Indian, Italian, and other Continental delicacies. The premium menu is in line with the tastes and preferences of the diners and caters to people of all segments. The eclectic bar menu offers an array of drinks and fine spirits to choose from. LaidBack Cafe is the perfect place for people to have sumptuous multi-cuisine delicacies with family and friends.", 
+      "about": " The premium menu is in line with the tastes and preferences of the diners and caters to people of all segments. The eclectic bar menu offers an array of drinks and fine spirits to choose from. LaidBack Cafe is the perfect place for people to have sumptuous multi-cuisine delicacies with family and friends.", 
       "address": "DLF Place Saket, Ground Floor. District Centre, Sector 6, Saket, South Delhi, 110017", 
       "costfortwo": "1800", 
       "cuisine": "North Indian,Continental,Mediterranean,Oriental", 
@@ -910,6 +927,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Serves Alcohol', 'Parking', 'Take Away']", 
+      "genrat": "4.3", 
       "id": 17, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/q/m/p35021-15115199895a17f6f594b16.jpg?w=400", 
       "lat,long": "28.527529,77.217159", 
@@ -918,7 +936,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "SET'Z is a Multi cuisine restaurant that is a perfect place to be at with your families and friends. The light on pocket menu has got so much to offer to its diners paired up with a awesome ambiance. The cordial staff too makes sure that the diners feel at home. The authentic North Indian, Thai, Mediterranean, and Arabian cuisines, all inspired by different gourmet dishes in the provinces take you on a delectable ride. SET'Z comes to rescue when every member in the family has its own favorite cuisine and the dinner table becomes a battle ground. It is located in Vasant Kunj and its stands nearby Gucci - New Delhi Emporio.", 
+      "about": " The cordial staff too makes sure that the diners feel at home. The authentic North Indian, Thai, Mediterranean, and Arabian cuisines, all inspired by different gourmet dishes in the provinces take you on a delectable ride. SET'Z comes to rescue when every member in the family has its own favorite cuisine and the dinner table becomes a battle ground. It is located in Vasant Kunj and its stands nearby Gucci - New Delhi Emporio.", 
       "address": "DLF Emporio Mall, 405, 3rd Floor, Nelson Mandela Marg, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "3000", 
       "cuisine": "Multi-Cuisine,North Indian,Chinese,Thai,European,Coastal", 
@@ -961,6 +979,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 18, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/m/v/p645-1493587173590654e519aec.jpg?w=400", 
       "lat,long": "28.543293,77.156467", 
@@ -969,7 +988,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "The Junction is a multi-cuisine casual dining restaurant and lounge with a classic aura and an amazing outdoor seating that pamper the various dishes being hand-picked by the trained chefs. Every dish in the menu is of the finest taste and is served to diners after an all day hard work that Chefs put in. The Premium menu has got so much to offer from their a-la-carte menu including a variety of Mughlai and Continental dishes. An addition to the offering is enchanting live performances, a soothing live music, and a cool dance floor along with an outdoor seating area. The Junction is located in CSC Complex, Hauz Khaz.", 
+      "about": " The Premium menu has got so much to offer from their a-la-carte menu including a variety of Mughlai and Continental dishes. An addition to the offering is enchanting live performances, a soothing live music, and a cool dance floor along with an outdoor seating area. The Junction is located in CSC Complex, Hauz Khaz.", 
       "address": "A-21, Sri Aurobindo Marg, Block A, Hauz Khas, South Delhi, 110016", 
       "costfortwo": "1600", 
       "cuisine": "Multi-Cuisine,North Indian,Italian,Continental,Oriental", 
@@ -1012,6 +1031,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening']", 
+      "genrat": "4.1", 
       "id": 19, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/o/v/p30691-1494058035590d84330b0d2.jpg?w=400", 
       "lat,long": "28.554328,77.206249", 
@@ -1020,7 +1040,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Lazeez Affaire is a specialty restaurant that serves authentic North Indian and Mughlai cuisines, which is known for its spicy indulgence and the rich aroma. The various ingredients and a thick gravy preparation instantly give a soul-satisfying taste to the diners. The decor of the casual-dining restaurant shows a glimpse of the rich culture of the country. The cost-effective menu has been designed with utmost care to make sure that the flavor and spirit of the traditional Indian cooking come in every dish. Lazeez Affaire is located in Chanakyapuri and the nearest landmark is a Gurdwara Singh Sabha.", 
+      "about": " The decor of the casual-dining restaurant shows a glimpse of the rich culture of the country. The cost-effective menu has been designed with utmost care to make sure that the flavor and spirit of the traditional Indian cooking come in every dish. Lazeez Affaire is located in Chanakyapuri and the nearest landmark is a Gurdwara Singh Sabha.", 
       "address": "Malcha Marg Shopping Complex, 6/48, Diplomatic Enclave, Chanakyapuri, South Delhi, 110021", 
       "costfortwo": "1500", 
       "cuisine": "North Indian,Mughlai", 
@@ -1063,6 +1083,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar']", 
+      "genrat": "4.1", 
       "id": 20, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/j/d/p109-144534380156263239023d8.jpg?w=400", 
       "lat,long": "28.602018,77.186141", 
@@ -1071,7 +1092,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Fio Country Kitchen and Bar is an ideal place for the crowd who want to give their palates a flavorful twist and that too at affordable prices. This restaurant serves delectable North Indian and Italian dishes that carry an innovative and flavorful twist and a tinge of raw ingredients. The spacious ambiance and an outdoor seating that is full of green lush beauty melt your heart in no time. The place is very apt for a fun getaway with your friends and family. Fio Country Kitchen and Bar is located in Sainik Farms and stands nearby Saket Metro Station.", 
+      "about": " The spacious ambiance and an outdoor seating that is full of green lush beauty melt your heart in no time. The place is very apt for a fun getaway with your friends and family. Fio Country Kitchen and Bar is located in Sainik Farms and stands nearby Saket Metro Station.", 
       "address": "Garden of Five Senses, Gate 1, Saket, South Delhi, 110030", 
       "costfortwo": "3000", 
       "cuisine": "North Indian,Italian", 
@@ -1114,6 +1135,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Serves Wine', 'Bar', 'Candle Light Dinner', 'Outdoor Seating']", 
+      "genrat": "3.8", 
       "id": 21, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/h/h/p143-1460629943570f71b791e4d.jpg?w=400", 
       "lat,long": "28.513938,77.196917", 
@@ -1122,7 +1144,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Smoke House Deli is a specialty restaurant located in  Vasant Kunj and it stands nearby Harley Davidson Showroom. It is a place where you can relish every bite of Italian and Continental cuisines and that too at a price that is light on your pocket. The spick and span decor of the place paired up with a well-set bar makes it best of both the worlds. The cordial staff is always on its toes to make sure everything falls into place smoothly and is worth your time. Smoke House Deli is a perfect place for people who want to go to a place that is cost-effective and at the same time gets a fulsome meal.", 
+      "about": " The spick and span decor of the place paired up with a well-set bar makes it best of both the worlds. The cordial staff is always on its toes to make sure everything falls into place smoothly and is worth your time. Smoke House Deli is a perfect place for people who want to go to a place that is cost-effective and at the same time gets a fulsome meal.", 
       "address": "DLF Promenade Mall, Ground Floor, 3, Nelson Mandela Road, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "2000", 
       "cuisine": "Italian,Continental", 
@@ -1165,6 +1187,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.0", 
       "id": 22, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/e/v/p258-149311530258ff21a69641d.jpg?w=400", 
       "lat,long": "28.542862,77.156232", 
@@ -1173,7 +1196,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Taksim, located in Ansal Plaza Mall in Khel Gaon, Delhi, is a casual dining resto-bar and lounge which serves a variety of Continental dishes. The place has a beautiful ambiance along with an awesome open terrace area which provides a threesome combination of good weather, delicious food, and great vibes. The eclectic bar menu serves an array of drinks and spirits to choose from. The additional features are the Live music performances and the DJ nights hosted there which makes everyone groove on the dance floor. The screening facility available there surely keep all the diners entertained. Taksim is the perfect place for people to enjoy the nightlife.", 
+      "about": " The eclectic bar menu serves an array of drinks and spirits to choose from. The additional features are the Live music performances and the DJ nights hosted there which makes everyone groove on the dance floor. The screening facility available there surely keep all the diners entertained. Taksim is the perfect place for people to enjoy the nightlife.", 
       "address": "Ansal Plaza, CG-01, Andrews Ganj\n, Khel Gaon, South Delhi, 110049", 
       "costfortwo": "2000", 
       "cuisine": "Continental", 
@@ -1216,6 +1239,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.2", 
       "id": 23, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/p/c/p29626-14819633055854f7298ebf0.jpg?w=400", 
       "lat,long": "28.562413,77.224304", 
@@ -1224,7 +1248,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Olive Bar & Kitchen is a place for people who are very specific about the excellent quality of food and service. A cozy ambiance and a spectacular outdoor seating surely make your visit memorable. Olive Bar & Kitchen is located in Mehrauli. Every dish in the Italian, Mediterranean, and European cuisines is of finest taste and is served to diners after a 24*7 fine work that Chefs put in. The premium menu is specially designed to make sure you get your favorite pick and relish every bite of it. It is an ideal place for people who like spending quality time with friends and family. The nearest landmark of Olive Bar & Kitchen is Qutub Minar.", 
+      "about": " Olive Bar & Kitchen is located in Mehrauli. Every dish in the Italian, Mediterranean, and European cuisines is of finest taste and is served to diners after a 24*7 fine work that Chefs put in. The premium menu is specially designed to make sure you get your favorite pick and relish every bite of it. It is an ideal place for people who like spending quality time with friends and family. The nearest landmark of Olive Bar & Kitchen is Qutub Minar.", 
       "address": "Haveli 6-8, One Style Mile, Kalkadass Marg, Mehrauli, South Delhi, 110030", 
       "costfortwo": "3000", 
       "cuisine": "Continental,Italian,Mediterranean", 
@@ -1267,6 +1291,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Candle Light Dinner', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.2", 
       "id": 24, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/x/d/p78-149561211159253acf0cb55.jpg?w=400", 
       "lat,long": "28.525967,77.184273", 
@@ -1275,7 +1300,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Desi Vibes as the name suggests, gives you an at home feeling with the serving of authentic and rich preparation of North Indian and Mughlai cuisines. A perfect place that gives you a delectable indulgence and takes you back to the classic era of royalness. The carving on the walls showcases the elegance that the ambiance is made of. The accommodating and courteous staff adds on to the overall dining experience. The specialty restaurant gives a low on pocket menu and wonderful services making it a one-stop destination for relaxed getaway. Desi Vibes is for people who have spicy taste buds and want to have a flavorful ride. The casual dining restaurant is situated in Defence Colony and the nearest landmark is Defence Colony Main Market.", 
+      "about": " The carving on the walls showcases the elegance that the ambiance is made of. The accommodating and courteous staff adds on to the overall dining experience. The specialty restaurant gives a low on pocket menu and wonderful services making it a one-stop destination for relaxed getaway. Desi Vibes is for people who have spicy taste buds and want to have a flavorful ride. The casual dining restaurant is situated in Defence Colony and the nearest landmark is Defence Colony Main Market.", 
       "address": "7, Main Market, Defence Colony, South Delhi, 110024", 
       "costfortwo": "1400", 
       "cuisine": "North Indian,Mughlai", 
@@ -1318,6 +1343,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted']", 
+      "genrat": "4.5", 
       "id": 25, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/v/l/p24863-15109926315a0feaf74ae1a.jpg?w=400", 
       "lat,long": "28.573771,77.230055", 
@@ -1326,7 +1352,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Chili\u2019s American Grill & Bar is a casual dining place where one can get a variety of drinks and an awesome ambiance. Chili's serves a wide variety of appetizers, soups, and chili, salads, burgers, sandwiches, quesadillas, chicken and seafood entrees, fajitas, ribs, steaks and desserts available in India prepared in the American style. The American and Mexican dishes they serve are prepared using authentic Meso-American style of cooking. The outlet is located in DLF Place Saket, Delhi.", 
+      "about": " The American and Mexican dishes they serve are prepared using authentic Meso-American style of cooking. The outlet is located in DLF Place Saket, Delhi.", 
       "address": "DLF Place Saket, Ground Floor, District Centre, Sector 6, Pushp Vihar, Saket, South Delhi, 110017", 
       "costfortwo": "1800", 
       "cuisine": "Mexican,American", 
@@ -1369,6 +1395,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Screening']", 
+      "genrat": "4.5", 
       "id": 26, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/l/w/p19060-148819211058b4026ef2452.jpg?w=400", 
       "lat,long": "28.528409,77.216472", 
@@ -1377,7 +1404,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Auro Kitchen Bar is a specialty restaurant that is well-efficient in serving North Indian and Continental cuisines, inspired by different provinces across the world and that too at prices that are low on your pocket. The restaurant has a friendly staff that makes sure you get a comfortable vibe. The subtle ambiance instantly cheer you up and lightens up your mood. Its definitely a go to place for people who crave for an eventful time with friends on a table full of delicious servings. An addition to the offering is  a spacious outdoor seating. Auro Kitchen Bar is located in Hauz Khaz and the nearest landmark is Hauz Khas Village.", 
+      "about": " The subtle ambiance instantly cheer you up and lightens up your mood. Its definitely a go to place for people who crave for an eventful time with friends on a table full of delicious servings. An addition to the offering is  a spacious outdoor seating. Auro Kitchen Bar is located in Hauz Khaz and the nearest landmark is Hauz Khas Village.", 
       "address": "DDA Shopping Complex, 31, 2nd Floor, Aurobindo Place Market, Block C 2, Bhim Nagri, Hauz Khas, South Delhi, 110016", 
       "costfortwo": "1500", 
       "cuisine": "North Indian,Continental", 
@@ -1420,6 +1447,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.5", 
       "id": 27, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/j/e/p28441-150417423959a7e09f88f02.jpg?w=400", 
       "lat,long": "28.552125,77.203823", 
@@ -1428,7 +1456,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Barbeque Nation has brought to India the unique concept of the live grill. This is the best place for all those people who want to try something different from a regular conventional dishes and are bar-be-que lovers with that special deviation for smoked food. Barbeque Nation serves a fabulous buffet menu and is perfect for large groups. Their affordable menu has this wide variety of smoky dishes and desserts and is a perfect place to go for all occasions and gatherings. The outlet is located in Eros One, Jungpura, Delhi and the nearest landmark is Saheed Bhagat Singh Park.", 
+      "about": " Barbeque Nation serves a fabulous buffet menu and is perfect for large groups. Their affordable menu has this wide variety of smoky dishes and desserts and is a perfect place to go for all occasions and gatherings. The outlet is located in Eros One, Jungpura, Delhi and the nearest landmark is Saheed Bhagat Singh Park.", 
       "address": "Eros One, Ground Floor, Block H, Jungpura Extension, Jungpura, South Delhi, 110014", 
       "costfortwo": "1400", 
       "cuisine": "North Indian", 
@@ -1471,15 +1499,16 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Serves Alcohol', 'Parking', 'Cards Accepted', 'Serves Wine', 'Bar', 'Barbeque and Grill']", 
+      "genrat": "4.5", 
       "id": 28, 
-      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/8/t/x/p8845-144006717955d5ae6b7903f.jpg?w=400", 
+      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/8/q/o/m8845-14963894525931174c93320.jpg?w=400", 
       "lat,long": "28.581149,77.242215", 
       "map": "http://maps.google.com?q=28.581149,77.242215", 
       "name": "Barbeque Nation", 
-      "phone": "+91 9212340202"
+      "phone": "09650511818"
    }, 
    {
-      "about": "Summer House Cafe is a specialty restaurant that is located in one of the most buzzing places in Delhi-  Hauz Khas and the nearest landmark is Midland Book Shop. It is a place where you can relish every bite of carefully prepared Italian and Continental cuisines and that too at a price that is light on your pocket. The spick and span decor of the place leaves you captivating. The dedicated staff is always on its toes to make sure everything falls into place smoothly. An addition to the awesomeness is a well-set bar. Summer House Cafe is a perfect place for people who want to go to a place that is cost-effective and at the same time gives satisfactory returns.", 
+      "about": " The spick and span decor of the place leaves you captivating. The dedicated staff is always on its toes to make sure everything falls into place smoothly. An addition to the awesomeness is a well-set bar. Summer House Cafe is a perfect place for people who want to go to a place that is cost-effective and at the same time gives satisfactory returns.", 
       "address": "DDA Shopping Complex, 1st Floor, Aurbindo Place Market, Block C 2, Bhim Nagri, Hauz Khas, South Delhi, 110016", 
       "costfortwo": "2000", 
       "cuisine": "Italian,Continental", 
@@ -1522,6 +1551,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Barbeque and Grill', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.3", 
       "id": 29, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/a/j/p633-1494053761590d73813a078.jpg?w=400", 
       "lat,long": "28.55229,77.203809", 
@@ -1530,7 +1560,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Social is one of the best place which blends the best of the office and the caf\u00e9. This is the perfect place for people to have fun and unwind after a hectic day at work. Social is an all day caf\u00e9 and bar where you can work and play with fun drinks and comfort food served with a large helping of unorthodox. It's an urban hangout that's designed to take you offline while still keeping you connected. The extensive menu of Social offers a range of American and other Continental dishes along with an array of drinks and exotic cocktails. Nehru Place Social is located on the upper ground floor of TDI Epicuria Mall, Delhi. It's a space where artists meet designers, innovators meet entrepreneurs, photographers and writers meet web developers and where creative independents meet to bounce ideas off like-minded peers.", 
+      "about": " Social is an all day caf\u00e9 and bar where you can work and play with fun drinks and comfort food served with a large helping of unorthodox. It's an urban hangout that's designed to take you offline while still keeping you connected. The extensive menu of Social offers a range of American and other Continental dishes along with an array of drinks and exotic cocktails. Nehru Place Social is located on the upper ground floor of TDI Epicuria Mall, Delhi. It's a space where artists meet designers, innovators meet entrepreneurs, photographers and writers meet web developers and where creative independents meet to bounce ideas off like-minded peers.", 
       "address": "Epicuria Food Mall, Upper Ground Floor, Nehru Place Metro Station, Nehru Place, South Delhi, 110019", 
       "costfortwo": "2000", 
       "cuisine": "Multi-Cuisine,Continental,American,Asian", 
@@ -1573,6 +1603,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating', 'Private Dining Available', 'Screening']", 
+      "genrat": "4.3", 
       "id": 30, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/x/p/p22375-149094140558ddf5dd1b9ec.jpg?w=400", 
       "lat,long": "28.551392,77.251696", 
@@ -1581,7 +1612,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Chili's is a casual dining restaurant that is located in Vasant Kunj and the nearest landmark is Pandit Deendayal Upadhyaya Urja Bhawan. It is a place for people who like to explore different cuisines that is not that popular among the crowd but are catching up with time. Chili's, henceforth offers the diners delicious Italian, Mexican, and American cuisines at prices that are low on their pockets. Chili's also holds a subtle ambiance and makes sure you land up at the same place when it comes to having the mentioned cuisines in the most authentic form. An addition to the offering is the mocktail section that is equally a palate enhancer.", 
+      "about": " Chili's, henceforth offers the diners delicious Italian, Mexican, and American cuisines at prices that are low on their pockets. Chili's also holds a subtle ambiance and makes sure you land up at the same place when it comes to having the mentioned cuisines in the most authentic form. An addition to the offering is the mocktail section that is equally a palate enhancer.", 
       "address": "Ambience Mall, 3rd Floor, Nelson Mandela Marg, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "1800", 
       "cuisine": "Mexican,American", 
@@ -1624,6 +1655,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.5", 
       "id": 31, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/p/w/p7570-14934682345904844a0ec0d.jpg?w=400", 
       "lat,long": "28.540774,77.154852", 
@@ -1632,7 +1664,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Cafe Delhi Heights is a chain of casual dining restaurants and is for people who love to indulge in North Indian, Italian, Continental, and American cuisines, which are catching up the taste of people. The subtle ambiance paired up with an elegant outdoor seating takes you away from the hustle and bustle of the city and lightens your mood in no time. Every dish in the exclusive menu is lip-smacking and is inspired by the provinces itself. The unique culinary style that is required to prepare the specialty recipes is something that the chefs here are efficient at. The eclectic bar menu offers an array of drinks and spirits to choose from. The outlet is located in DLF Promenade Mall in Vasant Kunj, Delhi.", 
+      "about": " Every dish in the exclusive menu is lip-smacking and is inspired by the provinces itself. The unique culinary style that is required to prepare the specialty recipes is something that the chefs here are efficient at. The eclectic bar menu offers an array of drinks and spirits to choose from. The outlet is located in DLF Promenade Mall in Vasant Kunj, Delhi.", 
       "address": "DLF Promenade Mall, 2nd Floor, 3, Nelson Mandela Marg, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "2000", 
       "cuisine": "Continental,American", 
@@ -1675,6 +1707,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Outdoor Seating', 'Private Dining Available', 'Screening']", 
+      "genrat": "3.9", 
       "id": 32, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/o/l/p15246-145431529256af171ca2e8e.jpg?w=400", 
       "lat,long": "28.542175,77.156037", 
@@ -1683,7 +1716,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Trend Bar & Kitchen is a casual dining restaurant and lounge known for its vividly modern techniques like Plated cocktails and cutlery that lend an air of ornamental charm to the trendy hangouts. The place makes one experience things ranging from food finishings right at their table to unique servings in the form of Espuma, Smoke, and Cyro techniques to name just a few of the many of their offerings to the diners. The premium menu offers some of the best Mediterranean and Italian dishes. Every dish they serve is of the finest taste and the various ingredients and spices used are authentic. Trend Bar & Kitchen is located in Ansal Plaza in Khel Gaon, Delhi.", 
+      "about": " The premium menu offers some of the best Mediterranean and Italian dishes. Every dish they serve is of the finest taste and the various ingredients and spices used are authentic. Trend Bar & Kitchen is located in Ansal Plaza in Khel Gaon, Delhi.", 
       "address": "Ansal Plaza, CG 03, Ground Floor, Hudco Place, Khel Gaon, South Delhi, 110021", 
       "costfortwo": "1800", 
       "cuisine": "Continental,Italian", 
@@ -1726,6 +1759,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Cards Accepted', 'Bar', 'Outdoor Seating']", 
+      "genrat": "4.3", 
       "id": 33, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/g/o/p33480-1499322295595dd7b78cc50.jpg?w=400", 
       "lat,long": "28.562489,77.224248", 
@@ -1734,7 +1768,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Punjabi By Nature Bar Exchange is a specialty restaurant that serves North Indian and Mughlai cuisines, which is known for its spicy indulgence and the rich aroma. The various ingredients and rich gravy preparation instantly give a soul-satisfying taste to the diners. The aesthetic ambiance of the place very well complements the delicious dishes and takes you on a delectable ride. The outlet is located in Ambience Mall, Vasant Kunj and the nearest landmark is Bharti Airtel building. An addition to the offering is a special Alcohol section in the affordable menu that spoils you for choice.  Punjabi By Nature Bar Exchange  is an ideal place for Indian food eaters who like spending quality time with their families, where every member is equally in love with the authentic Indian curry dishes.", 
+      "about": " The aesthetic ambiance of the place very well complements the delicious dishes and takes you on a delectable ride. The outlet is located in Ambience Mall, Vasant Kunj and the nearest landmark is Bharti Airtel building. An addition to the offering is a special Alcohol section in the affordable menu that spoils you for choice.  Punjabi By Nature Bar Exchange  is an ideal place for Indian food eaters who like spending quality time with their families, where every member is equally in love with the authentic Indian curry dishes.", 
       "address": "Ambience Mall, 3rd Floor, Nelson Mandela Marg, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "1500", 
       "cuisine": "North Indian,Mughlai", 
@@ -1777,6 +1811,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.1", 
       "id": 34, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/q/s/p11174-14946721135916e2f1eeb9d.jpg?w=400", 
       "lat,long": "28.541242,77.154938", 
@@ -1785,7 +1820,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Shalom is a casual dining restaurant that takes the endeavor to provide diners with fine quality of food and an overall pleasant experience of dining out. The light on the pocket menu serves North Indian, Continental, and Asian cuisines that are flavorful and freshly cooked. The adorable ambiance along with a a spectacular outdoor seating does not leave a chance to amaze you. It is a must-visit place for folks who get that craving for good food, end of the month but cannot afford to miss out on tasty food just because they are short of money. Shalom is located in Greater Kailash-1 and it stands nearby N Block Market.", 
+      "about": " The adorable ambiance along with a a spectacular outdoor seating does not leave a chance to amaze you. It is a must-visit place for folks who get that craving for good food, end of the month but cannot afford to miss out on tasty food just because they are short of money. Shalom is located in Greater Kailash-1 and it stands nearby N Block Market.", 
       "address": "10, First Floor, N Block Market, Greater Kailash - 1, South Delhi, 110048", 
       "costfortwo": "2800", 
       "cuisine": "North Indian,Continental,Asian", 
@@ -1828,6 +1863,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "3.8", 
       "id": 35, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/g/b/p216-145604139556c96db3bd70a.jpg?w=400", 
       "lat,long": "28.556315,77.232834", 
@@ -1836,7 +1872,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "In the Punjab celebrates the love for North Indian food people have in India. The specialty restaurant gives you all the right reasons to wholeheartedly give a Punjabi tinge to your palate by serving delicious North Indian, Seafood, and Mughlai cuisines. Every dish in the economical menu is a delight for the foodies. The authentic ingredients and spices not only are rich and aromatic but also freshly prepared. In the Punjab is a must-visit place for people who eat their hearts out and are inclined towards having a rich gravy dish. It is located in Greater Kailash-1 and the nearest landmark is N Block Market.", 
+      "about": " Every dish in the economical menu is a delight for the foodies. The authentic ingredients and spices not only are rich and aromatic but also freshly prepared. In the Punjab is a must-visit place for people who eat their hearts out and are inclined towards having a rich gravy dish. It is located in Greater Kailash-1 and the nearest landmark is N Block Market.", 
       "address": "N-18, 1st Floor, N Block Market, Greater Kailash - 1, South Delhi, 110048", 
       "costfortwo": "2000", 
       "cuisine": "North Indian,Mughlai", 
@@ -1879,6 +1915,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Screening']", 
+      "genrat": "4.2", 
       "id": 36, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/5/n/n/p566-145607018556c9de2990d6e.jpg?w=400", 
       "lat,long": "28.556275,77.232819", 
@@ -1887,7 +1924,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Sana-Di-Ge is a place for people who love North Indian, Seafood, and Coastal cuisines a lot and their search comes to an end because at Sana-Di-Ge, the dishes are served to perfection. The place is as cool and vibrant as the name appears at the first place. In addition to the delectable flavors, the specialty restaurant has a considerate staff that makes the services look effortless and quick in every possible way. The elaborate menu encompasses every specialty dish under the mentioned cuisine. This fine dining restaurant is an ideal place for people who like spending quality time with friends and family, where everyone shares a common love for the cuisines. An addition to the offering is a well-set bar. It is located in Chanakyapuri and the nearest landmark is Solar Energy Society of India.", 
+      "about": " In addition to the delectable flavors, the specialty restaurant has a considerate staff that makes the services look effortless and quick in every possible way. The elaborate menu encompasses every specialty dish under the mentioned cuisine. This fine dining restaurant is an ideal place for people who like spending quality time with friends and family, where everyone shares a common love for the cuisines. An addition to the offering is a well-set bar. It is located in Chanakyapuri and the nearest landmark is Solar Energy Society of India.", 
       "address": "Malcha Marg Shopping Complex, 22/48, Diplomatic Enclave, Chanakyapuri, South Delhi, 110021", 
       "costfortwo": "2200", 
       "cuisine": "Coastal,North Indian,Seafood", 
@@ -1930,6 +1967,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating']", 
+      "genrat": "4.4", 
       "id": 37, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/o/v/p21500-14610494365715d85c88522.jpg?w=400", 
       "lat,long": "28.601801,77.186987", 
@@ -1938,7 +1976,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Cafe Delhi Heights is a specialty restaurant for people who love to indulge in Continental and American cuisines, which are catching up the taste of people. The subtle ambiance paired up with an elegant outdoor seating takes you away from the hustle and bustle of the city and lightens your mood in no time. Cafe Delhi Heights is located in Saket. Every dish in the exclusive menu is lip-smacking and is inspired by the provinces itself. The unique culinary style that is required to prepare the specialty recipes is something that the chefs here are efficient at. The trained staff makes sure you get a delectable ride and vouch for the quality and service of the place. It is an ideal place who are in love with the authentic flavors of the mentioned cuisines. The nearest landmark is DLF Courtyard.", 
+      "about": " Cafe Delhi Heights is located in Saket. Every dish in the exclusive menu is lip-smacking and is inspired by the provinces itself. The unique culinary style that is required to prepare the specialty recipes is something that the chefs here are efficient at. The trained staff makes sure you get a delectable ride and vouch for the quality and service of the place. It is an ideal place who are in love with the authentic flavors of the mentioned cuisines. The nearest landmark is DLF Courtyard.", 
       "address": "DLF Place Saket, 1st Floor, District Centre, Sector 6, Pushp Vihar, Saket, South Delhi, 110017", 
       "costfortwo": "2000", 
       "cuisine": "Continental,American", 
@@ -1981,6 +2019,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.0", 
       "id": 38, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/d/c/p18327-1480413441583d51015cf83.jpg?w=400", 
       "lat,long": "28.528065,77.216813", 
@@ -1989,7 +2028,7 @@
       "phone": "+91 9212340202"
    }, 
    {
-      "about": "Kylin Sky Bar, as the name suggests is a casual dining restaurant that serves sumptuous Chinese, Thai, Japanese,  Asian, and Malaysian Cuisines with a modern touch. The various ingredients and authentic herbs instantly give a soul-satisfying taste to the diners. It is an ideal place for people who like to eat until their throats are full. This casual dining restaurant is a perfect place to be at with your families and friends, especially where every member is a big time foodie. The addition to the offering is a well-set bar. The classic ambiance paired up with an amazing outdoor seating instantly melts your heart. Kylin Sky Bar is located in Vasant Kunj and the nearest landmark is DLF Promenade.", 
+      "about": " It is an ideal place for people who like to eat until their throats are full. This casual dining restaurant is a perfect place to be at with your families and friends, especially where every member is a big time foodie. The addition to the offering is a well-set bar. The classic ambiance paired up with an amazing outdoor seating instantly melts your heart. Kylin Sky Bar is located in Vasant Kunj and the nearest landmark is DLF Promenade.", 
       "address": "Ambience Mall, 3rd Floor, Nelson Mandela Marg, Vasant Kunj, South Delhi, 110070", 
       "costfortwo": "2000", 
       "cuisine": "Asian,Chinese,Thai,Japanese,Malaysian", 
@@ -2032,6 +2071,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.3", 
       "id": 39, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/4/d/u/p4871-145940719956fcc95fc9f56.jpg?w=400", 
       "lat,long": "28.541159,77.155405", 

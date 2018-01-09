@@ -154,7 +154,15 @@ for url in listOfUrls:
 	dic["phone"]=soup.findAll("div",{'class':"phone-number"})[0].text
 	costfortwo = str(soup.findAll("div",{'class':"fs16 marginB5"})[0].text)
 	dic["costfortwo"]=costfortwo[1+costfortwo.index(" "):costfortwo.index("f")]
-	dic["about"]=soup.findAll("div",{'class':"rightDiv desc-wrap col-sm-9"})[0].text
+	tmpAbout=soup.findAll("div",{'class':"rightDiv desc-wrap col-sm-9"})[0].text
+	aboutFinal=""
+	for iii in (0,3):
+		if "." in tmpAbout:
+			aboutFinal=aboutFinal+tmpAbout[:tmpAbout.index(".")+1]
+			tmpAbout=tmpAbout[tmpAbout.index(".")+1:]
+		else:
+			break
+	dic["about"]=tmpAbout
 
 	dic["cuisine"]=soup.findAll("div",{'class':"cuisine-type"})[0].text
 	featureList = soup.findAll("div",{'class':"rightDiv features-wrap col-sm-9"})[0].ul.findAll("li")
