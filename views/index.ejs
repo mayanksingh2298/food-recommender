@@ -5,6 +5,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="static/css/dropdownLogin.css">
 	<link rel="stylesheet" type="text/css" href="static/css/styleMain.css">
 </head>
@@ -14,9 +15,12 @@
 	<!-- /// -->
 	<div id="topDetails">
 		<% if(isLoggedIn==1){ %>
+			<a id="left" href="/about">About</a>
 			<a id="right1" href="/profile">Profile</a>
 			<a id="right2" href="/logout">Logout</a>
 		<% }else{ %>
+			<a id="left" href="/about">About</a>
+
 			<!-- <a id="right1" href="/login">Login</a>
 			<a id="right2" href="/register">Signup</a> -->
 			<div id="wrap">
@@ -65,21 +69,22 @@
 		<br>
 		<br>
 		<div id="heading">			
-			<h1 style="padding-top:30px">RestoRecommendo</h1>
+			<h1 style="padding-top:30px"><strong>RestoRecommendo</strong></h1>
 			<h4 style="padding-bottom:30px" >we use our magic sauces to make sure your food is always to your taste</h4>
+			<input id="search" class="form-input" type="text" name="" placeholder="search for your favourite restaurant">
 		</div>
 		<br>
 	</div>
 	<br>
 
 	<% for(var i=0; i < outlets.length; i++) { %>
-		<div style="width:33.33%" class="container" ontouchstart="this.classList.toggle('hover');">
+		<div style="width:33.33%;" class="container" ontouchstart="this.classList.toggle('hover');">
 			<div class="flipper">
 				<div class="front">		
 				  <div class="w3-card-4" style="width:100%">
 				    <img id="hei1" src="<%= outlets[i]['img'] %>" alt="Norway" style="width:100%">
 				    <div  id="hei2" class="w3-container w3-center">
-				      <p > <%= outlets[i]["name"] %></p>
+				      <p class="nameOfResto"> <%= outlets[i]["name"] %></p>
 				    </div>
 				  </div>
 				</div>	
@@ -93,39 +98,35 @@
 						<% if(isLoggedIn==1){ %>
 			      
 				      <p>Rate</p>
-						<form id="rating" class="rating" action="/editRatings/?_method=PUT" method="post">
-							<input style="display:none" type="text" name="id" placeholder="id of outlet" value="<%=i%>">
+						<form id="rating" action="/editRatings/?_method=PUT" method="post">
+							<input style="display:none" type="text" name="id" placeholder="id of outlet" value="<%=outlets[i]['id']%>">
 							<!-- <input type="text" name="rating" placeholder="rating of that outlet">  -->
-							<label>
+							  <input class="form-input" type="radio" name="rating" value="1">1
+							  <input class="form-input" type="radio" name="rating" value="2">2
+							  <input class="form-input" type="radio" name="rating" value="3">3
+							  <input class="form-input" type="radio" name="rating" value="4">4
+							  <input class="form-input" type="radio" name="rating" value="5">5
+							<!-- <label>
 							    <input class="starRate" type="radio" name="rating" value="1" />
 							    <span id="star1" class="icon">★</span>
 							  </label>
 							  <label>
 							    <input class="starRate" type="radio" name="rating" value="2" />
 							    <span id="star2" class="icon">★</span>
-							    <!-- <span class="icon">★</span> -->
 							  </label>
 							  <label>
 							    <input class="starRate" type="radio" name="rating" value="3" />
 							    <span id="star3" class="icon">★</span>
-							    <!-- <span class="icon">★</span> -->
-							    <!-- <span class="icon">★</span>    -->
 							  </label>
 							  <label>
 							    <input class="starRate" type="radio" name="rating" value="4" />
 							    <span id="star4" class="icon">★</span>
-							    <!-- <span class="icon">★</span> -->
-							    <!-- <span class="icon">★</span> -->
-							    <!-- <span class="icon">★</span> -->
 							  </label>
 							  <label>
 							    <input class="starRate" type="radio" name="rating" value="5" />
 							    <span id="star5" class="icon">★</span>
-							    <!-- <span class="icon">★</span>
-							    <span class="icon">★</span>
-							    <span class="icon">★</span>
-							    <span class="icon">★</span> -->
-							  </label>	
+							  </label> -->
+							  <button class="btn btn-success">Rate</button>	
 						</form>
 				<% } %>
 				    </div>

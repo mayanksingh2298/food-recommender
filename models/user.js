@@ -10,7 +10,8 @@ var UserSchema = new mongoose.Schema({
 		latitude: String,
 		longitude: String,
 		name: String
-	}
+	},
+	TwentyKmResto: []
 });
 //this would take all methods from this passport... package and add them in our schema
 UserSchema.plugin(passportLocalMongoose);

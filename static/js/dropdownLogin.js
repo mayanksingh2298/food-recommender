@@ -116,6 +116,40 @@ $("#star5").hover(function(){
 })
 
 $(".starRate").click(function(){
-  console.log("rating")
-  $("#rating").submit()
+  console.log($(".starRate").val())
+  // $("#rating").submit()
 })
+
+// function forceLower() {
+//   console.log("SD");
+//       // strInput.value=strInput.value.toLowerCase()
+//     }​
+$(document).ready(function(){
+  $("input[type='text']").on('change keyup paste',function(){
+    $(this).val($(this).val().toLowerCase());
+     })
+})
+
+// console.log($(".nameOfResto"))
+$(".nameOfResto").each(function(){
+  var $cont = $(this)
+  // console.log($cont.context.innerText)
+  $("#search").on('input',function(){
+    if($("#search").val()){
+      if($cont.context.innerText.toLowerCase().indexOf($("#search").val())==-1){
+        // console.log($cont.context.innerText)
+        $cont.parent().parent().parent().parent().parent().css("display","none")
+      }else{
+        $cont.parent().parent().parent().parent().parent().css("display","block")
+      }
+    }else{
+        $cont.parent().parent().parent().parent().parent().css("display","block")
+    }
+  });
+})
+
+// $(document).bind('focus', function(e){
+//   e.preventDefault();
+// });
+
+

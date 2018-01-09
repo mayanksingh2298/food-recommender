@@ -42,14 +42,19 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/",function(req,res){
-	isLoggedIn = 0
+	// isLoggedIn = 0
 	if(req.user)
-		isLoggedIn = 1
-	res.render("index",{outlets:outlets,isLoggedIn:isLoggedIn});
+		res.render("index",{outlets:req.user.TwentyKmResto,isLoggedIn:1});
+	else
+		res.render("index",{outlets:outlets,isLoggedIn:0});
+});
+app.get("/about",function(req,res){
+	// isLoggedIn = 0
+	res.render("about")
 });
 app.put("/editRatings",isLoggedIn,function(req,res){
 	user = req.user
-	console.log(user)
+	console.log(req.body.rating+"HAHAAH")
 	if(!user.ratings[req.body.id]){
 		user.noOfRated=Number(user.noOfRated)+1
 	}
@@ -105,17 +110,17 @@ app.post("/friends",isLoggedIn,function(req,res){
 				toLearnInd=[]
 				predictedData=[]
 				if (noOfRated<4){
-					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
+					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:req.user.TwentyKmResto,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
 				}else{
-					for(var j=0;j<outlets.length;j++){
+					for(var j=0;j<req.user.TwentyKmResto.length;j++){
 						// console.log(i)
 						// console.log("********************"+j)
-						if(avgRatings[j]==null){
-							toLearn.push(JSON.stringify(outlets[j].featureVector))
-							toLearnInd.push(j)
+						if(avgRatings[req.user.TwentyKmResto[j].id]==null){
+							toLearn.push(JSON.stringify(req.user.TwentyKmResto[j].featureVector))
+							toLearnInd.push(req.user.TwentyKmResto[j].id)
 						}else{
-							tmp = outlets[j].featureVector
-							tmp["Rating"]=Math.round(avgRatings[j]).toString()
+							tmp = req.user.TwentyKmResto[j].featureVector
+							tmp["Rating"]=Math.round(avgRatings[req.user.TwentyKmResto[j].id]).toString()
 							// console.log(tmp["Rating"]+"***")
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
@@ -206,6 +211,7 @@ app.put("/editLocation",isLoggedIn,function(req,res){
 		latitude:req.body.latitude,
 		longitude:req.body.longitude
 	}
+	user.TwentyKmResto = SetTwentyKmResto(user)
 	User.findByIdAndUpdate(user.id,user,function(err,updatedUser){
 		if(err){
 			res.redirect("/");
@@ -228,18 +234,18 @@ app.get("/profile",isLoggedIn,function(req,res){
 	ratings = req.user.ratings
 	console.log(ratings)
 	if (req.user.noOfRated<4){
-		res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:[],location:req.user.location});
+		res.render("profile",{noOfRated:req.user.noOfRated,outlets:req.user.TwentyKmResto,ratings:ratings,learntData:[],location:req.user.location});
 	}else{
 
 
-		for(var i=0;i<outlets.length;i++){
+		for(var i=0;i<req.user.TwentyKmResto.length;i++){
 			// console.log(i)
-			if(ratings[i]==null){
-				toLearn.push(JSON.stringify(outlets[i].featureVector))
-				toLearnInd.push(i)
+			if(ratings[req.user.TwentyKmResto[i].id]==null){
+				toLearn.push(JSON.stringify(req.user.TwentyKmResto[i].featureVector))
+				toLearnInd.push(req.user.TwentyKmResto[i].id)
 			}else{
-				tmp = outlets[i].featureVector
-				tmp["Rating"]=ratings[i]
+				tmp = req.user.TwentyKmResto[i].featureVector
+				tmp["Rating"]=ratings[req.user.TwentyKmResto[i].id]
 				console.log(tmp["Rating"]+"***")
 				tmp =JSON.stringify(tmp)
 				learnt.push(tmp)
@@ -325,6 +331,10 @@ app.get("/profile",isLoggedIn,function(req,res){
 });
 //Auth routes
 //This one here registers the user to the database, we dont store the passoword but we store a hash
+app.get("/registerPhone",function(req,res){
+	res.render("regPhone")
+})
+
 app.post("/register",function(req,res){
 
 	//this function saves the user to the database, we dont store the password but we pass it as a second argument
@@ -337,15 +347,16 @@ app.post("/register",function(req,res){
 			longitude:req.body.longitude
 		}
 	}
+	toMakeUser.TwentyKmResto = SetTwentyKmResto(toMakeUser)
 	User.register(new User(toMakeUser),req.body.password,function(err,user){
 		if(err){
 			console.log(err);
-			res.render("register");
+			res.redirect("/");
 		}else{
 			//this one starts the session that is we have now logged in
 			console.log(user)
 			passport.authenticate("local")(req,res,function(){
-				res.redirect("/profile");
+				res.redirect("/");
 			});
 		}
 	});
@@ -382,6 +393,40 @@ app.get("*",function(req,res){
 	res.send("This page doesn't exist...What were you looking for?")
 })
 
+function SetTwentyKmResto(updatedUser){
+	var TwentyKmResto = [];
+	dist=5;
+	while(TwentyKmResto.length<=8){
+		if(updatedUser.location.latitude){
+			for(var i = 0;i<outlets.length;i++){
+				var fields = outlets[i]["lat,long"].split(',');
+				tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
+				if(tmpDist <= 20){
+					TwentyKmResto.push(outlets[i]);
+				}
+				// console.log(tmpDist);
+			}
+		}else{
+			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
+			outletsDeepCopy.sort(function(a, b){
+				return b.genrat-a.genrat;	// Automatic descending
+			})
+			TwentyKmResto=outletsDeepCopy.splice(0,19)
+		}
+		dist++
+	}
+	return TwentyKmResto;
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;    // Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+          c(lat1 * p) * c(lat2 * p) * 
+          (1 - c((lon2 - lon1) * p))/2;
+
+  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
 
 var port = process.env.port || 8001
 app.listen(port,function(){

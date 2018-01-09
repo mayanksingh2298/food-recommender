@@ -138,7 +138,13 @@ for url in listOfUrls:
 	#soup.find(id="info").prettify()
 	dic={}
 	dic["id"]=ind
-	# for i in range(32):
+	
+	tmpgenrat= soup.findAll("div",{'class':"restnt-rating"})[0].text
+	if (tmpgenrat==""):
+		dic["genrat"]=3.0
+	else:
+		dic["genrat"]=tmpgenrat[:tmpgenrat.index("/")]
+	# print dic["genrat"]
 	dic["name"]=soup.findAll("h1",{'class':"restnt-name"})[0].text
 	dic["img"]=soup.findAll("img",{'class':"no-img"})[-1]["src"]
 	dic["address"]=soup.findAll("span",{'class':"address-info"})[0].text
