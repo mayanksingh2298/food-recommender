@@ -345,7 +345,7 @@ app.post("/register",function(req,res){
 			name:req.body.locationName||"not provided",
 			latitude:req.body.latitude,
 			longitude:req.body.longitude
-		}
+		},
 	}
 	toMakeUser.TwentyKmResto = SetTwentyKmResto(toMakeUser)
 	User.register(new User(toMakeUser),req.body.password,function(err,user){
@@ -411,9 +411,9 @@ function SetTwentyKmResto(updatedUser){
 		}else{
 			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
 			outletsDeepCopy.sort(function(a, b){
-				if(ratings[b.id] && !ratings[a.id])
+				if(updatedUser.ratings[b.id] && !updatedUser.ratings[a.id])
 					return 1
-				else if(!ratings[b.id] && ratings[a.id])
+				else if(!updatedUser.ratings[b.id] && updatedUser.ratings[a.id])
 					return -1
 				else
 					return b.genrat-a.genrat;	// Automatic descending
