@@ -352,39 +352,248 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
-	// 	var msg = new builder.Message(session)
-	// 	.text("Here are the things I can do for you.")
-	// 	.suggestedActions(
-	// 	builder.SuggestedActions.create(
-	// 		session, [
-	// 			builder.CardAction.imBack(session, "Personal Recommendations", "Personal Recommendations"),
-	// 			builder.CardAction.imBack(session, "Group Recommendations", "Group Recommendations"),
-	// 			builder.CardAction.imBack(session, "Rate Restaurants", "Rate Restaurants"),
-	// 			builder.CardAction.imBack(session, "Introduction", "Introduction")
-	// 		]
-	// 	));
-	// 	builder.Prompts.text(session, msg);
-	// },
-	// function (session, results) {
-	// 	var response = results.response;
-	// 	switch(response){
- //            case "Personal Recommendations":
- //                session.beginDialog('RecommendRestaurant');
- //                break;
- //            case "Group Recommendations":
- //                session.beginDialog('Combined');
- //                break;
- //            case "Rate Restaurants":
- //                session.beginDialog('RateRestaurants');
- //                break;
- //            case "Introduction":
- //                session.beginDialog('GetUsername');
- //                break;
- //            default:
- //            	session.send("You needed to tap on one of the options.");
- //            	session.beginDialog('/');
- //        }
- 		session.send("Help needs remanufacturing")
+ 		var msg = new builder.Message(session)
+    .addAttachment({
+        contentType: "application/vnd.microsoft.card.adaptive",
+        content: {
+		  "type": "AdaptiveCard",
+		  "version": "1.0",
+		  "body": [
+		    {
+		      "type": "TextBlock",
+		      "text": "User Guide",
+		      "size": "large",
+		      "weight": "bolder"
+		    },
+		    {
+		      "type": "TextBlock",
+		      "text": "Here are the functionalities I can provide you:",
+		      "wrap": true
+		    },
+		  ],
+		  "actions": [
+		    {
+		      "type": "Action.ShowCard",
+		      "title": "Personal Recommendations",
+		      "card": {
+		        "type": "AdaptiveCard",
+		        "body": [
+		          {
+		            "type": "TextBlock",
+		            "text": "How would you like your steak prepared?",
+		            "size": "medium",
+		            "wrap": true
+		          },
+		          {
+		            "type": "Input.ChoiceSet",
+		            "id": "SteakTemp",
+		            "style": "expanded",
+		            "choices": [
+		              {
+		                "title": "Rare",
+		                "value": "rare"
+		              },
+		              {
+		                "title": "Medium-Rare",
+		                "value": "medium-rare"
+		              },
+		              {
+		                "title": "Well-done",
+		                "value": "well-done"
+		              }
+		            ]
+		          },
+		          {
+		            "type": "Input.Text",
+		            "id": "SteakOther",
+		            "isMultiline": true,
+		            "placeholder": "Any other preparation requestes?"
+		          }
+		        ],
+		        "actions": [
+		          {
+		            "type": "Action.Submit",
+		            "title": "OK",
+		            "data": {
+		              "FoodChoice": "Steak"
+		            }
+		          }
+		        ]
+		      }
+		    },
+		    {
+		      "type": "Action.ShowCard",
+		      "title": "Group Recommendations",
+		      "card": {
+		        "type": "AdaptiveCard",
+		        "body": [
+		          {
+		            "type": "TextBlock",
+		            "text": "Do you have any allergies?",
+		            "size": "medium",
+		            "wrap": true
+		          },
+		          {
+		            "type": "Input.ChoiceSet",
+		            "id": "ChickenAllergy",
+		            "style": "expanded",
+		            "isMultiSelect": true,
+		            "choices": [
+		              {
+		                "title": "I'm allergic to peanuts",
+		                "value": "peanut"
+		              }
+		            ]
+		          },
+		          {
+		            "type": "Input.Text",
+		            "id": "ChickenOther",
+		            "isMultiline": true,
+		            "placeholder": "Any other preparation requestes?"
+		          }
+		        ],
+		        "actions": [
+		          {
+		            "type": "Action.Submit",
+		            "title": "OK",
+		            "data": {
+		              "FoodChoice": "Chicken"
+		            }
+		          }
+		        ]
+		      }
+		    },
+		    {
+		      "type": "Action.ShowCard",
+		      "title": "Location Based Recommendations",
+		      "card": {
+		        "type": "AdaptiveCard",
+		        "body": [
+		          {
+		            "type": "TextBlock",
+		            "text": "Do you have any allergies?",
+		            "size": "medium",
+		            "wrap": true
+		          },
+		          {
+		            "type": "Input.ChoiceSet",
+		            "id": "ChickenAllergy",
+		            "style": "expanded",
+		            "isMultiSelect": true,
+		            "choices": [
+		              {
+		                "title": "I'm allergic to peanuts",
+		                "value": "peanut"
+		              }
+		            ]
+		          },
+		          {
+		            "type": "Input.Text",
+		            "id": "ChickenOther",
+		            "isMultiline": true,
+		            "placeholder": "Any other preparation requestes?"
+		          }
+		        ],
+		        "actions": [
+		          {
+		            "type": "Action.Submit",
+		            "title": "OK",
+		            "data": {
+		              "FoodChoice": "Chicken"
+		            }
+		          }
+		        ]
+		      }
+		    },
+		    {
+		      "type": "Action.ShowCard",
+		      "title": "Cuisine Based Recommendations",
+		      "card": {
+		        "type": "AdaptiveCard",
+		        "body": [
+		          {
+		            "type": "TextBlock",
+		            "text": "Do you have any allergies?",
+		            "size": "medium",
+		            "wrap": true
+		          },
+		          {
+		            "type": "Input.ChoiceSet",
+		            "id": "ChickenAllergy",
+		            "style": "expanded",
+		            "isMultiSelect": true,
+		            "choices": [
+		              {
+		                "title": "I'm allergic to peanuts",
+		                "value": "peanut"
+		              }
+		            ]
+		          },
+		          {
+		            "type": "Input.Text",
+		            "id": "ChickenOther",
+		            "isMultiline": true,
+		            "placeholder": "Any other preparation requestes?"
+		          }
+		        ],
+		        "actions": [
+		          {
+		            "type": "Action.Submit",
+		            "title": "OK",
+		            "data": {
+		              "FoodChoice": "Chicken"
+		            }
+		          }
+		        ]
+		      }
+		    },
+		    {
+		      "type": "Action.ShowCard",
+		      "title": "Generalised Recommendations",
+		      "card": {
+		        "type": "AdaptiveCard",
+		        "body": [
+		          {
+		            "type": "TextBlock",
+		            "text": "Do you have any allergies?",
+		            "size": "medium",
+		            "wrap": true
+		          },
+		          {
+		            "type": "Input.ChoiceSet",
+		            "id": "ChickenAllergy",
+		            "style": "expanded",
+		            "isMultiSelect": true,
+		            "choices": [
+		              {
+		                "title": "I'm allergic to peanuts",
+		                "value": "peanut"
+		              }
+		            ]
+		          },
+		          {
+		            "type": "Input.Text",
+		            "id": "ChickenOther",
+		            "isMultiline": true,
+		            "placeholder": "Any other preparation requestes?"
+		          }
+		        ],
+		        "actions": [
+		          {
+		            "type": "Action.Submit",
+		            "title": "OK",
+		            "data": {
+		              "FoodChoice": "Chicken"
+		            }
+		          }
+		        ]
+		      }
+		    }
+		  ]
+		}
+    });
+		session.send(msg);
+ 		// session.send("Help needs remanufacturing");
         session.beginDialog('/');
 	}
 ]);
