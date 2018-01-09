@@ -148,8 +148,4 @@ $(".nameOfResto").each(function(){
   });
 })
 
-// $(document).bind('focus', function(e){
-//   e.preventDefault();
-// });
-
-
+    $("#topDetails").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.6)")
