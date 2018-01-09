@@ -92,7 +92,7 @@ var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 
 intents.matches('Greeting', (session) => {
     if(!session.userData.name) {
-		session.send("Hi! My name is Frudo. I am your Food Assistant.");
+		session.send("Hi! My name is Frudo. I am your Food Assistant. 👇🏻");
 		session.beginDialog('GetUsername');
     } else {
 	    session.send("Hi! " + session.userData.name);
@@ -101,11 +101,15 @@ intents.matches('Greeting', (session) => {
     }
 });
 
-//-------------------------------------------------------------Done
+//-------------------------------------------------------------
 intents.matches('Help', (session) => {
     session.beginDialog('Help');
 });
-//-------------------------------------------------------------Done
+
+intents.matches('Thanks', (session) => {
+	session.beginDialog('Thanks');
+});
+
 intents.matches('Cancel', (session) => {
     session.send("Hope you liked my service. Thanks!");
 });
@@ -238,10 +242,15 @@ var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
 bot.dialog('/', intents);    
 
+bot.dialog('Thanks', [
+	function(session){
+		session.send("My pleasure :). I will be there to help at all times (y)");
+	}
+]);
 
 bot.dialog('AskAgainForLocation', [
 	function(session){
-		session.send("Please tell me your location only again properly as I am unable to find such a location. Sorry, for inconvenience :(");
+		builder.Prompts.text(session,"Please tell me your location only again properly as I am unable to find such a location. Sorry, for inconvenience :(");
 	},
 	function(session,results){
 		getLocation(results.response,session);
