@@ -84,11 +84,11 @@
 </body>
 </html>
 <br/>
-<div id="rated">
+<div  id="rated">
 	<hr style="margin-top: 0;padding-top: 0">
 	<% if(Number(noOfRated)==0){ %>
 	<%}else{%>
-	<div class="container">
+	<div  class="container">
 		<p>You have rated the following:</p>
 	</div>
 		<div id="cards">	
@@ -243,5 +243,7 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzAuBSIq6lUOLTNjNbFCt5uo7QbD7WZo8&callback=initMap">
 </script>
 <script type="text/javascript">
-    $("#heading").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.6)")
+	$(document).ready(function(){
+        $("#heading").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.4")
+      })
 </script>

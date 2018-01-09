@@ -136,19 +136,21 @@ $(".nameOfResto").each(function(){
   // console.log($cont.context.innerText)
   $("#search").on('input',function(){
     if($("#search").val()){
-      if($cont.context.innerText.toLowerCase().indexOf($("#search").val())==-1){
-        // console.log($cont.context.innerText)
-        $cont.parent().parent().parent().parent().parent().css("display","none")
+      if($cont.context.innerText.toLowerCase().indexOf($("#search").val())==-1 && $cont.parent().parent().parent().parent().find(".addressOfResto").text().toLowerCase().indexOf($("#search").val())==-1  && $cont.parent().parent().parent().parent().find(".cuisinesOfResto").text().toLowerCase().indexOf($("#search").val())==-1){
+        // console.log($cont.parent().parent().parent().parent().find(".addressOfResto").text())
+        $cont.parent().parent().parent().parent().parent().fadeOut()
       }else{
-        $cont.parent().parent().parent().parent().parent().css("display","block")
+        $cont.parent().parent().parent().parent().parent().fadeIn()
       }
     }else{
-        $cont.parent().parent().parent().parent().parent().css("display","block")
+        $cont.parent().parent().parent().parent().parent().fadeIn()
     }
   });
 })
 
-    $("#topDetails").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.4");
+    $(document).ready(function(){
+        $("#topDetails").css("boxShadow","inset 0 0 0 1000px rgba(0,0,0,.4")
+      })
 
     
       var elementPosition = $('#search').offset();

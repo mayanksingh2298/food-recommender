@@ -185,7 +185,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				       		}
 				       		sortedArray.sort()
 				       		sortedArray.reverse()
-				       		sortedArray=sortedArray.splice(0,8)
+				       		sortedArray=sortedArray.splice(0,12)
 				       		// console.log(sortedArray)
 				       		console.log(req.user.noOfRated)
 							res.render("friends",{actualFriends:actualFriends,learntData:sortedArray,outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
@@ -313,7 +313,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	       		}
 	       		sortedArray.sort()
 	       		sortedArray.reverse()
-	       		sortedArray=sortedArray.splice(0,8)
+	       		sortedArray=sortedArray.splice(0,12)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
 				res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:sortedArray,location:req.user.location});
@@ -334,6 +334,9 @@ app.get("/profile",isLoggedIn,function(req,res){
 app.get("/registerPhone",function(req,res){
 	res.render("regPhone")
 })
+app.get("/loginPhone",function(req,res){
+	res.render("loginPhone")
+})
 
 app.post("/register",function(req,res){
 
@@ -345,7 +348,7 @@ app.post("/register",function(req,res){
 			name:req.body.locationName||"not provided",
 			latitude:req.body.latitude,
 			longitude:req.body.longitude
-		}
+		},
 	}
 	toMakeUser.TwentyKmResto = SetTwentyKmResto(toMakeUser)
 	User.register(new User(toMakeUser),req.body.password,function(err,user){
@@ -396,7 +399,7 @@ app.get("*",function(req,res){
 function SetTwentyKmResto(updatedUser){
 	var TwentyKmResto = [];
 	dist=5;
-	while(TwentyKmResto.length<=8){
+	while(TwentyKmResto.length<=12){
 		if(updatedUser.location.latitude){
 			for(var i = 0;i<outlets.length;i++){
 				var fields = outlets[i]["lat,long"].split(',');
@@ -411,12 +414,7 @@ function SetTwentyKmResto(updatedUser){
 		}else{
 			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
 			outletsDeepCopy.sort(function(a, b){
-				if(ratings[b.id] && !ratings[a.id])
-					return 1
-				else if(!ratings[b.id] && ratings[a.id])
-					return -1
-				else
-					return b.genrat-a.genrat;	// Automatic descending
+				return b.genrat-a.genrat;	// Automatic descending
 			})
 			TwentyKmResto=outletsDeepCopy.splice(0,20)
 		}
@@ -435,7 +433,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-var port = process.env.port || 8001
+var port = process.env.port || 8000
 app.listen(port,function(){
 	console.log("listening on port "+port)
 });

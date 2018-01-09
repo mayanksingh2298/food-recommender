@@ -10,7 +10,7 @@ h1,h4{
 }
 #right1{
 	position: absolute;
-	right:80px;
+	right:1%;
 	padding: 10px;
 	color: white;
 	background:rgba(0,0,0,0.3);
@@ -23,7 +23,7 @@ h1,h4{
 }
 #right2{
 	position: absolute;
-	right:10px;
+	right:9%;
 	padding: 10px;
 	color: white;
 	background:rgba(0,0,0,0.3);
@@ -219,8 +219,9 @@ input[type="text"] {
 	margin-left: 10%;
 	border:0;
 	right: 10%;
-	background: rgba(255,255,255,0.9);
+	/*background: rgba(255,255,255,0.9);*/
 	z-index: 100;
+	border:1px solid black;
 }
 #search:focus {
     outline: none;
