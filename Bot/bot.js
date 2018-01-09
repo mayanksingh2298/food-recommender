@@ -11,6 +11,10 @@ var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
 var ToKnowLocationResponse = undefined;
+var cuisineList = ["Air Conditioned","American","Asian", "Barbeque and Grill","Cards Accepted","Chinese","Coastal","Coffee", 
+"Continental","DJ","Dance Floor","Differently Abled Friendly","Fast Food","Games","Health Food","Home Delivery","Hookah", 
+"Italian","Japanese","Lebanese","Lift","Malaysian","Mediterranean","Mexican","Mughlai","Multi-Cuisine","North Indian", 
+"Oriental","Outdoor Seating","Parking","Roof Top","Seafood","Smoking Area","Take Away","Thai","Wifi"];
 // var GroupUser = undefined;
 
 // var todelete = {
@@ -112,6 +116,7 @@ intents.matches('Thanks', (session) => {
 
 intents.matches('Cancel', (session) => {
     session.send("Hope you liked my service 😎. Thanks!");
+    session.beginDialog('/');
 });
 
 intents.matches('Recommend', [(session, args, next) => {
@@ -165,6 +170,9 @@ intents.matches('Yes', (session) => {
 		var locLng = ToKnowLocationResponse.results[0].geometry.location.lng;
 		session.send("Here 👇, are the restaurants that you will like :)");
 		getLocationBasedRatings(locLat,locLng,session,0.1);	// within 100m distance from location
+	}else{
+		session.send("I guess I am not able to understand this. Let's start again.");
+		session.beginDialog('Help');
 	}
 });
 intents.matches('No', (session) => {
@@ -245,6 +253,7 @@ bot.dialog('/', intents);
 bot.dialog('Thanks', [
 	function(session){
 		session.send("My pleasure 💓. I will be there to help at all times (y)");
+		session.beginDialog('/');
 	}
 ]);
 
