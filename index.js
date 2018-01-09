@@ -185,7 +185,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				       		}
 				       		sortedArray.sort()
 				       		sortedArray.reverse()
-				       		sortedArray=sortedArray.splice(0,8)
+				       		sortedArray=sortedArray.splice(0,12)
 				       		// console.log(sortedArray)
 				       		console.log(req.user.noOfRated)
 							res.render("friends",{actualFriends:actualFriends,learntData:sortedArray,outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
@@ -313,7 +313,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	       		}
 	       		sortedArray.sort()
 	       		sortedArray.reverse()
-	       		sortedArray=sortedArray.splice(0,8)
+	       		sortedArray=sortedArray.splice(0,12)
 	       		// console.log(sortedArray)
 	       		console.log(req.user.noOfRated)
 				res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:sortedArray,location:req.user.location});
@@ -396,7 +396,7 @@ app.get("*",function(req,res){
 function SetTwentyKmResto(updatedUser){
 	var TwentyKmResto = [];
 	dist=5;
-	while(TwentyKmResto.length<=8){
+	while(TwentyKmResto.length<=12){
 		if(updatedUser.location.latitude){
 			for(var i = 0;i<outlets.length;i++){
 				var fields = outlets[i]["lat,long"].split(',');
