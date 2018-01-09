@@ -200,7 +200,7 @@ intents.matches('No', (session) => {
 				    	MainUser.location.latitude = latitude;
 				    	MainUser.location.longitude = longitude;
 				    	MainUser.location.name = "";
-			    		var TwentyKmResto = SetDistKmResto(MainUser,20);
+			    		var TwentyKmResto = SetDistKmResto(MainUser,5);
 		    			MainUser.TwentyKmResto = TwentyKmResto;
 			    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 							if(err){
@@ -308,7 +308,7 @@ bot.dialog('RecommendRestaurant', [
 			    	MainUser.location.latitude = latitude;
 			    	MainUser.location.longitude = longitude;
 			    	MainUser.location.name = "";
-		    		var TwentyKmResto = SetDistKmResto(MainUser,20);
+		    		var TwentyKmResto = SetDistKmResto(MainUser,5);
 		    		MainUser.TwentyKmResto = TwentyKmResto;
 		    		User.findByIdAndUpdate(MainUser.id,MainUser,function(err,updatedUser){
 						if(err){
@@ -470,8 +470,7 @@ function getPersonalisedRatings(req,res){
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
-	// var noOfRated = ratings.length;
-	// console.log(req.noOfRated);
+	
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
@@ -633,7 +632,7 @@ function GetGroupRecommendations(req,friends,res){
 				for(var j=0;j<avgRatings.length;j++){
 					if (avgRatings[j]){
 						noOfRated++
-						avgRatings[j] = Number(avgRatings[j])/actualFriends.length
+						avgRatings[j] = Math.round(Number(avgRatings[j])/actualFriends.length)
 					}
 				}
 				learnt=[]
@@ -645,12 +644,12 @@ function GetGroupRecommendations(req,friends,res){
 					res.beginDialog('/');
 				}else{
 					for(var i=0;i<req.TwentyKmResto.length;i++){
-						if(ratings[req.TwentyKmResto[i].id]==null){
+						if(avgRatings[req.TwentyKmResto[i].id]==null){
 							toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
 							toLearnInd.push(req.TwentyKmResto[i].id)
 						}else{
 							tmp = req.TwentyKmResto[i].featureVector
-							tmp["Rating"]=ratings[req.TwentyKmResto[i].id]
+							tmp["Rating"]=avgRatings[req.TwentyKmResto[i].id]
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
 						}
@@ -689,7 +688,7 @@ function GetGroupRecommendations(req,friends,res){
 					};
 				    var reqPost = https.request(options, function (res2) {
 				        res2.on('data', function(d) {
-				            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
+				        	predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 				       		sortedArray=[]
 				       		maxDiff=0
 				       		maxRate=0
@@ -781,7 +780,7 @@ function getGeneralisedRatings(lat,long,session){
 			longitude: long
 		}
 	};
-	ToRecommend = SetDistKmResto(user,20);
+	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
 		return b.genrat-a.genrat;	// Automatic descending
 	})
@@ -846,59 +845,66 @@ function getLocationBasedRatings(lat,long,session,dist){
 	};
 	if(MainUser){
 		user = MainUser;
-	}
-	ToRecommend = SetDistKmResto(user,dist);
-	ToRecommend.sort(function(a, b){
-		return b.genrat-a.genrat;	// Automatic descending
-	})
+		user.location.latitude = lat;
+		user.location.longitude = long;
+		latitude = lat;
+		longitude = long;
+		MainUser = user;
+		getPersonalisedRatings(user,session);
+	}else{
+		ToRecommend = SetDistKmResto(user,dist);
+		ToRecommend.sort(function(a, b){
+			return b.genrat-a.genrat;	// Automatic descending
+		})
 
-	var sortedArray=ToRecommend.splice(0,8);
-	var msg = new builder.Message(session);
-    msg.attachmentLayout(builder.AttachmentLayout.carousel)
-    msg.attachments([
-        new builder.HeroCard(session)
-            .title(sortedArray[0].name)
-            .subtitle("Best Cuisines: " + sortedArray[0].cuisine)
-            .text("Address : " + sortedArray[0].address)
-            .images([builder.CardImage.create(session, sortedArray[0].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[1].name)
-            .subtitle("Best Cuisines: " + sortedArray[1].cuisine)
-            .text("Address : " + sortedArray[1].address)
-            .images([builder.CardImage.create(session, sortedArray[1].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[2].name)
-            .subtitle("Best Cuisines: " + sortedArray[2].cuisine)
-            .text("Address : " + sortedArray[2].address)
-            .images([builder.CardImage.create(session, sortedArray[2].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[3].name)
-            .subtitle("Best Cuisines: " + sortedArray[3].cuisine)
-            .text("Address : " + sortedArray[3].address)
-            .images([builder.CardImage.create(session, sortedArray[3].img)]),			            
-        new builder.HeroCard(session)
-            .title(sortedArray[4].name)
-            .subtitle("Best Cuisines: " + sortedArray[4].cuisine)
-            .text("Address : " + sortedArray[4].address)
-            .images([builder.CardImage.create(session, sortedArray[4].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[5].name)
-            .subtitle("Best Cuisines: " + sortedArray[5].cuisine)
-            .text("Address : " + sortedArray[5].address)
-            .images([builder.CardImage.create(session, sortedArray[5].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[6].name)
-            .subtitle("Best Cuisines: " + sortedArray[6].cuisine)
-            .text("Address : " + sortedArray[6].address)
-            .images([builder.CardImage.create(session, sortedArray[6].img)]),
-        new builder.HeroCard(session)
-            .title(sortedArray[7].name)
-            .subtitle("Best Cuisines: " + sortedArray[7].cuisine)
-            .text("Address : " + sortedArray[7].address)
-            .images([builder.CardImage.create(session, sortedArray[7].img)]),
-    ]);
-    session.send(msg);
-    session.beginDialog('/');
+		var sortedArray=ToRecommend.splice(0,8);
+		var msg = new builder.Message(session);
+	    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+	    msg.attachments([
+	        new builder.HeroCard(session)
+	            .title(sortedArray[0].name)
+	            .subtitle("Best Cuisines: " + sortedArray[0].cuisine)
+	            .text("Address : " + sortedArray[0].address)
+	            .images([builder.CardImage.create(session, sortedArray[0].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[1].name)
+	            .subtitle("Best Cuisines: " + sortedArray[1].cuisine)
+	            .text("Address : " + sortedArray[1].address)
+	            .images([builder.CardImage.create(session, sortedArray[1].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[2].name)
+	            .subtitle("Best Cuisines: " + sortedArray[2].cuisine)
+	            .text("Address : " + sortedArray[2].address)
+	            .images([builder.CardImage.create(session, sortedArray[2].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[3].name)
+	            .subtitle("Best Cuisines: " + sortedArray[3].cuisine)
+	            .text("Address : " + sortedArray[3].address)
+	            .images([builder.CardImage.create(session, sortedArray[3].img)]),			            
+	        new builder.HeroCard(session)
+	            .title(sortedArray[4].name)
+	            .subtitle("Best Cuisines: " + sortedArray[4].cuisine)
+	            .text("Address : " + sortedArray[4].address)
+	            .images([builder.CardImage.create(session, sortedArray[4].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[5].name)
+	            .subtitle("Best Cuisines: " + sortedArray[5].cuisine)
+	            .text("Address : " + sortedArray[5].address)
+	            .images([builder.CardImage.create(session, sortedArray[5].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[6].name)
+	            .subtitle("Best Cuisines: " + sortedArray[6].cuisine)
+	            .text("Address : " + sortedArray[6].address)
+	            .images([builder.CardImage.create(session, sortedArray[6].img)]),
+	        new builder.HeroCard(session)
+	            .title(sortedArray[7].name)
+	            .subtitle("Best Cuisines: " + sortedArray[7].cuisine)
+	            .text("Address : " + sortedArray[7].address)
+	            .images([builder.CardImage.create(session, sortedArray[7].img)]),
+	    ]);
+	    session.send(msg);
+	    session.beginDialog('/');		
+	}
 }
 function SetDistKmResto(updatedUser,dist){
 	var TwentyKmResto = [];
