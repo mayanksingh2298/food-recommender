@@ -84,7 +84,7 @@ var combinedYesNo = false;
 var inNothing = false;
 var users = [];
 var locationYesNo = false;
-var KnownLocationAsk = false;
+var KnownLocationAskYesNo = false;
 var KnownLocationAgainAsk = false;
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
@@ -153,7 +153,7 @@ intents.matches('Yes', (session) => {
 		// haveFriends to be false in dialog-----------------------------------------------Done
 	}else if(KnownLocationAskYesNo){
 		session.send("Okay, sure");
-		KnownLocationAsk = false;
+		KnownLocationAskYesNo = false;
 		session.beginDialog('RecommendRestaurant');
 	}else if(locationYesNo){
 		locationYesNo = false;
@@ -207,14 +207,14 @@ intents.matches('No', (session) => {
 	}else if(KnownLocationAskYesNo){
 		latitude = undefined;
 		longitude = undefined;
-		KnownLocationAsk = false;
+		KnownLocationAskYesNo = false;
 		bot.beginDialog('RecommendRestaurant');
 	}else if(locationYesNo){
 		locationYesNo = false;
 		session.beginDialog('AskAgainForLocation');
 		// session.beginDialog('/');
 	}
-	if(inNothing) {
+	else if(inNothing) {
 		inNothing = false;
 		session.send("Hope you liked my service. Thanks!");
 		session.beginDialog('/');
@@ -265,7 +265,7 @@ bot.dialog('RecommendRestaurant', [
 			if(KnownLocationAgainAsk){
 				session.send("Should I use your previous position?");
 				KnownLocationAgainAsk = false;
-				KnownLocationAsk = true;
+				KnownLocationAskYesNo = true;
 				session.beginDialog('/');				
 			}else{
 				if(!session.userData.name){
