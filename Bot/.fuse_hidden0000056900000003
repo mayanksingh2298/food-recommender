@@ -269,7 +269,7 @@ bot.dialog('AskAgainForLocation', [
 bot.dialog('RateRestaurants', [
    	function (session) {
    		session.send("For security reasons, you can rate restaurants on our webapp only. :)");
-   		session.send("Please follow [this](http://foodreco.azurewebsites.net/registerPhone) link to register yourself and/or rate restaurants");
+   		session.send("Please follow [this](http://foodreco.azurewebsites.net) link to register yourself and/or rate restaurants");
    		session.beginDialog('Nothing');
     }
 ]);
@@ -437,7 +437,7 @@ function getPersonalisedRatings(req,res){
 	// var noOfRated = ratings.length;
 	// console.log(req.noOfRated);
 	if (req.noOfRated<4){
-		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
+		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/registerPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
 		getGeneralisedRatings(latitude,longitude,req);
 		res.beginDialog('/');
