@@ -352,39 +352,39 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
-		var msg = new builder.Message(session)
-		.text("Here are the things I can do for you.")
-		.suggestedActions(
-		builder.SuggestedActions.create(
-			session, [
-				builder.CardAction.imBack(session, "Personal Recommendations", "Personal Recommendations"),
-				builder.CardAction.imBack(session, "Group Recommendations", "Group Recommendations"),
-				builder.CardAction.imBack(session, "Rate Restaurants", "Rate Restaurants"),
-				builder.CardAction.imBack(session, "Introduction", "Introduction")
-			]
-		));
-		builder.Prompts.text(session, msg);
-	},
-	function (session, results) {
-		var response = results.response;
-		switch(response){
-            case "Personal Recommendations":
-            	console.log("1");
-                session.beginDialog('RecommendRestaurant');
-                break;
-            case "Group Recommendations":
-                console.log("2");
-                session.beginDialog('Combined');
-                break;
-            case "Rate Restaurants":
-            	console.log("3");
-                session.beginDialog('RateRestaurants');
-                break;
-            case "Introduction":
-            	console.log("4");
-                session.beginDialog('GetUsername');
-                break;
-        }
+	// 	var msg = new builder.Message(session)
+	// 	.text("Here are the things I can do for you.")
+	// 	.suggestedActions(
+	// 	builder.SuggestedActions.create(
+	// 		session, [
+	// 			builder.CardAction.imBack(session, "Personal Recommendations", "Personal Recommendations"),
+	// 			builder.CardAction.imBack(session, "Group Recommendations", "Group Recommendations"),
+	// 			builder.CardAction.imBack(session, "Rate Restaurants", "Rate Restaurants"),
+	// 			builder.CardAction.imBack(session, "Introduction", "Introduction")
+	// 		]
+	// 	));
+	// 	builder.Prompts.text(session, msg);
+	// },
+	// function (session, results) {
+	// 	var response = results.response;
+	// 	switch(response){
+ //            case "Personal Recommendations":
+ //                session.beginDialog('RecommendRestaurant');
+ //                break;
+ //            case "Group Recommendations":
+ //                session.beginDialog('Combined');
+ //                break;
+ //            case "Rate Restaurants":
+ //                session.beginDialog('RateRestaurants');
+ //                break;
+ //            case "Introduction":
+ //                session.beginDialog('GetUsername');
+ //                break;
+ //            default:
+ //            	session.send("You needed to tap on one of the options.");
+ //            	session.beginDialog('/');
+ //        }
+ 		session.send("Help needs remanufacturing")
         session.beginDialog('/');
 	}
 ]);
@@ -867,6 +867,8 @@ function SetDistKmResto(updatedUser,dist){
 			var fields = outlets[i]["lat,long"].split(',');
 			tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
 			if(tmpDist <= dist){
+				TwentyKmResto.push(outlets[i]);
+			}else if(updatedUser.ratings[i]){
 				TwentyKmResto.push(outlets[i]);
 			}
 		}
