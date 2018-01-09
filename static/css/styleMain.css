@@ -10,7 +10,7 @@ h1,h4{
 }
 #right1{
 	position: absolute;
-	right:9%;
+	right:80px;
 	padding: 10px;
 	color: white;
 	background:rgba(0,0,0,0.3);
@@ -18,13 +18,12 @@ h1,h4{
 	margin-top: 20px;
 	border: 1.5px solid white;
 	text-decoration: none;
-	width:5%;
 	text-align: center;
 
 }
 #right2{
 	position: absolute;
-	right:1%;
+	right:10px;
 	padding: 10px;
 	color: white;
 	background:rgba(0,0,0,0.3);
@@ -32,7 +31,6 @@ h1,h4{
 	margin-top: 20px;
 	border: 1.5px solid white;
 	text-decoration: none;
-	width:5%;
 	text-align: center;
 }
 #left{
@@ -226,4 +224,12 @@ input[type="text"] {
 }
 #search:focus {
     outline: none;
+}
+
+.back-font {
+	font-family: 'Lato', sans-serif;
+}
+
+.restName {
+	font-family: 'Slabo 27px', serif;
 }

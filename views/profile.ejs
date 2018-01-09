@@ -4,6 +4,7 @@
 	<title>Profile</title>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Slabo+27px" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="static/css/styleProfile.css">
 </head>
 <body>
@@ -48,13 +49,15 @@
 		</div>	
 	</div>
 	<% if(learntData.length!=0){ %>
-		<div id="map"></div>	
+		<% if(Number(noOfRated)>=4) { %>
+			<div id="map"></div>	
+		<% } %>
 		<div id="cards">	
 			<% for(var i=0; i < learntData.length; i++) { %>
 				<div class="container-custom col-md-4 col-sm-6" ontouchstart="this.classList.toggle('hover');">
 					<div class="flipper">
 						<div class="front">		
-						  <div class="w3-card-4" style="width:100%">
+						  <div class="w3-card-4">
 						    <img id="hei1" src="<%= outlets[learntData[i][2]]['img'] %>" alt="Norway" style="width:100%">
 						    <div  id="hei2" class="w3-container w3-center">
 						      <p class="restName"> <%= outlets[learntData[i][2]]["name"] %></p>
@@ -62,8 +65,8 @@
 						  </div>
 						</div>	
 						<div class="back">		
-						  <div class="w3-card-4" style="width:100%">
-						    <div class="w3-container w3-left">
+						  <div class="w3-card-4">
+						    <div class="w3-container w3-left back-font">
 						      <p>Address: <%= outlets[learntData[i][2]]["address"] %></p>
 						      <p>Cuisine: <%= outlets[learntData[i][2]]["cuisine"] %></p>
 						      <p>Phone: <%= outlets[learntData[i][2]]["phone"] %></p>
@@ -80,12 +83,14 @@
 	<%}%>
 </body>
 </html>
-
+<br/>
 <div id="rated">
 	<hr style="margin-top: 0;padding-top: 0">
 	<% if(Number(noOfRated)==0){ %>
 	<%}else{%>
+	<div class="container">
 		<p>You have rated the following:</p>
+	</div>
 		<div id="cards">	
 			<% for(var i=0; i < ratings.length; i++) { %>
 				<%if(ratings[i]){%>
@@ -100,8 +105,8 @@
 						  </div>
 						</div>	
 						<div class="back">		
-						  <div class="w3-card-4" style="width:100%">
-						    <div id="tmpRate" class="w3-container w3-left">
+						  <div class="container" style="width:100%">
+						    <div id="tmpRate">
 						    	<h3 id="myRating"><span class="label label-default"><%=ratings[i]%></span></h3>
 						    </div>
 						  </div>

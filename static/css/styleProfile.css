@@ -71,21 +71,19 @@ html{
 	}
 
 .container-custom, .front, .back {
-	width: 100%;
-	height: 50%;
 }
 
 /* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
-	height: 100%;
 	position: relative;
 }
 
 /* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
+	position: relative;
 	top: 0;
 	left: 0;
 }
@@ -99,11 +97,14 @@ html{
 
 /* back, initially hidden pane */
 .back {
+	width: 100%;
+	height: 100%;
+	position: absolute;
 	transform: rotateY(180deg);
+	background-color: rgba(185,185,185,0.4);
 }
 
 .back p{
-	position: absolute;
 	margin:0px;
 	font-size: 1em;
 }
@@ -119,13 +120,12 @@ html{
 	margin-top: 20px;
 	border: 1.5px solid white;
 	text-decoration: none;
-	width:5%;
 	text-align: center;
 	margin-top:20px;
 }
 #right1{
 	position: absolute;
-	right:9%;
+	right: 80px;
 	padding: 10px;
 	color: white;
 	background:rgba(0,0,0,0.3);
@@ -133,7 +133,6 @@ html{
 	margin-top: 20px;
 	border: 1.5px solid white;
 	text-decoration: none;
-	width:5%;
 	text-align: center;
 	margin-top: 20px;
 }
@@ -160,7 +159,6 @@ html{
 	margin:0 auto;
 }
 #rated{
-	margin-top: 360px;
 	height: 100%;
 }
 #myRating{
@@ -173,4 +171,12 @@ html{
 }
 #tmpRate{
 	width: 100%;
+}
+
+.back-font {
+	font-family: 'Lato', sans-serif;
+}
+
+.restName {
+	font-family: 'Slabo 27px', serif; 
 }
