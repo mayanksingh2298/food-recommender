@@ -84,7 +84,8 @@ var combinedYesNo = false;
 var inNothing = false;
 var users = [];
 var locationYesNo = false;
-
+var KnownLocationAsk = false;
+var KnownLocationAgainAsk = false;
 // Main dialog with LUIS
 var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
@@ -131,6 +132,9 @@ intents.matches('Recommend', [(session, args, next) => {
 	},
 	(session, results) => {
 		// console.log("Going to recommend dialog");
+		if(latitude && longitude){
+			KnownLocationAgainAsk = true;
+		}
 		session.beginDialog('RecommendRestaurant');
 	}
 ]);
@@ -147,6 +151,10 @@ intents.matches('Yes', (session) => {
 	else if(haveFriendsYesNo) {
 		session.beginDialog('Combined');
 		// haveFriends to be false in dialog-----------------------------------------------Done
+	}else if(KnownLocationAskYesNo){
+		session.send("Okay, sure");
+		KnownLocationAsk = false;
+		session.beginDialog('RecommendRestaurant');
 	}else if(locationYesNo){
 		locationYesNo = false;
 		var locLat = ToKnowLocationResponse.results[0].geometry.location.lat;
@@ -196,6 +204,11 @@ intents.matches('No', (session) => {
 		}else{
 			session.beginDialog('Nothing');
 		}
+	}else if(KnownLocationAskYesNo){
+		latitude = undefined;
+		longitude = undefined;
+		KnownLocationAsk = false;
+		bot.beginDialog('RecommendRestaurant');
 	}else if(locationYesNo){
 		locationYesNo = false;
 		session.beginDialog('AskAgainForLocation');
@@ -204,15 +217,21 @@ intents.matches('No', (session) => {
 	if(inNothing) {
 		inNothing = false;
 		session.send("Hope you liked my service. Thanks!");
+		session.beginDialog('/');
 	}
 	else {
 		session.beginDialog('Nothing');
 	}
 })
 intents.onDefault((session) => {
-    session.send('Sorry, I did not understand that. :(');
-    session.send('But here are the things I can do for you.')
-    session.beginDialog('Help');
+	if(friendsYesNo || locationYesNo || combinedYesNo || haveFriendsYesNo || inNothing){
+		session.send("Sorry, I didn't understand it. Maybe a typo.....");
+		session.beginDialog('/');
+	}else{
+	    session.send('Sorry, I did not understand that. :(');
+	    session.send('But here are the things I can do for you.')
+	    session.beginDialog('Help');		
+	}
 });
 
 var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
@@ -243,14 +262,23 @@ bot.dialog('RecommendRestaurant', [
     	// console.log("In recommend");
 		if(longitude && latitude){
 			// console.log("LatLong known");
-			if(!session.userData.name){
-		    	session.send("Here are the general choice of most favorable restaurants");
-		    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
-		    }else{
-		    	getPersonalisedRatings(MainUser,session);
+			if(KnownLocationAgainAsk){
+				session.send("Should I use your previous position?");
+				KnownLocationAgainAsk = false;
+				KnownLocationAsk = true;
+				session.beginDialog('/');				
+			}else{
+				if(!session.userData.name){
+			    	session.send("Here are the general choice of most favorable restaurants");
+			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
+			    }else{
+			    	getPersonalisedRatings(MainUser,session);
+				}				
 			}
 		}else{
-			session.send("Please send me your location. Just click on + icon and click the location icon to share location. Recommend");
+			if(!session.message.entities[0]){
+				session.send("Please send me your location. Just click on + icon and click the location icon to share location. Recommend");
+			}
 			if(session.message.entities[0]){
 			    latitude = session.message.entities[0].geo.latitude;
 			    longitude = session.message.entities[0].geo.longitude;
