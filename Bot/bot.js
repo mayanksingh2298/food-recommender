@@ -805,8 +805,12 @@ function getLocationBasedRatings(lat,long,session,dist){
 		location:{
 			latitude: lat,
 			longitude: long
-		}
+		},
+		ratings:[]
 	};
+	if(MainUser){
+		user = MainUser;
+	}
 	ToRecommend = SetDistKmResto(user,dist);
 	ToRecommend.sort(function(a, b){
 		return b.genrat-a.genrat;	// Automatic descending
