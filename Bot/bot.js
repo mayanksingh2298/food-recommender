@@ -352,246 +352,35 @@ bot.dialog('Combined', [
 
 bot.dialog('Help', [
 	function (session, args, next) {
- 		var msg = new builder.Message(session)
-    .addAttachment({
-        contentType: "application/vnd.microsoft.card.adaptive",
-        content: {
-		  "type": "AdaptiveCard",
-		  "version": "1.0",
-		  "body": [
-		    {
-		      "type": "TextBlock",
-		      "text": "User Guide",
-		      "size": "large",
-		      "weight": "bolder"
-		    },
-		    {
-		      "type": "TextBlock",
-		      "text": "Here are the functionalities I can provide you:",
-		      "wrap": true
-		    },
-		  ],
-		  "actions": [
-		    {
-		      "type": "Action.ShowCard",
-		      "title": "Personal Recommendations",
-		      "card": {
-		        "type": "AdaptiveCard",
-		        "body": [
-		          {
-		            "type": "TextBlock",
-		            "text": "How would you like your steak prepared?",
-		            "size": "medium",
-		            "wrap": true
-		          },
-		          {
-		            "type": "Input.ChoiceSet",
-		            "id": "SteakTemp",
-		            "style": "expanded",
-		            "choices": [
-		              {
-		                "title": "Rare",
-		                "value": "rare"
-		              },
-		              {
-		                "title": "Medium-Rare",
-		                "value": "medium-rare"
-		              },
-		              {
-		                "title": "Well-done",
-		                "value": "well-done"
-		              }
-		            ]
-		          },
-		          {
-		            "type": "Input.Text",
-		            "id": "SteakOther",
-		            "isMultiline": true,
-		            "placeholder": "Any other preparation requestes?"
-		          }
-		        ],
-		        "actions": [
-		          {
-		            "type": "Action.Submit",
-		            "title": "OK",
-		            "data": {
-		              "FoodChoice": "Steak"
-		            }
-		          }
-		        ]
-		      }
-		    },
-		    {
-		      "type": "Action.ShowCard",
-		      "title": "Group Recommendations",
-		      "card": {
-		        "type": "AdaptiveCard",
-		        "body": [
-		          {
-		            "type": "TextBlock",
-		            "text": "Do you have any allergies?",
-		            "size": "medium",
-		            "wrap": true
-		          },
-		          {
-		            "type": "Input.ChoiceSet",
-		            "id": "ChickenAllergy",
-		            "style": "expanded",
-		            "isMultiSelect": true,
-		            "choices": [
-		              {
-		                "title": "I'm allergic to peanuts",
-		                "value": "peanut"
-		              }
-		            ]
-		          },
-		          {
-		            "type": "Input.Text",
-		            "id": "ChickenOther",
-		            "isMultiline": true,
-		            "placeholder": "Any other preparation requestes?"
-		          }
-		        ],
-		        "actions": [
-		          {
-		            "type": "Action.Submit",
-		            "title": "OK",
-		            "data": {
-		              "FoodChoice": "Chicken"
-		            }
-		          }
-		        ]
-		      }
-		    },
-		    {
-		      "type": "Action.ShowCard",
-		      "title": "Location Based Recommendations",
-		      "card": {
-		        "type": "AdaptiveCard",
-		        "body": [
-		          {
-		            "type": "TextBlock",
-		            "text": "Do you have any allergies?",
-		            "size": "medium",
-		            "wrap": true
-		          },
-		          {
-		            "type": "Input.ChoiceSet",
-		            "id": "ChickenAllergy",
-		            "style": "expanded",
-		            "isMultiSelect": true,
-		            "choices": [
-		              {
-		                "title": "I'm allergic to peanuts",
-		                "value": "peanut"
-		              }
-		            ]
-		          },
-		          {
-		            "type": "Input.Text",
-		            "id": "ChickenOther",
-		            "isMultiline": true,
-		            "placeholder": "Any other preparation requestes?"
-		          }
-		        ],
-		        "actions": [
-		          {
-		            "type": "Action.Submit",
-		            "title": "OK",
-		            "data": {
-		              "FoodChoice": "Chicken"
-		            }
-		          }
-		        ]
-		      }
-		    },
-		    {
-		      "type": "Action.ShowCard",
-		      "title": "Cuisine Based Recommendations",
-		      "card": {
-		        "type": "AdaptiveCard",
-		        "body": [
-		          {
-		            "type": "TextBlock",
-		            "text": "Do you have any allergies?",
-		            "size": "medium",
-		            "wrap": true
-		          },
-		          {
-		            "type": "Input.ChoiceSet",
-		            "id": "ChickenAllergy",
-		            "style": "expanded",
-		            "isMultiSelect": true,
-		            "choices": [
-		              {
-		                "title": "I'm allergic to peanuts",
-		                "value": "peanut"
-		              }
-		            ]
-		          },
-		          {
-		            "type": "Input.Text",
-		            "id": "ChickenOther",
-		            "isMultiline": true,
-		            "placeholder": "Any other preparation requestes?"
-		          }
-		        ],
-		        "actions": [
-		          {
-		            "type": "Action.Submit",
-		            "title": "OK",
-		            "data": {
-		              "FoodChoice": "Chicken"
-		            }
-		          }
-		        ]
-		      }
-		    },
-		    {
-		      "type": "Action.ShowCard",
-		      "title": "Generalised Recommendations",
-		      "card": {
-		        "type": "AdaptiveCard",
-		        "body": [
-		          {
-		            "type": "TextBlock",
-		            "text": "Do you have any allergies?",
-		            "size": "medium",
-		            "wrap": true
-		          },
-		          {
-		            "type": "Input.ChoiceSet",
-		            "id": "ChickenAllergy",
-		            "style": "expanded",
-		            "isMultiSelect": true,
-		            "choices": [
-		              {
-		                "title": "I'm allergic to peanuts",
-		                "value": "peanut"
-		              }
-		            ]
-		          },
-		          {
-		            "type": "Input.Text",
-		            "id": "ChickenOther",
-		            "isMultiline": true,
-		            "placeholder": "Any other preparation requestes?"
-		          }
-		        ],
-		        "actions": [
-		          {
-		            "type": "Action.Submit",
-		            "title": "OK",
-		            "data": {
-		              "FoodChoice": "Chicken"
-		            }
-		          }
-		        ]
-		      }
-		    }
-		  ]
-		}
-    });
+		session.send("I can learn your taste and recommend the best restaurants that will definitely suit your taste!!!");
+ 		var msg = new builder.Message(session);
+	    msg.attachmentLayout(builder.AttachmentLayout.carousel)
+	    msg.attachments([
+	        new builder.HeroCard(session)
+	            .title("Personalised Recommendations")
+	            .subtitle("Get the best restaurants for you based on your previous ratings.")
+	            .text("Try asking me the following:\n\n-Suggest me the best restaurants to have Chinese.\n\n-Recommend me some restaurant in Connaught Place.\n\n-What should I have today"),
+	        new builder.HeroCard(session)
+	            .title("Group Recommendations")
+	            .subtitle("Give usernames of your friends and get the best recommendations for your group as a whole")
+	            .text("Try the personalised recommendation and then input your friends' usernames. And voila, it's done!!!"),
+            new builder.HeroCard(session)
+	            .title("Location Based Recommendations")
+	            .subtitle("Provide me your desired location and I'll tell you the most favoured restaurants at the location")
+	            .text("Try the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan"),
+            new builder.HeroCard(session)
+	            .title("Cuisine Based Recommendations")
+	            .subtitle("Provide me cuisine you desire today and leave the rest on me!!!")
+	            .text("Try the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental"),            
+            new builder.HeroCard(session)
+	            .title("Register")
+	            .subtitle("I can provide you personalised recommendations only if I know you!")
+	            .text("Please register yourself at http://foodreco.azurewebsites.net/registerPhone\n\nThereafter, rate any four restaurants to get the best results"),
+            new builder.HeroCard(session)
+	            .title("Team")
+	            .subtitle("Here are my Developers")
+	            .text("-Mayank Singh Chauhan\n\n-Atishya Jain\n\n-Divyanshu Saxena"),            
+	    ]);
 		session.send(msg);
  		// session.send("Help needs remanufacturing");
         session.beginDialog('/');
