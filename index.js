@@ -411,12 +411,7 @@ function SetTwentyKmResto(updatedUser){
 		}else{
 			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
 			outletsDeepCopy.sort(function(a, b){
-				if(updatedUser.ratings[b.id] && !updatedUser.ratings[a.id])
-					return 1
-				else if(!updatedUser.ratings[b.id] && updatedUser.ratings[a.id])
-					return -1
-				else
-					return b.genrat-a.genrat;	// Automatic descending
+				return b.genrat-a.genrat;	// Automatic descending
 			})
 			TwentyKmResto=outletsDeepCopy.splice(0,20)
 		}
