@@ -8,18 +8,26 @@ intelligent messenger bot.
 **WebApp Video Link** : https://youtu.be/iNvUlVxUEvE
 
 ## How to use this?
-**Website:**<br>
+**Website:**
 The like to our website is https://foodreco.azurewebsites.net/
-<br>1. Begin by registering on our site. 
-<br>
-2. You should then rate atleast 4 restaurants so that we can properly learn your tastes. 
-<br>
-3. If you click on the profile button above you'll find yourself on the recommendations page, where you see those restaurants which suit you best.
-<br>
-On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
-<br><br>
-**Bot:**<br>
+
+1. Register on the site.
+
+2. Rate atleast 4 restaurants so they we can properly learn.
+
+3. Click on the profile button above you'll find yourself on the recommendations page, where you see those restaurants which suit you best.
+
+4. On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
+
+**Bot:**
+
 1. Meet our messenger bot Frudo here : https://www.facebook.com/Frudo-Assistant-174024746531893
+
+For time being, use the following credentials to test the bot:
+
+**username** : havenonamecfd@hotmail.com
+
+**password** : AMDCFD123
 
 2. **Natural Language Processing :** It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
 
@@ -34,11 +42,7 @@ On this page, you can even add your friends, and then we'll recommend you restau
 
 
 
-For time being, use the following credentials to test the bot:
 
-**username** : havenonamecfd@hotmail.com
-
-**password** : AMDCFD123
 
 The conversational flow of bot is quite natural and is a very good platform for hands on recommendations on the go.
 
