@@ -976,9 +976,9 @@ function getCuisineRecommendations(cuisineRaw, lat, long, req){
 	req.send(cuisine);
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
-		if(a.featureVector.cuisine!=0 && b.featureVector.cuisine!=0){
+		if(a.featureVector[cuisine]!=0 && b.featureVector[cuisine]!=0){
 			return b.genrat-a.genrat;	// Automatic descending
-		}else if(a.featureVector.cuisine==0){
+		}else if(a.featureVector[cuisine]==0){
 			return b.genrat;
 		}
 		return a.genrat;
