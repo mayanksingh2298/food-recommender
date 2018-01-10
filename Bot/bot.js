@@ -132,8 +132,8 @@ intents.matches('Recommend', [(session, args, next) => {
 		if(cuisine || place) {
 			if(cuisine){							
 				preferredCuisine = cuisine.toLowerCase();
-				for(cuis in cuisineList){
-					if(preferredCuisine === cuis){
+				for(var i=0;i<cuisineList.length;i++){
+					if(preferredCuisine === cuisineList[i]){
 						cuisineCorrect = true;
 						break;
 					}
@@ -493,8 +493,8 @@ bot.dialog('GetCuisine', [
 		var cuisine = results.response;
 		var cuisineCorrect = false;
 		preferredCuisine = cuisine.toLowerCase();
-		for(cuis in cuisineList){
-			if(preferredCuisine === cuis){
+		for(var i=0;i<cuisineList.length;i++){
+			if(preferredCuisine === cuisineList[i]){
 				cuisineCorrect = true;
 				break;
 			}
