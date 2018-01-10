@@ -177,7 +177,7 @@ intents.matches('Yes', (session) => {
 		var locLat = CuisineLocationResponse.results[0].geometry.location.lat;
 		var locLng = CuisineLocationResponse.results[0].geometry.location.lng;
 		session.send("Here 👇, are the restaurants that you will like :)");
-		getCuisineRecommendations();
+		getCuisineRecommendations(preferredCuisine,locLat,locLng,session);
 	}else{
 		session.send("I guess I am not able to understand this. Let's start again.");
 		session.beginDialog('Help');
@@ -233,8 +233,10 @@ intents.matches('No', (session) => {
 		locationYesNo = false;
 		session.beginDialog('AskAgainForLocation');
 		// session.beginDialog('/');
-	}
-	else if(inNothing) {
+	}else if(cuisineLocationYesNo){
+		cuisineLocationYesNo = false;
+		session.beginDialog('GetLocation');
+	}else if(inNothing) {
 		inNothing = false;
 		session.send("Hope you liked my service. Thanks!");
 		session.beginDialog('/');
@@ -471,7 +473,13 @@ bot.dialog('Nothing', [
 
 bot.dialog('GetLocation', [
 	function (session) {
-		session.send("I need your desired location to provide the best results. Just click on + icon and click the location icon to share location.")
+		session.send("I need your desired location to provide the best results. Just click on + icon and click the location icon to share location.");//---------------------------Wrong location not handled
+		if(session.message.entities[0]){
+		    latitude = session.message.entities[0].geo.latitude;
+		    longitude = session.message.entities[0].geo.longitude;
+	    	session.send("Thanks, here are your recommendations 👇");
+	    	getCuisineRecommendations(preferredCuisine,latitude,longitude,session);
+	    }
 	}
 ]);
 
@@ -954,7 +962,13 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 	};
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
-		return b.genrat-a.genrat;	// Automatic descending
+		if(a.featureVector.cuisine!=0 && b.featureVector.cuisine!=0){
+			return b.genrat-a.genrat;	// Automatic descending
+		}else if(a.featureVector.cuisine==0){
+			return b.genrat;
+		}else{
+			return a.genrat;
+		}
 	})
 
 	var sortedArray=ToRecommend.splice(0,8);
