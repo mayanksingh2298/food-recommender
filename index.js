@@ -419,12 +419,15 @@ function SetTwentyKmResto(updatedUser){
 				}
 				// console.log(tmpDist);
 			}
-		}else{
-			var outletsDeepCopy = JSON.parse(JSON.stringify(outlets))
+		}else{ 
+			unlearnt=13
+			var outletsDeepCopy = []
+			for (var iii=0;iii<20;iii++)
+				outletsDeepCopy[i] = outlets[i]
 			outletsDeepCopy.sort(function(a, b){
 				return b.genrat-a.genrat;	// Automatic descending
 			})
-			TwentyKmResto=outletsDeepCopy.splice(0,20)
+			TwentyKmResto=outletsDeepCopy
 		}
 		dist++
 	}
