@@ -43,6 +43,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Lift', 'Home Delivery', 'Take Away', 'Cards Accepted', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.5", 
       "id": 0, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/a/a/p22357-14947869185918a366f2b9c.jpg?w=400", 
       "lat,long": "28.588085,77.167944", 
@@ -94,6 +95,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned']", 
+      "genrat": "4.0", 
       "id": 1, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/z/i/p34490-1502548924598f13bc2d397.jpg?w=400", 
       "lat,long": "28.587896,77.167345", 
@@ -145,6 +147,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Dance Floor', 'Hookah', 'Screening']", 
+      "genrat": "4.0", 
       "id": 2, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/u/c/p29341-1479709892583294c45d4a9.jpg?w=400", 
       "lat,long": "28.562453,77.244512", 
@@ -196,8 +199,9 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away']", 
+      "genrat": "4.0", 
       "id": 3, 
-      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/v/h/p37319-15115259055a180e1167e02.jpg?w=700", 
+      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/v/h/p37319-15115259055a180e1167e02.jpg?w=400", 
       "lat,long": "28.549720,77.236580", 
       "map": "http://maps.google.com?q=28.549720,77.236580", 
       "name": "Like Italy", 
@@ -247,6 +251,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Take Away']", 
+      "genrat": "4.3", 
       "id": 4, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/i/m/p35325-15126463065a2926a26db9f.jpg?w=400", 
       "lat,long": "28.556519,77.233612", 
@@ -298,6 +303,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Take Away']", 
+      "genrat": 3.0, 
       "id": 5, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/t/f/p37698-15132374255a322bb1dfbf3.jpg?w=400", 
       "lat,long": "28.588461,77.168654", 
@@ -349,6 +355,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned']", 
+      "genrat": 3.0, 
       "id": 6, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/v/y/p37701-15129870725a2e59c038928.jpg?w=400", 
       "lat,long": "28.588123,77.168191", 
@@ -400,6 +407,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away']", 
+      "genrat": 3.0, 
       "id": 7, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/t/a/p37572-15123892765a253a9c4b7f2.jpg?w=400", 
       "lat,long": "28.560916,77.239081", 
@@ -451,6 +459,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Serves Alcohol', 'Parking', 'Games', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening', 'Wallet Accepted']", 
+      "genrat": "4.3", 
       "id": 8, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/l/d/p32441-149103082758df532b6ac14.jpg?w=400", 
       "lat,long": "28.552562,77.241339", 
@@ -502,8 +511,9 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Wallet Accepted']", 
+      "genrat": 3.0, 
       "id": 9, 
-      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/d/k/p33952-1500357044596da1b406226.jpg?w=700", 
+      "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/a/v/p33952-1500357012596da194f1969.jpg?w=400", 
       "lat,long": "28.560239,77.233598", 
       "map": "http://maps.google.com?q=28.560239,77.233598", 
       "name": "Caf\u00e9 Healthilicious", 
@@ -553,6 +563,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 10, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/m/r/p312-1445343950562632ce01d9f.jpg?w=400", 
       "lat,long": "28.590425,77.221276", 
@@ -604,6 +615,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.0", 
       "id": 11, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/w/s/p666-144541605256274c746d32c.jpg?w=400", 
       "lat,long": "28.566395,77.233804", 
@@ -655,6 +667,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'DJ', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "3.8", 
       "id": 12, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/5/s/b/p543-149431415959116cafb12d0.jpg?w=400", 
       "lat,long": "28.551146,77.251614", 
@@ -706,6 +719,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 13, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/s/g/p22382-1494310914591160022cbfe.jpg?w=400", 
       "lat,long": "28.551328,77.251965", 
@@ -757,6 +771,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Candle Light Dinner', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 14, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/q/z/p29426-1482315613585a575db02a8.jpg?w=400", 
       "lat,long": "28.559077,77.195423", 
@@ -808,6 +823,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Screening']", 
+      "genrat": "4.3", 
       "id": 15, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/y/m/p20874-1480322542583bedeea5cbc.jpg?w=400", 
       "lat,long": "28.527576,77.219186", 
@@ -859,6 +875,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Alcohol Free Bar', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening']", 
+      "genrat": "4.3", 
       "id": 16, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/c/b/p23092-149452214859149924db028.jpg?w=400", 
       "lat,long": "28.589217,77.168762", 
@@ -910,6 +927,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Serves Alcohol', 'Parking', 'Take Away']", 
+      "genrat": "4.3", 
       "id": 17, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/q/m/p35021-15115199895a17f6f594b16.jpg?w=400", 
       "lat,long": "28.527529,77.217159", 
@@ -961,6 +979,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.3", 
       "id": 18, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/m/v/p645-1493587173590654e519aec.jpg?w=400", 
       "lat,long": "28.543293,77.156467", 
@@ -1012,6 +1031,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Dance Floor', 'Hookah', 'Outdoor Seating', 'Roof Top', 'Screening']", 
+      "genrat": "4.1", 
       "id": 19, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/o/v/p30691-1494058035590d84330b0d2.jpg?w=400", 
       "lat,long": "28.554328,77.206249", 
@@ -1063,6 +1083,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar']", 
+      "genrat": "4.1", 
       "id": 20, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/j/d/p109-144534380156263239023d8.jpg?w=400", 
       "lat,long": "28.602018,77.186141", 
@@ -1114,6 +1135,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Serves Wine', 'Bar', 'Candle Light Dinner', 'Outdoor Seating']", 
+      "genrat": "3.8", 
       "id": 21, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/h/h/p143-1460629943570f71b791e4d.jpg?w=400", 
       "lat,long": "28.513938,77.196917", 
@@ -1165,6 +1187,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.0", 
       "id": 22, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/e/v/p258-149311530258ff21a69641d.jpg?w=400", 
       "lat,long": "28.542862,77.156232", 
@@ -1216,6 +1239,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.2", 
       "id": 23, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/p/c/p29626-14819633055854f7298ebf0.jpg?w=400", 
       "lat,long": "28.562413,77.224304", 
@@ -1267,6 +1291,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Candle Light Dinner', 'Outdoor Seating', 'Screening']", 
+      "genrat": "4.2", 
       "id": 24, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/x/d/p78-149561211159253acf0cb55.jpg?w=400", 
       "lat,long": "28.525967,77.184273", 
@@ -1318,6 +1343,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Home Delivery', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted']", 
+      "genrat": "4.5", 
       "id": 25, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/v/l/p24863-15109926315a0feaf74ae1a.jpg?w=400", 
       "lat,long": "28.573771,77.230055", 
@@ -1369,6 +1395,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Screening']", 
+      "genrat": "4.5", 
       "id": 26, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/l/w/p19060-148819211058b4026ef2452.jpg?w=400", 
       "lat,long": "28.528409,77.216472", 
@@ -1420,6 +1447,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.5", 
       "id": 27, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/j/e/p28441-150417423959a7e09f88f02.jpg?w=400", 
       "lat,long": "28.552125,77.203823", 
@@ -1471,6 +1499,7 @@
          "Wifi": "0"
       }, 
       "features": "['Air Conditioned', 'Serves Alcohol', 'Parking', 'Cards Accepted', 'Serves Wine', 'Bar', 'Barbeque and Grill']", 
+      "genrat": "4.5", 
       "id": 28, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/8/t/x/p8845-144006717955d5ae6b7903f.jpg?w=400", 
       "lat,long": "28.581149,77.242215", 
@@ -1522,6 +1551,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Barbeque and Grill', 'Hookah', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.3", 
       "id": 29, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/6/a/j/p633-1494053761590d73813a078.jpg?w=400", 
       "lat,long": "28.55229,77.203809", 
@@ -1573,6 +1603,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating', 'Private Dining Available', 'Screening']", 
+      "genrat": "4.3", 
       "id": 30, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/x/p/p22375-149094140558ddf5dd1b9ec.jpg?w=400", 
       "lat,long": "28.551392,77.251696", 
@@ -1624,6 +1655,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.5", 
       "id": 31, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/7/p/w/p7570-14934682345904844a0ec0d.jpg?w=400", 
       "lat,long": "28.540774,77.154852", 
@@ -1675,6 +1707,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Outdoor Seating', 'Private Dining Available', 'Screening']", 
+      "genrat": "4.0", 
       "id": 32, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/o/l/p15246-145431529256af171ca2e8e.jpg?w=400", 
       "lat,long": "28.542175,77.156037", 
@@ -1726,6 +1759,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Cards Accepted', 'Bar', 'Outdoor Seating']", 
+      "genrat": "4.4", 
       "id": 33, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/3/g/o/p33480-1499322295595dd7b78cc50.jpg?w=400", 
       "lat,long": "28.562489,77.224248", 
@@ -1777,6 +1811,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Valet Available', 'Serves Alcohol', 'Parking', 'Take Away', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.1", 
       "id": 34, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/q/s/p11174-14946721135916e2f1eeb9d.jpg?w=400", 
       "lat,long": "28.541242,77.154938", 
@@ -1828,6 +1863,7 @@
          "Wifi": "1"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'DJ', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Take Away', 'Live Performance', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Outdoor Seating', 'Screening']", 
+      "genrat": "3.8", 
       "id": 35, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/g/b/p216-145604139556c96db3bd70a.jpg?w=400", 
       "lat,long": "28.556315,77.232834", 
@@ -1879,6 +1915,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Wifi', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Serves Wine', 'Bar', 'Hookah', 'Screening']", 
+      "genrat": "4.2", 
       "id": 36, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/5/n/n/p566-145607018556c9de2990d6e.jpg?w=400", 
       "lat,long": "28.556275,77.232819", 
@@ -1930,6 +1967,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Home Delivery', 'Serves Alcohol', 'Parking', 'Take Away', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Outdoor Seating']", 
+      "genrat": "4.4", 
       "id": 37, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/2/o/v/p21500-14610494365715d85c88522.jpg?w=400", 
       "lat,long": "28.601801,77.186987", 
@@ -1981,6 +2019,7 @@
          "Wifi": "1"
       }, 
       "features": "['Air Conditioned', 'Lift', 'Wifi', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Amex Accepted', 'Bar', 'Screening']", 
+      "genrat": "4.0", 
       "id": 38, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/d/c/p18327-1480413441583d51015cf83.jpg?w=400", 
       "lat,long": "28.528065,77.216813", 
@@ -2032,6 +2071,7 @@
          "Wifi": "0"
       }, 
       "features": "['Smoking Area', 'Air Conditioned', 'Lift', 'Valet Available', 'Serves Alcohol', 'Parking', 'Differently Abled Friendly', 'Cards Accepted', 'Serves Wine', 'Bar', 'Outdoor Seating', 'Roof Top']", 
+      "genrat": "4.3", 
       "id": 39, 
       "img": "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/4/d/u/p4871-145940719956fcc95fc9f56.jpg?w=400", 
       "lat,long": "28.541159,77.155405", 
