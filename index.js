@@ -8,7 +8,7 @@ var express  				= require('express'),
     passport 				= require("passport"),
     bodyParser 				= require("body-parser"),
     User					= require("./models/user"),
-    outlets					= require("./scrape/output.json")
+    outlets					= require("./scrape/outputOrg.json")
     LocalStrategy 			= require("passport-local"),
     passportLocalMongoose 	= require("passport-local-mongoose"),
     methodOverride          = require("method-override"),
@@ -44,7 +44,7 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/",function(req,res){
 	// isLoggedIn = 0
 	if(req.user)
-		res.render("index",{outlets:req.user.TwentyKmResto,isLoggedIn:1});
+		res.render("index",{outlets:outlets,isLoggedIn:1});
 	else
 		res.render("index",{outlets:outlets,isLoggedIn:0});
 });
@@ -64,7 +64,7 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 			res.redirect("/");
 		}
 		else{
-			res.redirect("/profile");
+			res.redirect("/");
 		}
 	} );
 
@@ -110,7 +110,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				toLearnInd=[]
 				predictedData=[]
 				if (noOfRated<4){
-					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:req.user.TwentyKmResto,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
+					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
 				}else{
 					for(var j=0;j<req.user.TwentyKmResto.length;j++){
 						// console.log(i)
@@ -234,7 +234,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	ratings = req.user.ratings
 	console.log(ratings)
 	if (req.user.noOfRated<4){
-		res.render("profile",{noOfRated:req.user.noOfRated,outlets:req.user.TwentyKmResto,ratings:ratings,learntData:[],location:req.user.location});
+		res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:[],location:req.user.location});
 	}else{
 
 
@@ -273,6 +273,8 @@ app.get("/profile",isLoggedIn,function(req,res){
 	    "GlobalParameters":  {
 	    }
 	}
+	// console.log(data1new)
+	// console.log(data2new)
 		// getPred(data);
 	    var dataString = JSON.stringify(data)
 	    var host = 'ussouthcentral.services.azureml.net'
@@ -289,12 +291,13 @@ app.get("/profile",isLoggedIn,function(req,res){
 	};
 	    var reqPost = https.request(options, function (res2) {
 	        res2.on('data', function(d) {
-	           // console.log(d.toString("utf8"))
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		maxDiff=0
 	       		maxRate=0
 	       		for (var i=0;i<predictedData.length;i++){//to get max to scale them
+	       			if (!outlets[toLearnInd[i]])
+	       				continue
 	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
 	       			tmpLat = tmpLatLong[0]
 	       			tmpLong = tmpLatLong[1]
@@ -349,6 +352,7 @@ app.post("/register",function(req,res){
 			latitude:req.body.latitude,
 			longitude:req.body.longitude
 		},
+		ratings:[],
 	}
 	toMakeUser.TwentyKmResto = SetTwentyKmResto(toMakeUser)
 	User.register(new User(toMakeUser),req.body.password,function(err,user){
@@ -399,13 +403,17 @@ app.get("*",function(req,res){
 function SetTwentyKmResto(updatedUser){
 	var TwentyKmResto = [];
 	dist=5;
-	while(TwentyKmResto.length<=12){
+	var unlearnt = 0
+	while(unlearnt<=12){
+		unlearnt = 0
+		TwentyKmResto = []
 		if(updatedUser.location.latitude){
 			for(var i = 0;i<outlets.length;i++){
 				var fields = outlets[i]["lat,long"].split(',');
 				tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
 				if(tmpDist <= dist){
 					TwentyKmResto.push(outlets[i]);
+					unlearnt++
 				}else if(updatedUser.ratings[i]){
 					TwentyKmResto.push(outlets[i]);
 				}
@@ -433,7 +441,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-var port = process.env.port || 8000
+var port = process.env.port || 8002
 app.listen(port,function(){
 	console.log("listening on port "+port)
 });
