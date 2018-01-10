@@ -44,7 +44,7 @@ passport.deserializeUser(User.deserializeUser());
 app.get("/",function(req,res){
 	// isLoggedIn = 0
 	if(req.user)
-		res.render("index",{outlets:req.user.TwentyKmResto,isLoggedIn:1});
+		res.render("index",{outlets:outlets,isLoggedIn:1});
 	else
 		res.render("index",{outlets:outlets,isLoggedIn:0});
 });
@@ -64,7 +64,7 @@ app.put("/editRatings",isLoggedIn,function(req,res){
 			res.redirect("/");
 		}
 		else{
-			res.redirect("/profile");
+			res.redirect("/");
 		}
 	} );
 
@@ -110,7 +110,7 @@ app.post("/friends",isLoggedIn,function(req,res){
 				toLearnInd=[]
 				predictedData=[]
 				if (noOfRated<4){
-					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:req.user.TwentyKmResto,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
+					res.render("friends",{actualFriends:actualFriends,learntData:[],outlets:outlets,myLat:req.user.location.latitude,myLong:req.user.location.longitude});
 				}else{
 					for(var j=0;j<req.user.TwentyKmResto.length;j++){
 						// console.log(i)
@@ -234,7 +234,7 @@ app.get("/profile",isLoggedIn,function(req,res){
 	ratings = req.user.ratings
 	console.log(ratings)
 	if (req.user.noOfRated<4){
-		res.render("profile",{noOfRated:req.user.noOfRated,outlets:req.user.TwentyKmResto,ratings:ratings,learntData:[],location:req.user.location});
+		res.render("profile",{noOfRated:req.user.noOfRated,outlets:outlets,ratings:ratings,learntData:[],location:req.user.location});
 	}else{
 
 
@@ -400,13 +400,17 @@ app.get("*",function(req,res){
 function SetTwentyKmResto(updatedUser){
 	var TwentyKmResto = [];
 	dist=5;
-	while(TwentyKmResto.length<=12){
+	var unlearnt = 0
+	while(unlearnt<=12){
+		unlearnt = 0
+		TwentyKmResto = []
 		if(updatedUser.location.latitude){
 			for(var i = 0;i<outlets.length;i++){
 				var fields = outlets[i]["lat,long"].split(',');
 				tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
 				if(tmpDist <= dist){
 					TwentyKmResto.push(outlets[i]);
+					unlearnt++
 				}else if(updatedUser.ratings[i]){
 					TwentyKmResto.push(outlets[i]);
 				}
@@ -434,7 +438,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-var port = process.env.port || 8000
+var port = process.env.port || 8001
 app.listen(port,function(){
 	console.log("listening on port "+port)
 });
