@@ -5,21 +5,23 @@ intelligent messenger bot.
 Website:
 The like to our website is https://foodreco.azurewebsites.net/
 
-Begin by registering on our site. You should then rate atleast 4 restaurants so that we can properly learn your tastes. If you click on the profile button above you'll find yourself on the recommendations page, where you see those restaurants which suit you best.
+Begin by registering on our site. 
+You should then rate atleast 4 restaurants so that we can properly learn your tastes. 
+If you click on the profile button above you'll find yourself on the recommendations page, where you see those restaurants which suit you best.
 On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
 
 Bot:**********************
 
 ## Technologies used
 
-* [AzureML]
-* [BotFramework]
-* [Microsoft LUIS]
-* [NodeJS]
-* [MongoDB]
-* [HTML]
-* [CSS]
-* [JavaScript]
+* AzureML
+* BotFramework
+* Microsoft LUIS
+* NodeJS
+* MongoDB
+* HTML
+* CSS
+* JavaScript
 
 ## Contributing
 
