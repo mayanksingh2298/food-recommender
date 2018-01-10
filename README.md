@@ -1,6 +1,12 @@
 # FoodRecommender
+
 We have aimed to provide personal restaurant recommendations to our users. You can visit our main website or even talk to our 
 intelligent messenger bot.
+
+**Bot Video Link** : https://youtu.be/vSfcKJDK3R8
+
+**WebApp Video Link** : https://youtu.be/iNvUlVxUEvE
+
 ## How to use this?
 **Website:**<br>
 The like to our website is https://foodreco.azurewebsites.net/
@@ -13,10 +19,25 @@ The like to our website is https://foodreco.azurewebsites.net/
 On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
 <br><br>
 **Bot:**<br>
-The name of our bot is Frudo. We have deployed it on messenger platform. It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
-<br>
-Our Bot provides a vast range of functionalities ranging from user personalised recommendation, group(of users) recommendation, Cuisine based recommendation, Location based recommendation and a help feature if user is stuck at any position.  Test out our bot <a href="https://www.facebook.com/Frudo-Assistant-174024746531893/">here</a> for the best restaurant recommendation experience!!!
-<br>
+1. The name of our bot is Frudo. We have deployed it on messenger platform. 
+
+2. **Natural Language Processing :** It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
+
+3. **Personalised Recommendation :** Based on the restaurants you have rated on our website, we suggest you the best places in the neighbourhood that suit your taste.
+
+4. **Group(users) Recommendation :** You can add your friends by their usernames so that our bot can recommend a restaurant which suits all of you.
+
+5. **Cuisine Recommendation :** In a mood to eat chinese? Not a problem at all! Our bot provides you the best chinese restaurant according to your location and taste.
+
+6. **Location Recommendation :** Have some specific place in your mind? Just tell us and our bot will guide you there.
+
+
+Test out our bot <a href="https://www.facebook.com/Frudo-Assistant-174024746531893/">here</a> for the best restaurant recommendation experience!!!
+
+For time being, use the following credentials to test the bot:
+**username** : havenonamecfd@hotmail.com
+**password** : AMDCFD123
+
 The conversational flow of bot is quite natural and is a very good platform for hands on recommendations on the go.
 
 
