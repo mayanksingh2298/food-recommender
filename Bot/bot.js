@@ -981,6 +981,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 	req.send("Just wait, restaurants are sorted");
 
 	var sortedArray=ToRecommend.splice(0,8);
+	req.send("Array sorted and length: "+ToRecommend.length);
 	var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
