@@ -353,7 +353,7 @@ bot.dialog('Combined', [
 				else {
 					users.push(username);
 				}
-				session.send("Continue with more friends?");
+				session.send("Continue adding more friends?");
 				combinedYesNo = true;
 			}
 			session.beginDialog('/');
@@ -490,7 +490,7 @@ function getPersonalisedRatings(req,res){
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
-	console.log(ratings);	
+	console.log(req.TwentyKmResto);	
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
@@ -867,17 +867,19 @@ function getLocationBasedRatings(lat,long,session,dist){
 		},
 		ratings:[]
 	};
-	ToRecommend = SetDistKmResto(user,dist);
 	if(MainUser){
+		ToRecommend = SetDistKmResto(MainUser,dist);
 		MainUser.location.latitude = lat;
 		MainUser.location.longitude = long;
 		MainUser.TwentyKmResto = ToRecommend;
 		user = MainUser;
 		latitude = lat;
 		longitude = long;
-		console.log(MainUser);
+		console.log("Why this is wrong or erhbjhjh? " + MainUser.TwentyKmResto);
+		// console.log(MainUser);
 		getPersonalisedRatings(MainUser,session);
 	}else{
+		ToRecommend = SetDistKmResto(user,dist);
 		ToRecommend.sort(function(a, b){
 			return b.genrat-a.genrat;	// Automatic descending
 		})
@@ -1030,19 +1032,24 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 
 function SetDistKmResto(updatedUser,dist){
 	var TwentyKmResto = [];
-	while(TwentyKmResto.length <= 8){
+	var unLearnt = 0;
+	while(/*TwentyKmResto.length <= 8*/ unLearnt <= 8){
 		TwentyKmResto = [];
+		unLearnt = 0;
 		for(var i = 0;i<outlets.length;i++){
 			var fields = outlets[i]["lat,long"].split(',');
 			tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
-			if(tmpDist <= dist){
+			if((tmpDist <= dist) && (!updatedUser.ratings[i])){
+				unLearnt++;
 				TwentyKmResto.push(outlets[i]);
-			}else if(updatedUser.ratings[i]){
+			}
+			else if(updatedUser.ratings[i]){
 				TwentyKmResto.push(outlets[i]);
 			}
 		}
 		dist = dist+1;
 	}
+	console.log("Function Function " + unLearnt + " hihihi " + TwentyKmResto.length);
 	return TwentyKmResto;
 }
 
