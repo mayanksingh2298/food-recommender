@@ -8,7 +8,7 @@ var express  				= require('express'),
     passport 				= require("passport"),
     bodyParser 				= require("body-parser"),
     User					= require("./models/user"),
-    outlets					= require("./scrape/output.json")
+    outlets					= require("./scrape/outputOrg.json")
     LocalStrategy 			= require("passport-local"),
     passportLocalMongoose 	= require("passport-local-mongoose"),
     methodOverride          = require("method-override"),
@@ -273,6 +273,8 @@ app.get("/profile",isLoggedIn,function(req,res){
 	    "GlobalParameters":  {
 	    }
 	}
+	// console.log(data1new)
+	// console.log(data2new)
 		// getPred(data);
 	    var dataString = JSON.stringify(data)
 	    var host = 'ussouthcentral.services.azureml.net'
@@ -289,12 +291,13 @@ app.get("/profile",isLoggedIn,function(req,res){
 	};
 	    var reqPost = https.request(options, function (res2) {
 	        res2.on('data', function(d) {
-	           // console.log(d.toString("utf8"))
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		maxDiff=0
 	       		maxRate=0
 	       		for (var i=0;i<predictedData.length;i++){//to get max to scale them
+	       			if (!outlets[toLearnInd[i]])
+	       				continue
 	       			tmpLatLong = outlets[toLearnInd[i]]["lat,long"].split(",")
 	       			tmpLat = tmpLatLong[0]
 	       			tmpLong = tmpLatLong[1]
@@ -438,7 +441,7 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
 }
 
-var port = process.env.port || 8001
+var port = process.env.port || 8002
 app.listen(port,function(){
 	console.log("listening on port "+port)
 });
