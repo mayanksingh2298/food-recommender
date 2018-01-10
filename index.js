@@ -273,8 +273,8 @@ app.get("/profile",isLoggedIn,function(req,res){
 	    "GlobalParameters":  {
 	    }
 	}
-	// console.log(data1new)
-	// console.log(data2new)
+	console.log(req.user.TwentyKmResto+"*")
+	console.log(data2new)
 		// getPred(data);
 	    var dataString = JSON.stringify(data)
 	    var host = 'ussouthcentral.services.azureml.net'
@@ -422,8 +422,10 @@ function SetTwentyKmResto(updatedUser){
 		}else{ 
 			unlearnt=13
 			var outletsDeepCopy = []
+
 			for (var iii=0;iii<20;iii++)
-				outletsDeepCopy[i] = outlets[i]
+				outletsDeepCopy.push(outlets[iii])
+
 			outletsDeepCopy.sort(function(a, b){
 				return b.genrat-a.genrat;	// Automatic descending
 			})
@@ -431,6 +433,7 @@ function SetTwentyKmResto(updatedUser){
 		}
 		dist++
 	}
+	console.log(TwentyKmResto+"INSIDE")
 	return TwentyKmResto;
 }
 
