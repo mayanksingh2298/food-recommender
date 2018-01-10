@@ -2,7 +2,7 @@ import requests
 from BeautifulSoup import BeautifulSoup
 import json
 
-listOfUrls=[
+divyanshu1 = [
 "https://www.dineout.co.in/delhi/tamasha-connaught-place-central-delhi-20996",
 "https://www.dineout.co.in/delhi/local-connaught-place-central-delhi-27452",
 "https://www.dineout.co.in/delhi/boa-village-civil-lines-north-delhi-21335",
@@ -3347,8 +3347,10 @@ listOfUrls=[
 "https://www.dineout.co.in/delhi/republics-dhaba-sector-62-noida-26065",
 "https://www.dineout.co.in/delhi/kehar-cafe-and-restaurant-saket-south-delhi-26274",
 "https://www.dineout.co.in/delhi/urban-cuisine-sector-86-faridabad-26325",
-"https://www.dineout.co.in/delhi/chicago-pizza-karkardooma-east-delhi-26885",
-"https://www.dineout.co.in/delhi/34-chowringhee-lane-lajpat-nagar-4-south-delhi-29104",
+"https://www.dineout.co.in/delhi/chicago-pizza-karkardooma-east-delhi-26885"]
+
+
+divyanshu2 = ["https://www.dineout.co.in/delhi/34-chowringhee-lane-lajpat-nagar-4-south-delhi-29104",
 "https://www.dineout.co.in/delhi/chai-point-sector-29-gurgaon-29189",
 "https://www.dineout.co.in/delhi/amritsari-express-kirti-nagar-west-delhi-29605",
 "https://www.dineout.co.in/delhi/the-embassy-restaurant-janakpuri-west-delhi-29624",
@@ -15537,8 +15539,10 @@ listOfUrls=[
 "https://www.dineout.co.in/chennai/swirl-the-gateway-hotel-sholinganallur-south-west-chennai-13406",
 "https://www.dineout.co.in/chennai/hotel-raaj-bhaavan-nungambakkam-central-chennai-15446",
 "https://www.dineout.co.in/chennai/wangs-kitchen-chetpet-central-chennai-16879",
-"https://www.dineout.co.in/chennai/ashvita-nirvana-besant-nagar-south-chennai-17018",
-"https://www.dineout.co.in/chennai/dindigul-thalappakatti-tambaram-west-south-west-chennai-18177",
+"https://www.dineout.co.in/chennai/ashvita-nirvana-besant-nagar-south-chennai-17018"]
+
+
+var twothird = ["https://www.dineout.co.in/chennai/dindigul-thalappakatti-tambaram-west-south-west-chennai-18177",
 "https://www.dineout.co.in/chennai/cafe-coffee-day-velachery-south-west-chennai-19561",
 "https://www.dineout.co.in/chennai/prems-graama-bhojanam-adyar-south-chennai-19580",
 "https://www.dineout.co.in/chennai/arabian-sea-mogappair-west-chennai-24211",
