@@ -132,6 +132,7 @@ intents.matches('Recommend', [(session, args, next) => {
 		if(cuisine || place) {
 			if(cuisine){
 				preferredCuisine = cuisine;
+				session.send("I found your cuisine as "+preferredCuisine);
 				getCuisineLocation(place,session);
 			}else{
 				getLocation(place,session);
@@ -953,6 +954,7 @@ function getCuisineLocation(address, session) {
 }
 
 function getCuisineRecommendations(cuisine, lat, long, req){
+	req.send("About to provide cuisine");
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -970,6 +972,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 			return a.genrat;
 		}
 	})
+	req.send("Just wait, restaurants are sorted");
 
 	var sortedArray=ToRecommend.splice(0,8);
 	var msg = new builder.Message(session);
