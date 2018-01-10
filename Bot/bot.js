@@ -490,7 +490,7 @@ function getPersonalisedRatings(req,res){
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
-	
+	console.log(ratings);	
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
@@ -498,7 +498,9 @@ function getPersonalisedRatings(req,res){
 		res.beginDialog('/');
 	}else{
 		for(var i=0;i<req.TwentyKmResto.length;i++){
+			console.log(ratings[req.TwentyKmResto[i].id])
 			if(ratings[req.TwentyKmResto[i].id]==null){
+				console.log("hi")
 				toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
 				toLearnInd.push(req.TwentyKmResto[i].id)
 			}else{
@@ -543,6 +545,8 @@ function getPersonalisedRatings(req,res){
 		};
 	    var reqPost = https.request(options, function (res2) {
 	        res2.on('data', function(d) {
+	        	console.log("%O",data1new);
+	        	console.log("%O",data2new);	
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		maxDiff=0
@@ -863,16 +867,17 @@ function getLocationBasedRatings(lat,long,session,dist){
 		},
 		ratings:[]
 	};
+	ToRecommend = SetDistKmResto(user,dist);
 	if(MainUser){
+		MainUser.location.latitude = lat;
+		MainUser.location.longitude = long;
+		MainUser.TwentyKmResto = ToRecommend;
 		user = MainUser;
-		user.location.latitude = lat;
-		user.location.longitude = long;
 		latitude = lat;
 		longitude = long;
-		MainUser = user;
-		getPersonalisedRatings(user,session);
+		console.log(MainUser);
+		getPersonalisedRatings(MainUser,session);
 	}else{
-		ToRecommend = SetDistKmResto(user,dist);
 		ToRecommend.sort(function(a, b){
 			return b.genrat-a.genrat;	// Automatic descending
 		})
@@ -1027,6 +1032,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 function SetDistKmResto(updatedUser,dist){
 	var TwentyKmResto = [];
 	while(TwentyKmResto.length <= 8){
+		TwentyKmResto = [];
 		for(var i = 0;i<outlets.length;i++){
 			var fields = outlets[i]["lat,long"].split(',');
 			tmpDist = getDistanceFromLatLonInKm(Number(updatedUser.location.latitude),Number(updatedUser.location.longitude),Number(fields[0]),Number(fields[1]));
