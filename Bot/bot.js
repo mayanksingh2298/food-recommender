@@ -117,8 +117,7 @@ intents.matches('Thanks', (session) => {
 });
 
 intents.matches('Cancel', (session) => {
-    session.send("Hope you liked my service 😎. Thanks!");
-    session.beginDialog('/');
+	session.beginDialog('HardExit');
 });
 
 intents.matches('Recommend', [(session, args, next) => {
@@ -162,6 +161,7 @@ intents.matches('RateRestaurants', (session) => {
 	session.beginDialog('RateRestaurants');
 });
 intents.matches('Yes', (session) => {
+	console.log(friendsYesNo)
 	if (friendsYesNo) {
 		session.send("Please continue if you know the usernames of your friends.");
 		session.send("Continue? Yes/No.");
@@ -240,7 +240,6 @@ intents.matches('No', (session) => {
 	}else if(KnownLocationAskYesNo){
 		latitude = undefined;
 		longitude = undefined;
-		KnownLocationAskYesNo = false;
 		bot.beginDialog('RecommendRestaurant');
 	}else if(locationYesNo){
 		locationYesNo = false;
@@ -253,8 +252,15 @@ intents.matches('No', (session) => {
 		inNothing = false;
 		session.send("Hope you liked my service. Thanks!");
 		session.beginDialog('/');
-	}
-	else {
+	}else {
+		friendsYesNo = false;
+		haveFriendsYesNo = false;
+		combinedYesNo = false;
+		inNothing = false;
+		locationYesNo = false;
+		cuisineLocationYesNo = false;
+		KnownLocationAskYesNo = false;
+		KnownLocationAgainAsk = false;
 		session.beginDialog('Nothing');
 	}
 })
@@ -272,6 +278,16 @@ intents.onDefault((session) => {
 var intent_Dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 
 bot.dialog('/', intents);    
+
+bot.dialog('HardExit', [
+	function (session) {
+	    session.send("Hope you liked my service 😎. Thanks!");
+	    session.beginDialog('/');
+	}
+])
+.triggerAction({
+    matches: /^exit$/i,
+});
 
 bot.dialog('Thanks', [
 	function(session){
@@ -318,8 +334,9 @@ bot.dialog('RecommendRestaurant', [
 			}
 		}else{
 			// error
-			if(!session.message.entities[0]){
+			if(!session.message.entities[0] || KnownLocationAgainAsk){
 				session.send("Please send me your location. Just click on + icon and click the location icon to share location.");
+				KnownLocationAskYesNo = false;
 			}
 			if(session.message.entities[0]){
 			    latitude = session.message.entities[0].geo.latitude;
