@@ -960,7 +960,8 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 		location:{
 			latitude: lat,
 			longitude: long
-		}
+		},
+		ratings:[]
 	};
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
