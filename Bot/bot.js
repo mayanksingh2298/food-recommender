@@ -373,7 +373,7 @@ bot.dialog('Help', [
 	        new builder.HeroCard(session)
 	            .title("Group Recommendations")
 	            .subtitle("Give usernames of your friends and get the best recommendations for your group as a whole\n\n")
-	            .text("Try the personalised recommendation and then input your friends' usernames. And voila, it's done!!!")
+	            .text("Try the personalised recommendation and then input your friends' usernames. And voila, it's done!!!"),
             new builder.HeroCard(session)
 	            .title("Location Based Recommendations")
 	            .subtitle("Provide me your desired location and I'll tell you the most favoured restaurants at the location\n\n")
