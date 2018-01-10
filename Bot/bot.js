@@ -441,7 +441,7 @@ bot.dialog('GetUsername', [
 	},
 	function (session, results) {
 		var username = results.response;
-		session.send("FOund username: "+username);
+		// session.send("FOund username: "+username);
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
 			if(err){
 				session.send("Some database error has occured 😕. Please try again");
