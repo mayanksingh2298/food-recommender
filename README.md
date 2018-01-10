@@ -19,7 +19,7 @@ The like to our website is https://foodreco.azurewebsites.net/
 On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
 <br><br>
 **Bot:**<br>
-1. Meet our messenger bot Frudo <a href="https://www.facebook.com/Frudo-Assistant-174024746531893/">here</a> for the best restaurant recommendation experience!!!
+1. Meet our messenger bot Frudo here : https://www.facebook.com/Frudo-Assistant-174024746531893
 
 2. **Natural Language Processing :** It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
 
