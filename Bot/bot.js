@@ -441,6 +441,7 @@ bot.dialog('GetUsername', [
 	},
 	function (session, results) {
 		var username = results.response;
+		// session.send("FOund username: "+username);
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
 			if(err){
 				session.send("Some database error has occured 😕. Please try again");
@@ -960,28 +961,34 @@ function getCuisineLocation(address, session) {
 	}
 }
 
-function getCuisineRecommendations(cuisine, lat, long, req){
-	req.send("About to provide cuisine");
+function getCuisineRecommendations(cuisineRaw, lat, long, req){
+	req.send("About to provide cuisine");//-------------------------------------
 	var ToRecommend = [];
 	var user = {
 		location:{
 			latitude: lat,
 			longitude: long
-		}
+		},
+		ratings:[]
 	};
+	var cuisine = cuisineRaw.toLowerCase();
+	cuisine = cuisine.substring(0,1).toUpperCase()+cuisine.substring(1);
+	req.send(cuisine);
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
 		if(a.featureVector.cuisine!=0 && b.featureVector.cuisine!=0){
 			return b.genrat-a.genrat;	// Automatic descending
 		}else if(a.featureVector.cuisine==0){
 			return b.genrat;
-		}else{
-			return a.genrat;
 		}
-	})
-	req.send("Just wait, restaurants are sorted");
+		return a.genrat;
+	});
+	req.send("Just wait, restaurants are sorted");//---------------------------
 
 	var sortedArray=ToRecommend.splice(0,8);
+	req.send("Array sorted and length: "+ToRecommend.length);//--------------------------------------
+	req.send(sortedArray.length);
+	req.send(ToRecommend[0].name);
 	var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
@@ -1026,6 +1033,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
             .text("Address : " + sortedArray[7].address)
             .images([builder.CardImage.create(session, sortedArray[7].img)]),
     ]);
+    session.send("Before msg");//----------------------
     session.send(msg);
     session.beginDialog('/');
 }
