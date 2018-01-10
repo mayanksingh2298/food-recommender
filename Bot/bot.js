@@ -959,7 +959,7 @@ function getCuisineLocation(address, session) {
 	}
 }
 
-function getCuisineRecommendations(cuisine, lat, long, req){
+function getCuisineRecommendations(cuisineRaw, lat, long, req){
 	req.send("About to provide cuisine");//-------------------------------------
 	var ToRecommend = [];
 	var user = {
@@ -969,6 +969,9 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 		},
 		ratings:[]
 	};
+	var cuisine = cuisineRaw.toLowerCase();
+	cuisine = cuisine.substring(0,1).toUpperCase()+cuisine.substring(1);
+	req.send(cuisine);
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
 		if(a.featureVector.cuisine!=0 && b.featureVector.cuisine!=0){
@@ -977,7 +980,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 			return b.genrat;
 		}
 		return a.genrat;
-	})
+	});
 	req.send("Just wait, restaurants are sorted");//---------------------------
 
 	var sortedArray=ToRecommend.splice(0,8);
