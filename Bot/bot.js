@@ -171,6 +171,8 @@ intents.matches('Yes', (session) => {
 		locationYesNo = false;
 		var locLat = ToKnowLocationResponse.results[0].geometry.location.lat;
 		var locLng = ToKnowLocationResponse.results[0].geometry.location.lng;
+		latitude = locLat;
+		longitude = locLng;
 		session.send("Here 👇, are the restaurants that you will like :)");
 		getLocationBasedRatings(locLat,locLng,session,0.1);	// within 100m distance from location
 	}else if(cuisineLocationYesNo){
@@ -187,13 +189,15 @@ intents.matches('Yes', (session) => {
 intents.matches('No', (session) => {
 	if(combinedYesNo) {
 		haveFriendsYesNo = false;
-		if(users.length > 1) {
+		combinedYesNo = false;			// left to test
+		if(users.length >= 1) {
 			if(longitude && latitude){
 				if(!session.userData.name){
 			    	session.send("Here are the general choice of most favorable restaurants 👇");
 			    	getGeneralisedRatings(latitude,longitude,session); // ---------------------------
 			    }else{
 			    	session.send("Thanks, here are your combined recommendations 👇");
+			    	console.log(MainUser);
 	    			GetGroupRecommendations(MainUser,users,session);
 				}				
 			}else{
@@ -305,6 +309,7 @@ bot.dialog('RecommendRestaurant', [
 				}				
 			}
 		}else{
+			// error
 			if(!session.message.entities[0]){
 				session.send("Please send me your location. Just click on + icon and click the location icon to share location.");
 			}
@@ -343,7 +348,7 @@ bot.dialog('Combined', [
 	function (session, results) {
 		var username = results.response;
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
-			MainUser = foundUser;
+			// MainUser = foundUser;
 			if(err){
 				session.send("Some database error has occured 😕. Please try again");
 			}else{
@@ -418,10 +423,10 @@ bot.dialog('Help', [
 			case "Group Recommendations":
 				session.send("Give usernames of your friends and get the best recommendations for your group as a whole\n\nTry the personalised recommendation and then input your friends' usernames. And voila, it's done!!!");
 				break;
-			case "Location Based Recommendations":
+			case "Location Recommendations":
 				session.send("Provide me your desired location and I'll tell you the most favoured restaurants at the location\n\nTry the following:\n\n-Suggest me the best restaurants in Gurgaon.\n\n-I want to have dinner today at Satya Niketan");
 				break;
-			case "Cuisine Based Recommendations":
+			case "Cuisine Recommendations":
 				session.send("Provide me cuisine you desire today and leave the rest on me!!!\n\nTry the following:\n\n-I want to have American tonight.\n\n-Recommend me the best place to eat Continental");
 				break;
 			case "Register":
@@ -450,7 +455,7 @@ bot.dialog('GetUsername', [
 					MainUser = foundUser;
 					// console.log(MainUser);
 					session.userData.name = results.response;
-					users.push(session.userData.name);
+					// users.push(session.userData.name);
 					session.send("How may I help you? (Type help to get started)");
 					session.beginDialog('/');
 				}
@@ -491,7 +496,6 @@ function getPersonalisedRatings(req,res){
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
-	console.log(req.TwentyKmResto);	
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
@@ -499,9 +503,7 @@ function getPersonalisedRatings(req,res){
 		res.beginDialog('/');
 	}else{
 		for(var i=0;i<req.TwentyKmResto.length;i++){
-			console.log(ratings[req.TwentyKmResto[i].id])
 			if(ratings[req.TwentyKmResto[i].id]==null){
-				console.log("hi")
 				toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
 				toLearnInd.push(req.TwentyKmResto[i].id)
 			}else{
@@ -546,8 +548,6 @@ function getPersonalisedRatings(req,res){
 		};
 	    var reqPost = https.request(options, function (res2) {
 	        res2.on('data', function(d) {
-	        	console.log("%O",data1new);
-	        	console.log("%O",data2new);	
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		maxDiff=0
@@ -636,10 +636,10 @@ function GetGroupRecommendations(req,friends,res){
 	combinedYesNo = false;
 	session = res;
 	var actualFriends=[req.username]
-	var avgRatings=req.ratings
+	var avgRatings=JSON.parse(JSON.stringify(req.ratings))
 	counter=0
 	for(var i=0;i<friends.length;i++){
-		User.findOne({username:new RegExp('^'+friends[i]+'$',"i")},function(err,foundUser){	
+		User.findOne({username:new RegExp('^'+friends[i]+'$',"i")},function(err,foundUser){		// Maybe a redundancy	
 			counter++
 			if(foundUser){
 				actualFriends.push(foundUser.username)
@@ -669,11 +669,14 @@ function GetGroupRecommendations(req,friends,res){
 					res.beginDialog('/');
 				}else{
 					for(var i=0;i<req.TwentyKmResto.length;i++){
+						console.log(JSON.stringify(req.TwentyKmResto[i].id));
+						// console.log(avgRatings[req.TwentyKmResto[i].id]);
 						if(avgRatings[req.TwentyKmResto[i].id]==null){
+							console.log("andar");
 							toLearn.push(JSON.stringify(req.TwentyKmResto[i].featureVector))
 							toLearnInd.push(req.TwentyKmResto[i].id)
 						}else{
-							tmp = req.TwentyKmResto[i].featureVector
+							tmp = JSON.parse(JSON.stringify(req.TwentyKmResto[i].featureVector))
 							tmp["Rating"]=avgRatings[req.TwentyKmResto[i].id]
 							tmp =JSON.stringify(tmp)
 							learnt.push(tmp)
@@ -713,6 +716,9 @@ function GetGroupRecommendations(req,friends,res){
 					};
 				    var reqPost = https.request(options, function (res2) {
 				        res2.on('data', function(d) {
+				        	// console.log("%O",data1new);
+				        	// console.log("%O",data2new);
+
 				        	predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 				       		sortedArray=[]
 				       		maxDiff=0
@@ -866,17 +872,18 @@ function getLocationBasedRatings(lat,long,session,dist){
 			latitude: lat,
 			longitude: long
 		},
-		ratings:[]
+		ratings: [],
+		TwentyKmResto: []
 	};
 	if(MainUser){
 		ToRecommend = SetDistKmResto(MainUser,dist);
 		MainUser.location.latitude = lat;
 		MainUser.location.longitude = long;
-		MainUser.TwentyKmResto = ToRecommend;
+		MainUser.TwentyKmResto = JSON.parse(JSON.stringify(ToRecommend));
 		user = MainUser;
 		latitude = lat;
 		longitude = long;
-		console.log("Why this is wrong or erhbjhjh? " + MainUser.TwentyKmResto);
+		// console.log("Why this is wrong or erhbjhjh? " + MainUser.TwentyKmResto);
 		// console.log(MainUser);
 		getPersonalisedRatings(MainUser,session);
 	}else{
