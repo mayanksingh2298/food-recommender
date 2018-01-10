@@ -959,7 +959,7 @@ function getCuisineLocation(address, session) {
 }
 
 function getCuisineRecommendations(cuisine, lat, long, req){
-	req.send("About to provide cuisine");
+	req.send("About to provide cuisine");//-------------------------------------
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -978,10 +978,11 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 			return a.genrat;
 		}
 	})
-	req.send("Just wait, restaurants are sorted");
+	req.send("Just wait, restaurants are sorted");//---------------------------
 
 	var sortedArray=ToRecommend.splice(0,8);
-	req.send("Array sorted and length: "+ToRecommend.length);
+	req.send("Array sorted and length: "+ToRecommend.length);//--------------------------------------
+	req.send(sortedArray);
 	var msg = new builder.Message(session);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
@@ -1026,6 +1027,7 @@ function getCuisineRecommendations(cuisine, lat, long, req){
             .text("Address : " + sortedArray[7].address)
             .images([builder.CardImage.create(session, sortedArray[7].img)]),
     ]);
+    session.send("Before msg");//----------------------
     session.send(msg);
     session.beginDialog('/');
 }
