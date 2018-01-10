@@ -441,6 +441,7 @@ bot.dialog('GetUsername', [
 	},
 	function (session, results) {
 		var username = results.response;
+		session.send("FOund username: "+username);
 		User.findOne({username: new RegExp('^'+username+'$',"i")},function(err,foundUser){
 			if(err){
 				session.send("Some database error has occured 😕. Please try again");
@@ -974,9 +975,8 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 			return b.genrat-a.genrat;	// Automatic descending
 		}else if(a.featureVector.cuisine==0){
 			return b.genrat;
-		}else{
-			return a.genrat;
 		}
+		return a.genrat;
 	})
 	req.send("Just wait, restaurants are sorted");//---------------------------
 
