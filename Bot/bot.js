@@ -11,10 +11,10 @@ var builder = require('botbuilder');
 var botbuilder_azure = require("botbuilder-azure");
 var MainUser = undefined;
 var ToKnowLocationResponse = undefined;
-var cuisineList = ["Air Conditioned","American","Asian", "Barbeque and Grill","Cards Accepted","Chinese","Coastal","Coffee", 
-"Continental","DJ","Dance Floor","Differently Abled Friendly","Fast Food","Games","Health Food","Home Delivery","Hookah", 
-"Italian","Japanese","Lebanese","Lift","Malaysian","Mediterranean","Mexican","Mughlai","Multi-Cuisine","North Indian", 
-"Oriental","Outdoor Seating","Parking","Roof Top","Seafood","Smoking Area","Take Away","Thai","Wifi"];
+var cuisineList = ["air conditioned","american","asian", "barbeque and grill","cards accepted","chinese","coastal","coffee", 
+"continental","dj","dance floor","differently abled friendly","fast food","games","health food","home delivery","hookah", 
+"italian","japanese","lebanese","lift","malaysian","mediterranean","mexican","mughlai","multi-cuisine","north indian", 
+"oriental","outdoor seating","parking","roof top","seafood","smoking area","take away","thai","wifi"];
 // var GroupUser = undefined;
 
 // var todelete = {
@@ -126,18 +126,26 @@ intents.matches('Recommend', [(session, args, next) => {
 		// session.send(args.entities[0]["type"]);
 		var title = builder.EntityRecognizer.findEntity(args.entities, 'Restaurants.Cuisine');
 		var placeTitle = builder.EntityRecognizer.findEntity(args.entities, 'Restaurants.Address');
-
+		var cuisineCorrect = false;
 		var cuisine = title ? title.entity : null;
 		var place = placeTitle ? placeTitle.entity : null;
 		if(cuisine || place) {
-			if(cuisine){
-				preferredCuisine = cuisine;
-				session.send("I found your cuisine as "+preferredCuisine);
-				getCuisineLocation(place,session);
+			if(cuisine){							
+				preferredCuisine = cuisine.toLowerCase();
+				for(cuis in cuisineList){
+					if(preferredCuisine === cuis){
+						cuisineCorrect = true;
+						break;
+					}
+				}
+				if(!cuisineCorrect) {
+					session.beginDialog('GetCuisine');
+				}else{
+					getCuisineLocation(place,session);					
+				}
 			}else{
 				getLocation(place,session);
 			}
-			// getCuisineRecommendations(MainUser, session);---------------------
 		}else{
 			next();	
 		}
@@ -436,8 +444,7 @@ bot.dialog('Help', [
 
 bot.dialog('GetUsername', [
 	function (session) {
-		session.send("I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly.");
-		builder.Prompts.text(session, "Please provide me your username. If you don't have a username yet please register yourself [here](https://foodreco.azurewebsites.net/registerPhone)"); //---------------------
+		builder.Prompts.text(session, "I'm your personalised restaurant recommending system. I can learn your taste and recommend you the best restaurants nearby accordingly.\n\nPlease provide me your username. If you don't have a username yet please register yourself [here](https://foodreco.azurewebsites.net/registerPhone)"); //---------------------
 	},
 	function (session, results) {
 		var username = results.response;
@@ -473,15 +480,41 @@ bot.dialog('Nothing', [
 	}
 ]);
 
+bot.dialog('GetCuisine', [
+	function (session) {
+		builder.Prompts.text(session, "Sorry, I could not capture your cuisine correctly. Please re-enter your preferred cuisine only.");
+	},
+	function (session, results) {
+		var cuisine = results.response;
+		var cuisineCorrect = false;
+		preferredCuisine = cuisine.toLowerCase();
+		for(cuis in cuisineList){
+			if(preferredCuisine === cuis){
+				cuisineCorrect = true;
+				break;
+			}
+		}
+		if(!cuisineCorrect) {
+			session.beginDialog('GetCuisine');
+		}else{
+			session.beginDialog('GetLocation');
+		}
+	}
+])
+
 bot.dialog('GetLocation', [
 	function (session) {
-		session.send("I need your desired location to provide the best results. Just click on + icon and click the location icon to share location.");//---------------------------Wrong location not handled
-		if(session.message.entities[0]){
-		    latitude = session.message.entities[0].geo.latitude;
-		    longitude = session.message.entities[0].geo.longitude;
-	    	session.send("Thanks, here are your recommendations 👇");
-	    	getCuisineRecommendations(preferredCuisine,latitude,longitude,session);
-	    }
+		builder.Prompts.text(session, "I need your desired location to provide the best results. Please type your location only.");
+		// if(session.message.entities[0]){
+		//     latitude = session.message.entities[0].geo.latitude;
+		//     longitude = session.message.entities[0].geo.longitude;
+	 //    	session.send("Thanks, here are your recommendations 👇");
+	 //    	getCuisineRecommendations(preferredCuisine,latitude,longitude,session);
+	 //    }
+	},
+	function (session, results) {
+		var response = results.response;
+		getCuisineLocation(response, session);
 	}
 ]);
 
@@ -860,6 +893,8 @@ function getGeneralisedRatings(lat,long,session){
 }
 
 function getLocationBasedRatings(lat,long,session,dist){
+	console.log(lat);
+	console.log(long);
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -876,7 +911,7 @@ function getLocationBasedRatings(lat,long,session,dist){
 		user = MainUser;
 		latitude = lat;
 		longitude = long;
-		console.log("Why this is wrong or erhbjhjh? " + MainUser.TwentyKmResto);
+		// console.log("Why this is wrong or erhbjhjh? " + MainUser.TwentyKmResto);
 		// console.log(MainUser);
 		getPersonalisedRatings(MainUser,session);
 	}else{
@@ -961,8 +996,9 @@ function getCuisineLocation(address, session) {
 	}
 }
 
-function getCuisineRecommendations(cuisineRaw, lat, long, req){
-	req.send("About to provide cuisine");//-------------------------------------
+function getCuisineRecommendations(cuisine, lat, long, req){
+	session = req;
+	// console.log("About to provide cuisine");//-------------------------------------
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -971,26 +1007,27 @@ function getCuisineRecommendations(cuisineRaw, lat, long, req){
 		},
 		ratings:[]
 	};
-	var cuisine = cuisineRaw.toLowerCase();
-	cuisine = cuisine.substring(0,1).toUpperCase()+cuisine.substring(1);
-	req.send(cuisine);
-	ToRecommend = SetDistKmResto(user,5);
+	// console.log(cuisine);
+	ToRecommend = SetDistKmResto(user,1);
 	ToRecommend.sort(function(a, b){
-		// req.send("In ToRecommend");
-		if(a.featureVector[cuisine]!=0 && b.featureVector[cuisine]!=0){
+		// console.log("In ToRecommend");
+		if((Number(a.featureVector[cuisine])!=0 && Number(b.featureVector[cuisine])!=0) || (Number(a.featureVector[cuisine])==0 && Number(b.featureVector[cuisine])==0)){
 			return b.genrat-a.genrat;	// Automatic descending
-		}else if(a.featureVector[cuisine]==0){
-			return b.genrat;
+		}else if(Number(a.featureVector[cuisine])==0){
+			return 1;
+		}else{
+			return -1;
 		}
-		return a.genrat;
 	});
-	req.send("Just wait, restaurants are sorted");//---------------------------
+	// console.log(ToRecommend);
+	console.log("Just wait, restaurants are sorted");//---------------------------
 
 	var sortedArray=ToRecommend.splice(0,8);
-	req.send("Array sorted and length: "+ToRecommend.length);//--------------------------------------
-	req.send(sortedArray.length);
-	req.send(ToRecommend[0].name);
-	var msg = new builder.Message(session);
+	console.log(sortedArray);
+	console.log("Array sorted and length: "+ToRecommend.length);//--------------------------------------
+	console.log(sortedArray.length);
+	console.log(ToRecommend[0].name);
+	var msg = new builder.Message(req);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
         new builder.HeroCard(session)
@@ -1034,7 +1071,6 @@ function getCuisineRecommendations(cuisineRaw, lat, long, req){
             .text("Address : " + sortedArray[7].address)
             .images([builder.CardImage.create(session, sortedArray[7].img)]),
     ]);
-    session.send("Before msg");//----------------------
     session.send(msg);
     session.beginDialog('/');
 }
