@@ -349,6 +349,7 @@ app.post("/register",function(req,res){
 			latitude:req.body.latitude,
 			longitude:req.body.longitude
 		},
+		ratings:[],
 	}
 	toMakeUser.TwentyKmResto = SetTwentyKmResto(toMakeUser)
 	User.register(new User(toMakeUser),req.body.password,function(err,user){
