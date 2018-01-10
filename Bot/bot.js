@@ -93,7 +93,7 @@ var KnownLocationAskYesNo = false;
 var KnownLocationAgainAsk = false;
 var preferredCuisine = null;
 // Main dialog with LUIS
-var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/313572bf-d67d-4bd1-bc70-cde449f43ae2?subscription-key=2c7627c91a234133bf23a24cfb15a021&verbose=true');
+var recognizer = new builder.LuisRecognizer('https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dff2accc-cab3-4c28-b12a-7cbcf5078475?subscription-key=c17f0ab6b43e4448aee8013b06305be9&verbose=true');
 var intents = new builder.IntentDialog({ recognizers: [recognizer] });
 
 intents.matches('Greeting', (session) => {
@@ -845,9 +845,10 @@ function getGeneralisedRatings(lat,long,session){
 	var ToRecommend = [];
 	var user = {
 		location:{
-			latitude: lat,
-			longitude: long
-		}
+			latitude: 28.5494,
+			longitude: 77.2001// change
+		},
+		ratings: []
 	};
 	ToRecommend = SetDistKmResto(user,5);
 	ToRecommend.sort(function(a, b){
