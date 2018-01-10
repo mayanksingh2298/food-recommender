@@ -519,12 +519,14 @@ bot.dialog('GetLocation', [
 ]);
 
 function getPersonalisedRatings(req,res){
+	console.log("In personalised ratings");
+	console.log(latitude+", "+longitude);
 	var learnt=[]
 	var toLearn=[]
 	var toLearnInd=[]
 	var predictedData=[]
 	var ratings = req.ratings
-	console.log(req.TwentyKmResto);	
+	// console.log(req.TwentyKmResto);
 	if (req.noOfRated<4){
 		res.send("It seems that you haven't rated enough restaurants to generate a personalised experience. Please visit [here](https://foodreco.azurewebsites.net/loginPhone) and rate some more restaurants.");//---------------------------------
 		res.send("However, I can still provide you the most favourable restaurants.");
@@ -579,8 +581,8 @@ function getPersonalisedRatings(req,res){
 		};
 	    var reqPost = https.request(options, function (res2) {
 	        res2.on('data', function(d) {
-	        	console.log("%O",data1new);
-	        	console.log("%O",data2new);	
+	        	// console.log("%O",data1new);
+	        	// console.log("%O",data2new);	
 	            predictedData = JSON.parse(d.toString("utf8"))["Results"]["output1"]
 	       		sortedArray=[]
 	       		maxDiff=0
@@ -893,8 +895,8 @@ function getGeneralisedRatings(lat,long,session){
 }
 
 function getLocationBasedRatings(lat,long,session,dist){
-	console.log(lat);
-	console.log(long);
+	console.log("In location");
+	console.log(lat+", "+long);
 	var ToRecommend = [];
 	var user = {
 		location:{
@@ -1023,10 +1025,10 @@ function getCuisineRecommendations(cuisine, lat, long, req){
 	console.log("Just wait, restaurants are sorted");//---------------------------
 
 	var sortedArray=ToRecommend.splice(0,8);
-	console.log(sortedArray);
+	// console.log(sortedArray);
 	console.log("Array sorted and length: "+ToRecommend.length);//--------------------------------------
 	console.log(sortedArray.length);
-	console.log(ToRecommend[0].name);
+	// console.log(ToRecommend[0].name);
 	var msg = new builder.Message(req);
     msg.attachmentLayout(builder.AttachmentLayout.carousel)
     msg.attachments([
