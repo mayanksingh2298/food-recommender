@@ -1,8 +1,72 @@
-# Food-Reccomender
-A food recommender app to tell the best resturant nearby automatically after learning the user
+# FoodRecommender
 
-For start model will currently include cuisine and price range
-We may add what to eat option too later<br><br>
-<B>how to get started</B>
-<li> npm install </li>
-<li> node index.js </li>
+We have aimed to provide personal restaurant recommendations to our users. You can visit our main website or even talk to our 
+intelligent messenger bot.
+
+**Bot Video Link** : https://youtu.be/vSfcKJDK3R8
+
+**WebApp Video Link** : https://youtu.be/iNvUlVxUEvE
+
+## How to use this?
+**Website:**
+The like to our website is https://foodreco.azurewebsites.net/
+
+1. Register on the site.
+
+2. Rate atleast 4 restaurants so they we can properly learn.
+
+3. Click on the profile button above you'll find yourself on the recommendations page, where you see those restaurants which suit you best.
+
+4. On this page, you can even add your friends, and then we'll recommend you restaurants according to your group's average taste.
+
+**Bot:**
+
+1. Meet our messenger bot Frudo here : https://www.facebook.com/Frudo-Assistant-174024746531893
+
+For time being, use the following credentials to test the bot:
+
+**username** : havenonamecfd@hotmail.com
+
+**password** : AMDCFD123
+
+2. **Natural Language Processing :** It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
+
+3. **Personalised Recommendation :** Based on the restaurants you have rated on our website, we suggest you the best places in the neighbourhood that suit your taste.
+
+4. **Group(users) Recommendation :** You can add your friends by their usernames so that our bot can recommend a restaurant which suits all of you.
+
+5. **Cuisine Recommendation :** In a mood to eat chinese? Not a problem at all! Our bot provides you the best chinese restaurant according to your location and taste.
+
+6. **Location Recommendation :** Have some specific place in your mind? Just tell us and our bot will guide you there.
+
+
+
+
+
+
+The conversational flow of bot is quite natural and is a very good platform for hands on recommendations on the go.
+
+
+## Technologies used
+
+* AzureML
+* BotFramework
+* Microsoft LUIS
+* NodeJS
+* MongoDB
+* HTML
+* CSS
+* JavaScript
+
+## Contributing
+
+The link to our github repo is https://github.com/mayanksingh2298/food-recommender
+
+
+## Authors
+
+* **Atishya Jain** 
+* **Mayank Singh Chauhan** 
+* **Divyanshu Saxena** 
+
+
