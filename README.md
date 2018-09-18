@@ -23,12 +23,6 @@ The like to our website is https://foodreco.azurewebsites.net/
 
 1. Meet our messenger bot Frudo here : https://www.facebook.com/Frudo-Assistant-174024746531893
 
-For time being, use the following credentials to test the bot:
-
-**username** : havenonamecfd@hotmail.com
-
-**password** : AMDCFD123
-
 2. **Natural Language Processing :** It is a complete user friendly platform which has a NLP module of LUIS and AzureMl API, both of Microsoft. The Bot basically is made to provide recommendations to the user in an interactive and more interesting way through communication where it also recognizes the natural language of the user. 
 
 3. **Personalised Recommendation :** Based on the restaurants you have rated on our website, we suggest you the best places in the neighbourhood that suit your taste.
